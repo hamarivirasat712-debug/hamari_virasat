@@ -1,0 +1,104 @@
+============================================================
+FILE: Proposal Document v4.docx
+============================================================
+
+PROJECT PROPOSAL, MARKET TEST PHASE
+Memory & Ritual Preservation Platform
+A conversion-focused landing page to validate real market demand before building the full platform.
+Prepared by Sanket Raj  ·  Full-Stack Web Developer  ·  July 2026
+What you are building, and why it matters
+Most Indian families carry their rituals in memory alone. The Godbharai songs, the Mundan ceremony steps, the specific role of the Mama in a Chatti Puja- these details are not written down anywhere. They are passed from person to person, and every generation that passes without documentation makes them harder to recover.
+What you are building changes that. A structured platform where families can record the rituals that define them, from Prebirth to the first ritual in a wedding, capture the Samagri, the special food, the songs, the photographs, and the precise roles of every relative, and preserve it all in a form that lasts.
+Your discovery worksheet confirmed the emotional core that should drive this: the fear of losing family identity as generations pass. That "generational gap" hook now anchors both the ad creative and the page copy; everything else on the page exists to support that one feeling.
+The market test phase is about proving one thing: will Indian families pay for this? Everything in this proposal is designed to answer that question as quickly and affordably as possible.
+How we deliver quality
+Two architectural decisions bring this under Rs. 50,000 without cutting a single feature. First, the 9 ritual cards on the landing page are static marketing content, brief descriptions the client writes once,  not 54 detailed content fields we need to enter manually. Second, the post-payment intake form is a Google Form, not a custom-coded form,  now enhanced with a save-and-resume link, per your worksheet, so customers are not forced to finish everything in one sitting.
+Note on Operations vs. Development Scope: While the business model leverages a pre-designed Canva template as the smart way to bypass expensive custom automated PDF generation code, the manual assembly and delivery of these PDFs is strictly an operational business task managed by the Client. Therefore, it is marked as "Out of Scope" in the developer agreement to protect the technical hours budget from operational tasks.
+What I understood from your brief
+You shared a detailed product vision including 9 rituals, 6 sub-sections per ritual, a tiered pricing model, and a list of coming-soon rituals. Here is exactly what this market test phase covers and what moves to Phase 2.
+What your discovery worksheet confirmed
+You reviewed the open workflow, advertising, and design questions and made the following calls. Here is what each one means for the actual build.
+The 9 rituals, what gets built for each
+Each of the following rituals gets a dedicated section on the landing page, populated from Sanity CMS. Every ritual includes all 6 sub-sections as structured content fields.
+All ritual content is entered by you in Sanity Studio once at project setup. No custom code is written per ritual: one template, one schema, nine rituals.
+What I will build
+A professionally designed, fully responsive single-page website built in Next.js and deployed on Vercel, with a complete brand identity created from scratch, all 9 rituals populated with structured content, a live Razorpay payment checkout, and ad-conversion tracking built in from day one.
+1  Brand identity,  created from scratch
+Logo: SVG wordmark using the confirmed brand name,  delivered as .svg and .png
+Colour palette: warm saffron primary, cream background, charcoal text, antique gold accent
+Typography: Playfair Display (heritage feel) + Inter (clean, readable on mobile)
+All brand assets delivered at project completion, reusable for social media and Phase 1
+2  Landing page,  all sections
+Hero: emotional headline anchored in the fear-of-losing-identity hook, one-line value proposition, 'Pay Now' as the primary button, 'Book a Free Call' as a secondary text link
+Why preserve rituals: trust-building copy leaning into the generational-gap angle, addressing the core objection
+How it works: three steps, choose your rituals → we document everything → yours forever
+(Shown after Why/How, per your story-first preference) The 9 rituals: all nine displayed with their 6 sub-sections, pulled from Sanity CMS
+What you receive: what the final preserved record looks like, format, delivery, what is included
+Social proof: Instagram feed embed (if handle provided) or curated stock-photo gallery; testimonial placeholder
+Pricing: one flat price, full inclusions list, both CTAs repeated with the same primary/secondary hierarchy
+Coming soon: Boy Wedding, Girl Wedding, Family Last Rituals, clicking a locked card opens a waitlist email-capture pop-up
+FAQ: seven pre-answered objections covering format, timeline, refunds, and delivery
+Book a call: Calendly embed for families who want to speak before paying
+Footer: brand name, WhatsApp button, social links, 25% returning customer note, privacy line
+3  Sanity CMS, light setup for landing page content
+Sanity Studio configured with a simple schema for the 9 ritual descriptions and their sub-section labels
+Client provides 9 brief ritual descriptions (2-3 sentences each), entered into Sanity once before launch
+Client can update landing page content themselves after handoff, no developer needed
+No 54-field content entry, the detailed ritual content comes from each paying customer via the intake form, not from us
+4  Razorpay payment integration
+One flat-price checkout, UPI, cards, and net banking are all supported
+An order confirmation email is sent to the customer and to you on every successful payment
+Order details stored and emailed to you: customer name, contact, and payment confirmation
+5  Google Form,  post-payment customer intake, with save & resume
+After a successful Razorpay payment, customers are automatically redirected to a Google Form
+Form has 6 emotionally phrased questions per ritual: Samagri, Special Food, Ritual Steps, Photo uploads, Songs, and Relative Roles
+Questions are phrased warmly, e.g. 'Which photo matters most to you, and why?' not like a data entry form
+'Collect email + edit after submission' enabled, customers are not forced to finish in one sitting
+Before selecting or detailing any specific rituals, the Google Form is configured with an introductory, high-reverence header section
+Customers are prompted to document their family's foundational roots: Gotra, Kuldevi, and Kuldevta
+These fields establish the emotional gravity of the heirloom document before the customer proceeds to input data into the 6 emotionally phrased sub-section prompts
+A lightweight Apps Script automatically emails each customer their personal resume link as part of their payment welcome email, so they can gather family photos and notes over several days
+Every submission (and every edit) lands in a Google Sheet and triggers an email notification to you
+You take those answers, open the Canva template, drop in the family's content and photos, and export a beautifully formatted PDF
+PDF is emailed to the customer, their family's personalised ritual record
+6  Ad & conversion tracking
+Meta Pixel installed and verified for page-view and payment-complete events,  required for your Meta Ads channel
+Google Ads conversion tag / GA4 event tracking installed for page-view and payment-complete events,  required for your Google Search Ads channel
+Lightweight cookie consent banner (e.g., CookieYes) shown before tracking cookies fire, meets DPDP Act expectations and platform policy for tracked ad traffic
+No dashboard or reporting UI is built. You read performance directly in Meta Ads Manager and Google Ads/Analytics, where you are already running campaigns
+This is new since your discovery worksheet confirmed Meta and Google Search Ads as priority channels; without this, you would have no way to see which ad spend is actually converting, and no consent mechanism for the tracking that makes that possible.
+7  Enquiry, booking, and WhatsApp
+Contact and enquiry form with email notification to you on every submission
+Calendly or Cal.com embed for pre-purchase consultation calls,  link to be provided by you (see Open items)
+Floating WhatsApp button on all screen sizes generates more enquiries than any form for Indian families; routes to the number/account you confirm (see Open items)
+WhatsApp share button on the hero and pricing sections for family-to-family word of mouth
+8  Deployment and launch
+Hosted on Vercel with your custom domain connected and SSL configured
+Full QA pass across desktop, tablet, and mobile before anything goes live
+Handoff walkthrough, Sanity Studio and Google Form tour so you can update ritual content and monitor submissions independently
+What comes next,  Phase 2 roadmap
+This build is deliberately architected to make Phase 2 additions clean, with no rebuilding, only layering on top.
+Phase 2 is a separate engagement, scoped and quoted once the market test confirms real demand.
+Investment
+Payment structure
+Payments are tied to delivery milestones; you pay for what has been built and confirmed, not in advance for work you have not yet seen.
+Final payment is due only after the site is live and you have confirmed everything works as agreed. You do not pay the second instalment until you are satisfied.
+Timeline: live in 1 to 2 weeks
+How I work
+You get a staging link after Day 9, visible, real progress you can review before sign-off
+Daily updates via WhatsApp throughout the build, you always know where things stand
+I raise questions and blockers immediately, not at the point of delivery
+Design and copy are shared for approval before the build begins, no wasted engineering on unapproved direction
+I am open to an ongoing retainer after launch to support you through Phase 2 when you are ready
+Next steps
+Review this proposal and the accompanying Scope of Work document
+Confirm the brand name; this is the only hard blocker before the SOW can be signed
+Answer the 4 open items above: WhatsApp routing, Calendly/Cal.com link, chat option, and stock photography comfort level
+Prepare 9 brief ritual descriptions (2-3 sentences each) for the landing page; this is the only content needed from you before Day 1
+Sign the Scope of Work; this formally starts the engagement
+Transfer the kickoff payment of Rs. 25,500 via UPI or bank transfer
+Share Razorpay credentials, domain details, and Instagram or YouTube handles if available
+Day 1 begins within 24 hours of payment receipt
+The rituals you are preserving, the Godbharai songs, the Mundan steps, the Mama's role in a Chatti, these are the things that disappear when the people who carry them are gone. Building something that captures them properly and that finds the families who are afraid of losing them is worth doing properly. I am ready to build it.
+Sanket Raj
+Full-Stack Web Developer

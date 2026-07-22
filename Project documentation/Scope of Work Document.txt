@@ -1,0 +1,155 @@
+============================================================
+FILE: Scope of Work Document.docx
+============================================================
+
+SCOPE OF WORK
+Memory & Ritual Preservation Platform
+Market Test Phase, Landing Page & Payment Integration
+Date: July 2026   |   Client: Nawomica   |   Developer: Sanket Raj
+1. Parties Involved
+This Scope of Work ("SOW") forms a binding agreement between the two parties upon signature and shall be governed in accordance with the applicable laws of India. This SOW, together with any attachments, constitutes the entire agreement between the parties with respect to the subject matter herein.
+2. Project Overview
+The Developer agrees to design, develop, and deploy a single-page marketing and conversion website for the Client. The purpose of this engagement is to validate real market demand for the Client's memory and ritual preservation service by attracting visitors, building trust, and converting them into paying customers or booked consultation calls prior to any investment in a full-stack platform.
+The Developer shall also create a complete brand identity for the Client from scratch, including a logo, colour palette, and typography system, all of which shall be delivered to the Client upon project completion. The platform shall include ad and conversion tracking (Meta Pixel and Google Ads/GA4) and a cookie consent banner in compliance with the DPDP Act and Meta/Google platform policies.
+3. Scope of Work, Features Included
+4. Out of Scope
+The following are explicitly NOT included in this engagement unless separately agreed upon in writing and signed by both parties:
+Domain registration and ongoing web hosting subscription fees
+Third-party API costs, including Razorpay gateway transaction fees and any platform subscription costs
+Ritual content, the detailed family-specific content (Samagri, steps, songs, photos, relative roles) comes from each paying customer via the Google Form intake; the Client only needs to provide 9 brief ritual descriptions (2-3 sentences each) for the landing page
+PDF production: The Developer is responsible for setting up the Google Form data destination pipeline. The actual manual task of opening the Canva template, copy-pasting customer-submitted form answers (including Gotra, Kuldevi, Kuldevta, and ritual lists), and exporting/emailing the final PDF file is an operational execution requirement of the Client, falling entirely outside the developer's technical engineering obligations under this contract 
+Dynamic pricing tiers (Rs. 499 / Rs. 999 / Rs. 1,499) and discount code infrastructure,  deferred to Phase 2 as confirmed in the discovery worksheet
+User registration, login, or any account or session management system
+Personal user dashboard, ritual milestone tracking, or any dynamic user interface
+Physical book printing, print-on-demand integration, or any fulfilment logistics
+CRM integration (Zoho, HubSpot, Salesforce, or any equivalent)
+Email marketing platform integration (Mailchimp, Klaviyo, or any equivalent)
+Mobile application development (iOS or Android)
+Subscription or recurring billing functionality
+Multi-language or internationalisation (i18n) support
+A separate live-chat widget beyond the floating WhatsApp button
+Paid or premium stock photography licensing, if free licensed libraries (Unsplash/Pexels-tier) are insufficient, any subscription cost is separate and passed through directly
+Ongoing maintenance beyond the 21-day post-launch bug-fix window
+Any feature not explicitly listed in Section 3 of this document
+Any request to include out-of-scope items shall be treated as a Change Request and shall require a separate written scope, timeline, and fee agreement before work commences.
+5. Project Milestones & Acceptance Criteria
+Each milestone requires written approval from the Client before the next phase begins. Approval must be provided within 2 business days of delivery. Silence beyond 2 business days shall be treated as tacit approval and the project shall proceed to the next milestone.
+6. Developer Obligations
+Deliver all features as specified in Section 3 of this agreement
+Provide daily progress updates via WhatsApp throughout the build
+Share design and copy drafts for approval before commencing development
+Maintain a private version-controlled repository with regular commits
+Conduct thorough testing before each milestone delivery
+Raise any blockers, ambiguities, or scope uncertainties promptly ,  not at delivery
+Deliver complete source code, deployment credentials, and all brand assets at project completion
+Provide a 21-day post-launch bug-fix window (defects in delivered features only; no new features)
+Transfer all intellectual property rights to the Client upon receipt of full and final payment
+7. Client Obligations
+Confirm the brand name on or before Day 1; this is the only hard blocker before work begins
+Provide a verified and active Razorpay account with API credentials on or before Day 1
+Provide the domain name and DNS access credentials on or before Day 1
+Confirm the WhatsApp number for the floating chat button and the Calendly or Cal.com link on or before Day 1
+Provide 9 brief ritual descriptions (2-3 sentences each) for the landing page within 2 business days of kickoff. This is the only content the Developer requires from the Client
+Provide an Instagram handle and/or YouTube video URL at kickoff if social embeds are required; a static gallery will be used if not provided
+Set up and maintain payment for all third-party accounts (Vercel hosting, domain registration, Razorpay)
+Designate one point of contact for all project communication
+Provide feedback within 2 business days of each milestone delivery
+Make payments on schedule as specified in Section 8 of this agreement
+8. Payment Terms
+Total Project Fee: Rs. 51,000  (34 hours × Rs. 1,500/hr,  fixed fee inclusive of brand identity, all features listed in Section 3, and ad tracking setup)
+All payments are to be made via bank transfer, UPI, or Razorpay link within 2 business days of the milestone trigger
+Late payment beyond 5 business days of the due date shall pause all project work until the outstanding amount is received
+The kickoff payment (50%) is non-refundable once design work has commenced
+Final payment is due before handover of source code, deployment credentials, and brand assets
+9. Revision Policy
+10. Termination Clause
+Either party may terminate this agreement with 5 (five) days' written notice delivered via email or WhatsApp to the other party's registered contact.
+If the Client terminates, all work completed to date shall be billed at the agreed rate of Rs. 1,500/hr. The kickoff payment (50%) is non-refundable once design work has commenced. The Developer shall deliver all completed work within 5 business days of the termination notice.
+If the Developer terminates, all payments received beyond the value of work completed to date shall be refunded to the Client within 5 business days. The Developer shall deliver all completed work and documentation to the Client.
+Termination for cause: either party may terminate immediately and without notice if the other party materially breaches this agreement and fails to cure such breach within 3 business days of written notice of the breach.
+11. Intellectual Property & Confidentiality
+11.1  Ownership
+Upon receipt of full and final payment, all source code, design assets, brand materials, copy, and related intellectual property developed under this agreement shall be transferred to and become the sole property of the Client. Until full payment is received, all intellectual property remains the property of the Developer.
+11.2  Portfolio Rights
+The Developer retains the right to display the project name and non-sensitive screenshots in their professional portfolio. The Developer shall NOT share source code, business logic, proprietary processes, pricing details, or any Client data publicly without the Client's prior written consent.
+11.3  Confidentiality
+Both parties agree to keep all project details, pricing, technical specifications, and business information exchanged under this agreement strictly confidential during and for 2 (two) years after the completion or termination of this agreement. This obligation shall survive termination of this SOW.
+12. Non-Disclosure Agreement (NDA)
+Both parties acknowledge that during this engagement, each may have access to confidential and proprietary information belonging to the other. Both parties agree to the following terms:
+12.1  Definition of Confidential Information
+Confidential Information includes, but is not limited to:
+Business plans, strategies, financial data, projections, and roadmaps
+Technical specifications, source code, algorithms, system architecture, and database schemas
+Customer data, user information, and all personally identifiable information processed by the platform
+Pricing terms, vendor relationships, and all commercial arrangements under this agreement
+Any information that a reasonable person would consider confidential given the nature and context of the disclosure
+12.2  Obligations of Both Parties
+Neither party shall disclose the other party's Confidential Information to any third party without prior written consent
+Each party shall use the Confidential Information solely for the purpose of fulfilling obligations under this agreement
+The Developer shall not use, replicate, or repurpose the Client's business idea, platform logic, user data, or proprietary processes for any other client or personal project, during or after this engagement
+Both parties shall take reasonable measures to protect the other's Confidential Information, using no less care than they use to protect their own confidential information
+12.3  Exceptions
+Confidentiality obligations do not apply to information that: (a) is or becomes publicly known through no breach of this agreement by the receiving party; (b) was already in the lawful possession of the receiving party before disclosure; (c) is independently developed by the receiving party without reference to the Confidential Information; or (d) is required to be disclosed by applicable law or court order, provided the receiving party gives the disclosing party prompt written notice and cooperates with any effort to obtain a protective order.
+12.4  Duration
+These NDA obligations shall remain in force during the project and for 2 (two) years following termination or completion of this agreement, whichever is later.
+12.5  Breach & Remedy
+Both parties acknowledge that a breach of this NDA may cause irreparable harm for which monetary damages alone would be an insufficient remedy. In such cases, the non-breaching party shall be entitled to seek injunctive relief, specific performance, or other equitable remedies in addition to any other remedies available under applicable law, without the requirement to post bond.
+13. Governing Law & Jurisdiction
+This Scope of Work and all matters arising out of or in connection with it, including its formation, performance, validity, interpretation, or termination, shall be governed by and construed in accordance with the laws of India, including but not limited to the Indian Contract Act, 1872, and the Information Technology Act, 2000, as applicable.
+The parties irrevocably submit to the exclusive jurisdiction of the courts located in Bangalore, Karnataka, India, for the resolution of any dispute, claim, or matter arising out of or in connection with this agreement that is not resolved through arbitration under Clause 14.
+Nothing in this clause shall limit the right of either party to seek urgent interim or injunctive relief from any court of competent jurisdiction where such relief is necessary to prevent irreparable harm.
+14. Dispute Resolution
+14.1  Good Faith Negotiation
+In the event of any dispute, claim, or controversy arising out of or relating to this agreement or its breach, the parties shall first attempt to resolve the matter through good faith negotiation. Either party may initiate this process by serving written notice of the dispute to the other party. The parties shall have 15 (fifteen) business days from the date of such notice to resolve the dispute through negotiation.
+14.2  Mediation
+If the dispute is not resolved through negotiation within the period specified in Clause 14.1, either party may refer the matter to mediation. The mediation shall be conducted by a mutually agreed mediator in Bangalore, Karnataka. The costs of mediation shall be shared equally between the parties unless otherwise agreed.
+14.3  Arbitration
+If the dispute remains unresolved after mediation, it shall be finally settled by binding arbitration in accordance with the Arbitration and Conciliation Act, 1996 of India (as amended). The arbitration shall be conducted by a sole arbitrator mutually appointed by the parties. If the parties cannot agree on an arbitrator within 10 (ten) days, the arbitrator shall be appointed in accordance with the rules of the Arbitration and Conciliation Act, 1996.
+The seat and venue of arbitration shall be Bangalore, Karnataka, India
+The language of the arbitration shall be English
+The arbitrator's award shall be final and binding on both parties
+Each party shall bear its own legal costs unless the arbitrator orders otherwise
+14.4  Continued Performance
+Unless the agreement has been formally terminated in accordance with Clause 10, both parties agree to continue performing their obligations under this agreement during any dispute resolution process, to the extent reasonably practicable.
+15. Limitation of Liability
+15.1  Exclusion of Consequential Damages
+To the maximum extent permitted by applicable law, neither party shall be liable to the other for any indirect, incidental, special, punitive, or consequential damages arising out of or in connection with this agreement, including but not limited to loss of revenue, loss of profits, loss of business, loss of data, or loss of anticipated savings, even if such party has been advised of the possibility of such damages.
+15.2  Cap on Liability
+The total aggregate liability of the Developer to the Client under or in connection with this agreement ,  whether arising in contract, tort (including negligence), breach of statutory duty, or otherwise ,  shall not exceed the total fees actually paid by the Client to the Developer under this agreement at the time the claim arises.
+15.3  Exceptions
+Nothing in this Clause 15 shall limit or exclude liability for: (a) death or personal injury caused by negligence; (b) fraud or fraudulent misrepresentation; (c) wilful misconduct or gross negligence; or (d) any other liability that cannot be excluded or limited under applicable Indian law.
+15.4  Third-Party Services
+The Developer shall not be liable for any failure, outage, data loss, or security breach caused by third-party services used in the platform, including but not limited to Vercel, Razorpay, Google (Forms, Sheets, Ads, Analytics), Meta, Sanity CMS, Calendly, CookieYes, or any other external service provider. The Client acknowledges that such services operate under their own terms and conditions.
+16. Project Completion Criteria
+The project is considered complete and the final payment of Rs. 25,500 is due when all of the following acceptance tests have been confirmed by both parties in writing:
+The page is live and accessible at the agreed custom domain with a valid SSL certificate
+All 10-page sections are visible, correctly styled, and functional on desktop, tablet, and mobile
+All 9 ritual cards display correctly on the landing page with content pulled from Sanity CMS, specifically validating that Card 9 functions as a dynamic "Custom / Exceptional Family Ritual (DIY)" module that correctly accepts unique user-defined ritual fields 
+The Coming Soon waitlist pop-up opens and captures an email address when a locked ritual card is clicked
+A test payment can be completed via Razorpay and triggers a confirmation email to both the Client and the test customer, and the post-payment redirect to the Google Form functions correctly
+The Google Form successfully displays the introductory Ancestral Profile Header, collecting Gotra, Kuldevi, and Kuldevta fields cleanly before the individual ritual sections begin 
+The Google Form 'collect email + edit after submission' feature is active, and the Apps Script sends a resume link to the submitter's email
+Every Google Form submission (accurately recording the Gotra, Kuldevi, Kuldevta, and custom DIY ritual text responses) appears in the target Google Sheet and triggers an automated email notification to the Client. 
+Meta Pixel and Google Ads/GA4 events (page-view and payment-complete) are confirmed to be firing correctly in the respective platform dashboards
+The cookie consent banner displays before any tracking script fires and functions correctly across all major browsers
+The Calendly embed displays and allows appointment selection
+The floating WhatsApp button opens a conversation correctly on mobile
+The enquiry form submits successfully and delivers a notification email to the Client
+All brand assets ,  logo SVG, .png, colour tokens, and font specifications have been delivered to the Client
+A Sanity Studio and Google Form handoff walkthrough call has been completed
+17. General Provisions
+17.1  Entire Agreement
+This Scope of Work, together with the Proposal document dated July 2026, constitutes the entire agreement between the parties with respect to the subject matter herein and supersedes all prior negotiations, representations, warranties, and understandings.
+17.2  Amendments
+No amendment, modification, or waiver of any provision of this agreement shall be valid unless made in writing and signed by authorised representatives of both parties.
+17.3  Severability
+If any provision of this agreement is found to be invalid, illegal, or unenforceable by a court of competent jurisdiction, such provision shall be modified to the minimum extent necessary to make it enforceable. The validity and enforceability of the remaining provisions shall not be affected.
+17.4  Waiver
+The failure of either party to enforce any provision of this agreement shall not constitute a waiver of that party's right to enforce such provision or any other provision in the future.
+17.5  Force Majeure
+Neither party shall be held liable for any delay or failure in performance resulting from causes beyond their reasonable control, including but not limited to acts of God, natural disasters, pandemic, government actions, internet outages, or third-party service failures, provided the affected party notifies the other party promptly in writing and takes all reasonable steps to mitigate the impact.
+17.6  Independent Contractor
+The Developer is an independent contractor and not an employee, agent, partner, or joint venturer of the Client. The Developer shall have no authority to bind the Client to any obligation or contract with any third party.
+18. Agreement & Signatures
+By signing below, both parties confirm that they have read, understood, and agreed to all the terms and conditions set out in this Scope of Work. This document, once signed by both parties, shall constitute a legally binding agreement.
+This document constitutes the entire agreement between the parties with respect to the subject matter herein. Any amendments must be made in writing and signed by both parties. This agreement shall be governed by the laws of India.
