@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 const deliverables = [
   {
@@ -9,7 +9,7 @@ const deliverables = [
       </svg>
     ),
     title: 'A beautifully formatted PDF',
-    body: 'Your family\'s complete ritual record, laid out with care — heritage typography, structured sections, and a format designed to be printed and kept.',
+    body: 'Your family\'s complete ritual record, laid out with care â€” heritage typography, structured sections, and a format designed to be printed and kept.',
   },
   {
     icon: (
@@ -20,7 +20,7 @@ const deliverables = [
       </svg>
     ),
     title: 'Every relative\'s role documented',
-    body: 'Who leads the Puja, who sings, who carries the Kalash, who stands where. The specific role of each family member — captured in your own words.',
+    body: 'Who leads the Puja, who sings, who carries the Kalash, who stands where. The specific role of each family member â€” captured in your own words.',
   },
   {
     icon: (
@@ -31,7 +31,7 @@ const deliverables = [
       </svg>
     ),
     title: 'Your family\'s photographs',
-    body: 'Upload the photos that matter most. We embed them into your document — with captions and context so future generations understand what they are seeing.',
+    body: 'Upload the photos that matter most. We embed them into your document â€” with captions and context so future generations understand what they are seeing.',
   },
   {
     icon: (
@@ -40,7 +40,7 @@ const deliverables = [
       </svg>
     ),
     title: 'Samagri & ritual steps',
-    body: 'The complete Samagri list for each ceremony. The exact sequence of ritual steps. The prayers and mantras — written the way your family says them, not a generic version.',
+    body: 'The complete Samagri list for each ceremony. The exact sequence of ritual steps. The prayers and mantras â€” written the way your family says them, not a generic version.',
   },
   {
     icon: (
@@ -51,7 +51,7 @@ const deliverables = [
       </svg>
     ),
     title: 'Songs and their meanings',
-    body: 'The Godbharai geet, the Bidai songs, the Vivah Mandap hymns — recorded in your family\'s language and script, along with what each song means and when it is sung.',
+    body: 'The Godbharai geet, the Bidai songs, the Vivah Mandap hymns â€” recorded in your family\'s language and script, along with what each song means and when it is sung.',
   },
   {
     icon: (
@@ -60,7 +60,7 @@ const deliverables = [
       </svg>
     ),
     title: 'Ancestral roots captured',
-    body: 'Gotra, Kuldevi, Kuldevta — the foundational roots of your lineage, documented before the form even begins. The document starts with who your family is, not just what they do.',
+    body: 'Gotra, Kuldevi, Kuldevta â€” the foundational roots of your lineage, documented before the form even begins. The document starts with who your family is, not just what they do.',
   },
 ];
 
@@ -86,13 +86,13 @@ export default function WhatYouReceive() {
           </h2>
           <p className="text-[#8C847C] text-base md:text-lg font-light leading-relaxed">
             Not a data export. Not a digital file to be forgotten in a folder. A structured, beautiful record
-            of your family&apos;s rituals — formatted to be printed, framed, and passed down.
+            of your family&apos;s rituals â€” formatted to be printed, framed, and passed down.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-10 items-start">
 
-          {/* Left — Document preview mockup */}
+          {/* Left â€” Document preview mockup */}
           <div className="relative">
             {/* Glow */}
             <div
@@ -107,10 +107,10 @@ export default function WhatYouReceive() {
                   <div className="flex items-center gap-2.5">
                     <div className="w-6 h-6 rounded-full bg-[#C9A84C]/20 border border-[#C9A84C]/40" />
                     <span className="text-[#C9A84C] text-sm font-medium tracking-wide" style={{ fontFamily: 'var(--font-serif)' }}>
-                      Virasat
+                      Hamari Virasat
                     </span>
                   </div>
-                  <span className="text-[#5C564F] text-xs">Heritage Record · 2026</span>
+                  <span className="text-[#5C564F] text-xs">Heritage Record Â· 2026</span>
                 </div>
                 <h3
                   className="font-serif text-2xl text-white font-normal italic"
@@ -132,15 +132,15 @@ export default function WhatYouReceive() {
                 {/* Ritual entry */}
                 <div className="mb-6">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="text-[#C9A84C] text-xs font-bold tracking-wider uppercase">01 · Godbharai</span>
+                    <span className="text-[#C9A84C] text-xs font-bold tracking-wider uppercase">01 Â· Godbharai</span>
                     <span className="text-xs text-[#BD5319] bg-[#BD5319]/10 px-2 py-0.5 rounded-full">Prebirth</span>
                   </div>
 
                   {[
                     { label: 'Samagri', value: 'Sindoor, kumkum, turmeric, coconut, 7 types of grains, silk fabric...' },
-                    { label: 'Ritual Steps', value: 'Ganesh Puja → Kanya Puja → Godbharai Ritual → Blessings → Feast' },
+                    { label: 'Ritual Steps', value: 'Ganesh Puja â†’ Kanya Puja â†’ Godbharai Ritual â†’ Blessings â†’ Feast' },
                     { label: 'Lead Role', value: 'Mama (maternal uncle) seats the mother-to-be, presents the coconut' },
-                    { label: 'Song', value: '"Aayi ayi Godbharai ki raat..." — sung by maternal aunts only' },
+                    { label: 'Song', value: '"Aayi ayi Godbharai ki raat..." â€” sung by maternal aunts only' },
                   ].map(({ label, value }) => (
                     <div key={label} className="mb-3">
                       <p className="text-[#5C564F] text-xs uppercase tracking-wider font-medium mb-1">{label}</p>
@@ -160,7 +160,7 @@ export default function WhatYouReceive() {
             </div>
           </div>
 
-          {/* Right — Deliverables list */}
+          {/* Right â€” Deliverables list */}
           <div className="space-y-5">
             {deliverables.map((item, i) => (
               <div
@@ -186,3 +186,4 @@ export default function WhatYouReceive() {
     </section>
   );
 }
+

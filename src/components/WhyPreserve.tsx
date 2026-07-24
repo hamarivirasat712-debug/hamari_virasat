@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 const reasons = [
   {
@@ -10,7 +10,7 @@ const reasons = [
     ),
     title: 'Time is not on our side',
     body:
-      'Every elder who passes carries irreplaceable knowledge with them. The Mama\'s role, the exact Samagri list, the order of the Pheras — none of it is written down, and each generation knows a little less than the one before.',
+      'Every elder who passes carries irreplaceable knowledge with them. The Mama\'s role, the exact Samagri list, the order of the Pheras â€” none of it is written down, and each generation knows a little less than the one before.',
   },
   {
     icon: (
@@ -21,7 +21,7 @@ const reasons = [
     ),
     title: 'Photos fade. Memory fades faster.',
     body:
-      'You have the photos, but who remembers what song was sung, or why the ritual was performed that way? Virasat captures the context, not just the image — so the meaning is never lost.',
+      'You have the photos, but who remembers what song was sung, or why the ritual was performed that way? Hamari Virasat captures the context, not just the image â€” so the meaning is never lost.',
   },
   {
     icon: (
@@ -32,7 +32,7 @@ const reasons = [
     ),
     title: 'Your family is unique',
     body:
-      'No two families celebrate a wedding the same way. The regional customs, the family-specific variations, the inside meanings — your rituals deserve to be documented in your words, not generic templates.',
+      'No two families celebrate a wedding the same way. The regional customs, the family-specific variations, the inside meanings â€” your rituals deserve to be documented in your words, not generic templates.',
   },
   {
     icon: (
@@ -64,7 +64,7 @@ const reasons = [
     ),
     title: 'You already have the stories',
     body:
-      'You do not need to be a historian or writer. Virasat gives your family a warm, structured form to fill in — and we assemble it into a beautiful heirloom document. Your only job is to remember.',
+      'You do not need to be a historian or writer. Hamari Virasat gives your family a warm, structured form to fill in â€” and we assemble it into a beautiful heirloom document. Your only job is to remember.',
   },
 ];
 
@@ -90,7 +90,7 @@ export default function WhyPreserve() {
           </h2>
           <p className="text-[#0d0c0c] text-base md:text-lg font-light leading-relaxed">
             Most Indian families believe someone else is keeping track. Most of the time, no one is.
-            The rituals survive — but the meaning, the detail, the why — those disappear quietly.
+            The rituals survive â€” but the meaning, the detail, the why â€” those disappear quietly.
           </p>
         </div>
 
@@ -145,3 +145,4 @@ export default function WhyPreserve() {
     </section>
   );
 }
+

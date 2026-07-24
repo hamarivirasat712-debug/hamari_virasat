@@ -1,9 +1,9 @@
-import React from 'react';
+﻿import React from 'react';
 
 const testimonials = [
   {
     quote:
-      'My grandmother was the only one who knew all the Godbharai songs. When she passed, we thought we had lost them forever. Virasat helped us recover what we remembered and capture it properly. That document is now the most precious thing in our home.',
+      'My grandmother was the only one who knew all the Godbharai songs. When she passed, we thought we had lost them forever. Hamari Virasat helped us recover what we remembered and capture it properly. That document is now the most precious thing in our home.',
     author: 'Priya Mehta',
     location: 'Pune, Maharashtra',
     ritual: 'Godbharai & Mundan',
@@ -12,7 +12,7 @@ const testimonials = [
   },
   {
     quote:
-      'We were planning my daughter\'s wedding and realised none of us agreed on the order of the Pheras. Everyone had a different memory. Virasat gave us a way to sit with the elders, record the right sequence, and now it\'s preserved for her children too.',
+      'We were planning my daughter\'s wedding and realised none of us agreed on the order of the Pheras. Everyone had a different memory. Hamari Virasat gave us a way to sit with the elders, record the right sequence, and now it\'s preserved for her children too.',
     author: 'Rajesh Sharma',
     location: 'Jaipur, Rajasthan',
     ritual: 'Vivah Mandap & Pheras',
@@ -21,7 +21,7 @@ const testimonials = [
   },
   {
     quote:
-      'The intake form was so thoughtfully written — it felt like someone who truly understood our culture had designed it. It prompted questions I wouldn\'t have thought to ask. The final document made my parents cry when they read it.',
+      'The intake form was so thoughtfully written â€” it felt like someone who truly understood our culture had designed it. It prompted questions I wouldn\'t have thought to ask. The final document made my parents cry when they read it.',
     author: 'Ananya Krishnan',
     location: 'Bengaluru, Karnataka',
     ritual: 'Complete Heritage Record',
@@ -34,7 +34,7 @@ const stats = [
   { value: '9', label: 'Rituals documented' },
   { value: '6+', label: 'Sub-sections per ritual' },
   { value: '100%', label: 'Family-specific record' },
-  { value: '∞', label: 'Generations it will last' },
+  { value: 'âˆž', label: 'Generations it will last' },
 ];
 
 export default function SocialProof() {
@@ -123,3 +123,4 @@ export default function SocialProof() {
     </section>
   );
 }
+

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -18,9 +18,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Virasat — Preserve Your Family's Rituals Forever",
+  title: "Hamari Virasat â€” Preserve Your Family's Rituals Forever",
   description:
-    "Before memory fades. Document the Godbharai songs, the Mundan steps, the Mama's role — capture the Samagri, the songs, the photographs, and the precise roles of every relative in a beautifully formatted heirloom record.",
+    "Before memory fades. Document the Godbharai songs, the Mundan steps, the Mama's role â€” capture the Samagri, the songs, the photographs, and the precise roles of every relative in a beautifully formatted heirloom record.",
   keywords: [
     "Indian family rituals",
     "ritual preservation",
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
     "family heirloom",
   ],
   openGraph: {
-    title: "Virasat — Preserve Your Family's Rituals Forever",
+    title: "Hamari Virasat â€” Preserve Your Family's Rituals Forever",
     description:
-      "The rituals your family carries deserve to be written down. Virasat captures the Samagri, the songs, the roles of every relative — before memory fades.",
+      "The rituals your family carries deserve to be written down. Hamari Virasat captures the Samagri, the songs, the roles of every relative â€” before memory fades.",
     type: "website",
     locale: "en_IN",
   },

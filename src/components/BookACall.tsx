@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 export default function BookACall() {
   return (
@@ -7,7 +7,7 @@ export default function BookACall() {
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
 
-          {/* Left — Copy */}
+          {/* Left â€” Copy */}
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="section-divider" />
@@ -59,12 +59,12 @@ export default function BookACall() {
                 href="#pricing"
                 className="inline-flex items-center justify-center gap-2 text-[#8C847C] hover:text-[#2A1208] text-sm font-medium px-7 py-3.5 rounded-xl border border-[#EFEAE2] hover:border-[#2A1208]/20 transition-all duration-200"
               >
-                I&apos;m ready — go to pricing
+                I&apos;m ready â€” go to pricing
               </a>
             </div>
           </div>
 
-          {/* Right — Calendly embed placeholder */}
+          {/* Right â€” Calendly embed placeholder */}
           <div className="relative">
             <div className="bg-white border border-[#EFEAE2] rounded-2xl overflow-hidden shadow-lg shadow-[#2A1208]/5">
               {/* Header */}
@@ -79,7 +79,7 @@ export default function BookACall() {
                   </div>
                   <div>
                     <p className="text-white text-sm font-medium">Book a Free 15-min Call</p>
-                    <p className="text-[#5C564F] text-xs">with Virasat</p>
+                    <p className="text-[#5C564F] text-xs">with Hamari Virasat</p>
                   </div>
                 </div>
               </div>
@@ -116,7 +116,7 @@ export default function BookACall() {
                 </div>
 
                 <div className="border-t border-[#EFEAE2] pt-4">
-                  <p className="text-[#8C847C] text-xs mb-3">Available times — 13 July</p>
+                  <p className="text-[#8C847C] text-xs mb-3">Available times â€” 13 July</p>
                   <div className="grid grid-cols-3 gap-2">
                     {['10:00 AM', '11:30 AM', '2:00 PM', '3:30 PM', '5:00 PM', '6:30 PM'].map((time) => (
                       <button
@@ -141,3 +141,4 @@ export default function BookACall() {
     </section>
   );
 }
+

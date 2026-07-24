@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 export default function Hero() {
   return (
@@ -8,7 +8,7 @@ export default function Hero() {
     >
       {/* Background decorative mandala rings */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
-        {/* Large faint ring — top right */}
+        {/* Large faint ring â€” top right */}
         <div
           className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full border border-[#C9A84C]/8"
           style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%)' }}
@@ -36,13 +36,13 @@ export default function Hero() {
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-10 py-20 md:py-28 grid md:grid-cols-2 gap-12 md:gap-8 items-center">
 
-        {/* Left — Text Content */}
+        {/* Left â€” Text Content */}
         <div className="flex flex-col items-start">
           {/* Eyebrow */}
           <div className="flex items-center gap-3 mb-6">
             <div className="section-divider" />
             <p className="text-[#BD5319] text-xs font-bold tracking-[0.3em] uppercase">
-              Memory · Ritual · Continuity
+              Memory Â· Ritual Â· Continuity
             </p>
           </div>
 
@@ -73,7 +73,7 @@ export default function Hero() {
             className="text-[#de8721] text-sm md:text-base font-light leading-relaxed max-w-md mb-10"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
-            Virasat ensures that even a grandchild born across the globe can hear their grandmother's voice and know exactly how she lit the evening diya in her home.
+            Hamari Virasat ensures that even a grandchild born across the globe can hear their grandmother's voice and know exactly how she lit the evening diya in her home.
           </p>
 
           {/* CTAs */}
@@ -114,7 +114,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right — Decorative heritage card */}
+        {/* Right â€” Decorative heritage card */}
         <div className="relative flex items-center justify-center">
           {/* Outer glow */}
           <div
@@ -184,7 +184,7 @@ export default function Hero() {
 
             {/* Floating badge */}
             <div className="absolute -top-4 -right-4 bg-[#BD5319] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg shadow-[#BD5319]/40">
-              Yours Forever ✦
+              Yours Forever âœ¦
             </div>
           </div>
         </div>
@@ -198,3 +198,4 @@ export default function Hero() {
     </section>
   );
 }
+

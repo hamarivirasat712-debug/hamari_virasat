@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -31,32 +31,32 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-6xl mx-auto px-6 md:px-10 h-24 flex items-center justify-between">
-          {/* Logo — mandala circle + stacked wordmark */}
-          <a href="#" className="flex items-center gap-3 group" aria-label="Virasat home">
-            {/* Circle — fill + object-cover shows complete logo: mandala + Virasat + tagline */}
+          {/* Logo â€” mandala circle + stacked wordmark */}
+          <a href="#" className="flex items-center gap-3 group" aria-label="Hamari Virasat home">
+            {/* Circle â€” fill + object-cover shows complete logo: mandala + Hamari Virasat + tagline */}
             <div className="relative w-20 h-20 rounded-full overflow-hidden flex-shrink-0 bg-[#FAF6F0] ring-2 ring-[#C9A84C]/40 group-hover:ring-[#C9A84C]/70 transition-all duration-300 shadow-lg shadow-black/20">
               <Image
                 src={logoAsset}
-                alt="Virasat logo"
+                alt="Hamari Virasat logo"
                 fill
                 sizes="80px"
                 priority
                 className="object-cover"
               />
             </div>
-            {/* Stacked text — Virasat + tagline */}
+            {/* Stacked text â€” Hamari Virasat + tagline */}
             <div className="flex flex-col leading-none">
               <span
                 className="text-white font-normal tracking-wide"
                 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.35rem', letterSpacing: '0.04em' }}
               >
-                Virasat
+                Hamari Virasat
               </span>
               <span
                 className="text-[#C9A84C] font-bold tracking-[0.18em] uppercase mt-1"
                 style={{ fontFamily: 'var(--font-sans)', fontSize: '0.58rem' }}
               >
-                Legacy · Preservation · Continuity
+                Legacy Â· Preservation Â· Continuity
               </span>
             </div>
           </a>
@@ -139,3 +139,4 @@ export default function Navbar() {
     </>
   );
 }
+

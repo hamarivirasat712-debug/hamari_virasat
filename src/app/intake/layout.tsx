@@ -1,7 +1,7 @@
 ﻿import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Document Your Family Rituals — Virasat',
+  title: 'Document Your Family Rituals — Hamari Virasat',
   description:
     'Fill in your family ritual details at your own pace. Your answers are saved automatically so you can return anytime.',
 };
@@ -13,3 +13,4 @@ export default function IntakeLayout({
 }) {
   return <>{children}</>;
 }
+

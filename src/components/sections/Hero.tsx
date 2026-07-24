@@ -1,4 +1,4 @@
-export default function Hero() {
+﻿export default function Hero() {
     return (
         <section className="bg-white py-20 px-8 border-b border-[#C5A059]/10 text-center">
             <div className="max-w-3xl mx-auto">
@@ -9,12 +9,12 @@ export default function Hero() {
 
                 {/* Core Emotional Heading */}
                 <h1 className="text-4xl md:text-6xl font-serif font-bold text-[#2B2B2B] mt-4 mb-6 leading-tight">
-                    Preserve Your Family’s Sacraments for Generations
+                    Preserve Your Familyâ€™s Sacraments for Generations
                 </h1>
 
                 {/* Supporting Copy */}
                 <p className="text-base md:text-lg font-sans text-[#2B2B2B]/70 leading-relaxed mb-8 max-w-2xl mx-auto">
-                    Every family holds a unique lineage of sacred traditions. <strong className="text-[#B85D3B]">Virasat</strong> allows you to systematically document the step-by-step rituals, precise samagri lists, and traditional audio passed down by your ancestors—ensuring they are never forgotten or diluted.
+                    Every family holds a unique lineage of sacred traditions. <strong className="text-[#B85D3B]">Hamari Virasat</strong> allows you to systematically document the step-by-step rituals, precise samagri lists, and traditional audio passed down by your ancestorsâ€”ensuring they are never forgotten or diluted.
                 </p>
 
                 {/* Primary Call to Action Buttons */}
