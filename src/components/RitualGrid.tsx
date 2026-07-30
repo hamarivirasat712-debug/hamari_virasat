@@ -10,6 +10,7 @@ const rituals: Array<{
   subSections: string[];
   color: string;
   isDIY?: boolean;
+  imageIcon?: string;
 }> = [
   {
     number: '01',
@@ -18,6 +19,7 @@ const rituals: Array<{
     description: 'The Godbharai ceremony blesses the expectant mother and invokes divine protection for both mother and child. Each element — from the Samagri to the songs sung by the women of the house — carries generations of meaning.',
     subSections: ['Samagri & Offerings', 'Ritual Songs (Geet)', 'Relative Roles', 'Special Foods', 'Ritual Steps', 'Family Photos'],
     color: '#BD5319',
+    imageIcon: '/icons/icon_godbharai.png',
   },
   {
     number: '02',
@@ -26,6 +28,7 @@ const rituals: Array<{
     description: 'On the sixth day after birth, the Chatti Puja formally introduces the newborn to the family and the divine. The Mama\'s role, the naming ritual, and the songs of welcome are all meticulously observed.',
     subSections: ['Samagri & Offerings', 'Naming Ceremony', 'Mama\'s Role', 'Special Foods', 'Ritual Steps', 'Family Photos'],
     color: '#C9A84C',
+    imageIcon: '/icons/icon_chatti.png',
   },
   {
     number: '03',
@@ -34,6 +37,7 @@ const rituals: Array<{
     description: 'The sacred thread ceremony initiates a young man into his spiritual duties. The Guru\'s instructions, the specific mantras of your lineage, and the roles of the extended family all deserve to be preserved in full.',
     subSections: ['Samagri & Offerings', 'Mantra Traditions', 'Guru\'s Instructions', 'Special Foods', 'Ritual Steps'],
     color: '#BD5319',
+    imageIcon: '/icons/icon_janeu.png',
   },
   {
     number: '04',
@@ -42,6 +46,7 @@ const rituals: Array<{
     description: 'A beautiful ceremony celebrating a young woman coming of age. The specific traditions, half-saree customs, family gifts, and special blessings are cherished moments to be remembered.',
     subSections: ['Samagri & Offerings', 'Attire & Jewelry', 'Family Blessings', 'Special Foods', 'Ritual Steps', 'Family Photos'],
     color: '#C9A84C',
+    imageIcon: '/icons/icon_puberty.png',
   },
   {
     number: '05',
@@ -50,6 +55,7 @@ const rituals: Array<{
     description: 'The beloved celebration of Lord Ganesha in your home. The exact way your family prepares the modaks, decorates the mandap, and performs the aarti is a tradition unique to your household.',
     subSections: ['Samagri & Offerings', 'Decoration details', 'Aarti & Bhajans', 'Special Foods', 'Ritual Steps', 'Family Photos'],
     color: '#BD5319',
+    imageIcon: '/icons/icon_ganapati.png',
   },
   {
     number: '06',
@@ -58,6 +64,7 @@ const rituals: Array<{
     description: 'Nine nights of divine worship, culminating in Vijayadashami. Capture how your family observes the fasting rules, the Kanya Pujan, the Garba traditions, and the specific offerings made to the Goddess.',
     subSections: ['Samagri & Offerings', 'Kanya Pujan', 'Fasting Rules', 'Special Foods', 'Ritual Steps', 'Family Photos'],
     color: '#C9A84C',
+    imageIcon: '/icons/icon_navratri.png',
   },
   {
     number: '07',
@@ -66,6 +73,7 @@ const rituals: Array<{
     description: 'The sacred fast for marital bliss. The specific items in the Sargi, the evening puja thali preparation, and the story reading are cherished practices passed down from mother-in-law to daughter-in-law.',
     subSections: ['Samagri & Offerings', 'Sargi details', 'Evening Puja', 'Special Foods', 'Ritual Steps', 'Family Photos'],
     color: '#BD5319',
+    imageIcon: '/icons/icon_karwachauth.png',
   },
   {
     number: '08',
@@ -74,6 +82,7 @@ const rituals: Array<{
     description: 'The vibrant celebration of monsoon and marital devotion. The swings, the green attire, the mehndi designs, and the traditional songs sung with family are memories worth keeping forever.',
     subSections: ['Samagri & Offerings', 'Attire & Mehndi', 'Traditional Songs', 'Special Foods', 'Ritual Steps', 'Family Photos'],
     color: '#C9A84C',
+    imageIcon: '/icons/icon_teej.png',
   },
   {
     number: '09',
@@ -83,6 +92,7 @@ const rituals: Array<{
     subSections: ['You name the ritual', 'You describe the steps', 'You list the Samagri', 'You share the songs', 'You define what matters', 'We document it all'],
     color: '#BD5319',
     isDIY: true,
+    imageIcon: '/icons/icon_diy.png',
   },
 ];
 
@@ -171,18 +181,25 @@ export default function RitualGrid() {
                     style={{ background: 'linear-gradient(to right, #D4AF37, #BD5319, transparent)' }}
                   />
                   <div className="p-6">
-                    {/* Number + category */}
+                    {/* Number + category + Icon */}
                     <div className="flex items-start justify-between mb-4">
-                      <span
-                        className="font-serif text-4xl font-bold leading-none"
-                        style={{
-                          fontFamily: 'var(--font-serif)',
-                          WebkitTextStroke: '1px #D4AF3740',
-                          color: 'transparent',
-                        }}
-                      >
-                        {ritual.number}
-                      </span>
+                      <div className="flex flex-col gap-3">
+                        <span
+                          className="font-serif text-4xl font-bold leading-none"
+                          style={{
+                            fontFamily: 'var(--font-serif)',
+                            WebkitTextStroke: '1px #D4AF3740',
+                            color: 'transparent',
+                          }}
+                        >
+                          {ritual.number}
+                        </span>
+                        {ritual.imageIcon && (
+                          <div className="w-16 h-16 rounded-full border border-[#D4AF37]/20 flex items-center justify-center p-2 group-hover:-translate-y-1 transition-transform duration-300 shadow-sm animate-[pulse_4s_ease-in-out_infinite] bg-white">
+                            <img src={ritual.imageIcon} alt={ritual.title} className="w-full h-full object-contain mix-blend-multiply" />
+                          </div>
+                        )}
+                      </div>
                       <span
                         className="text-xs font-semibold tracking-wide px-2.5 py-1 rounded-full"
                         style={{ background: '#D4AF3718', color: '#D4AF37' }}
@@ -270,19 +287,26 @@ export default function RitualGrid() {
                 />
 
                 <div className="p-6">
-                  {/* Number + Category */}
+                  {/* Number + Category + Icon */}
                   <div className="flex items-start justify-between mb-4">
-                    <span
-                      className="font-serif text-4xl font-bold leading-none"
-                      style={{
-                        fontFamily: 'var(--font-serif)',
-                        WebkitTextStroke: '1px #EFEAE2',
-                        color: isExpanded ? ritual.color : 'transparent',
-                        transition: 'color 0.3s ease',
-                      }}
-                    >
-                      {ritual.number}
-                    </span>
+                    <div className="flex flex-col gap-3">
+                      <span
+                        className="font-serif text-4xl font-bold leading-none"
+                        style={{
+                          fontFamily: 'var(--font-serif)',
+                          WebkitTextStroke: '1px #EFEAE2',
+                          color: isExpanded ? ritual.color : 'transparent',
+                          transition: 'color 0.3s ease',
+                        }}
+                      >
+                        {ritual.number}
+                      </span>
+                      {ritual.imageIcon && (
+                        <div className="w-16 h-16 rounded-full border border-[#D4AF37]/20 flex items-center justify-center p-2 group-hover:-translate-y-1 transition-transform duration-300 shadow-sm animate-[pulse_4s_ease-in-out_infinite] bg-white">
+                          <img src={ritual.imageIcon} alt={ritual.title} className="w-full h-full object-contain mix-blend-multiply" />
+                        </div>
+                      )}
+                    </div>
                     <span
                       className="text-xs font-semibold tracking-wide px-2.5 py-1 rounded-full"
                       style={{
