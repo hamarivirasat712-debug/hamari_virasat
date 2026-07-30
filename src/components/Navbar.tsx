@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -26,7 +26,7 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-[#2A120]/95 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20'
+            ? 'bg-[#2A1208]/95 backdrop-blur-md border-b border-[#A0E0F0]/10 shadow-lg shadow-black/20'
             : 'bg-transparent'
         }`}
       >
@@ -56,7 +56,7 @@ export default function Navbar() {
                 className="text-[#C9A84C] font-bold tracking-[0.18em] uppercase mt-1"
                 style={{ fontFamily: 'var(--font-sans)', fontSize: '0.58rem' }}
               >
-                Legacy Â· Preservation Â· Continuity
+                Legacy · Preservation · Continuity
               </span>
             </div>
           </a>
@@ -85,7 +85,7 @@ export default function Navbar() {
             <a
               href="#pricing"
               id="nav-pay-now"
-              className="bg-[#BD5319] hover:bg-[#A34310] text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-[#BD5319]/25 active:scale-95"
+              className="bg-[#D4AF37] hover:bg-[#BD5319] text-[#2A1208] hover:text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-[#BD5319]/25 active:scale-95"
             >
               Pay Now
             </a>

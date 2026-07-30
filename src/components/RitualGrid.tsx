@@ -111,7 +111,7 @@ export default function RitualGrid() {
   const maxReached = selected.length >= 3;
 
   return (
-    <section id="rituals" className="bg-[#FAF6F0] py-20 md:py-28">
+    <section id="rituals" className="bg-[#F4DEB0] py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-6 md:px-10">
 
         {/* Header */}
@@ -168,16 +168,16 @@ export default function RitualGrid() {
                   key={ritual.number}
                   className={`group relative bg-white border-2 border-dashed rounded-2xl overflow-hidden transition-all duration-300 ${
                     isSelected
-                      ? 'border-[#C9A84C] shadow-xl shadow-[#2A1208]/8'
+                      ? 'border-[#D4AF37] shadow-xl shadow-[#2A1208]/8'
                       : isDisabled
-                      ? 'border-[#C9A84C]/20 opacity-50'
-                      : 'border-[#C9A84C]/40 hover:border-[#C9A84C]/80 hover:shadow-xl hover:shadow-[#2A1208]/8'
+                      ? 'border-[#D4AF37]/20 opacity-50'
+                      : 'border-[#D4AF37]/40 hover:border-[#D4AF37]/80 hover:shadow-xl hover:shadow-[#2A1208]/8'
                   }`}
                 >
                   {/* Top shimmer line */}
                   <div
                     className="h-0.5 w-full"
-                    style={{ background: 'linear-gradient(to right, #C9A84C, #BD5319, transparent)' }}
+                    style={{ background: 'linear-gradient(to right, #D4AF37, #BD5319, transparent)' }}
                   />
                   <div className="p-6">
                     {/* Number + category */}
@@ -186,7 +186,7 @@ export default function RitualGrid() {
                         className="font-serif text-4xl font-bold leading-none"
                         style={{
                           fontFamily: 'var(--font-serif)',
-                          WebkitTextStroke: '1px #C9A84C40',
+                          WebkitTextStroke: '1px #D4AF3740',
                           color: 'transparent',
                         }}
                       >
@@ -194,23 +194,23 @@ export default function RitualGrid() {
                       </span>
                       <span
                         className="text-xs font-semibold tracking-wide px-2.5 py-1 rounded-full"
-                        style={{ background: '#C9A84C18', color: '#C9A84C' }}
+                        style={{ background: '#D4AF3718', color: '#D4AF37' }}
                       >
                         {ritual.category}
                       </span>
                     </div>
 
                     {/* Pencil icon */}
-                    <div className="w-10 h-10 bg-[#C9A84C]/10 border border-[#C9A84C]/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#C9A84C]/20 transition-all duration-300">
+                    <div className="w-10 h-10 bg-[#D4AF37]/10 border border-[#D4AF37]/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#D4AF37]/20 transition-all duration-300">
                       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                        <path d="M12.5 2.5l3 3L5 16H2v-3L12.5 2.5z" stroke="#C9A84C" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M10.5 4.5l3 3" stroke="#C9A84C" strokeWidth="1.3" strokeLinecap="round"/>
+                        <path d="M12.5 2.5l3 3L5 16H2v-3L12.5 2.5z" stroke="#D4AF37" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M10.5 4.5l3 3" stroke="#D4AF37" strokeWidth="1.3" strokeLinecap="round"/>
                       </svg>
                     </div>
 
                     {/* Title */}
                     <h3
-                      className="font-serif text-xl text-[#2A1208] font-normal mb-3 group-hover:text-[#C9A84C] transition-colors duration-300"
+                      className="font-serif text-xl text-[#2A1208] font-normal mb-3 group-hover:text-[#D4AF37] transition-colors duration-300"
                       style={{ fontFamily: 'var(--font-serif)' }}
                     >
                       {ritual.title}
@@ -225,7 +225,7 @@ export default function RitualGrid() {
                       {ritual.subSections.map((sub) => (
                         <span
                           key={sub}
-                          className="text-[#8A8076] text-xs bg-[#FAF6F0] border border-[#C9A84C]/20 rounded-full px-3 py-1"
+                          className="text-[#8A8076] text-xs bg-[#FAF6F0] border border-[#D4AF37]/20 rounded-full px-3 py-1"
                         >
                           {sub}
                         </span>
@@ -238,10 +238,10 @@ export default function RitualGrid() {
                       disabled={isDisabled}
                       className={`w-full flex items-center justify-center gap-2 text-xs font-semibold px-4 py-2.5 rounded-xl border transition-all duration-200 ${
                         isSelected
-                          ? 'bg-[#C9A84C] text-white border-[#C9A84C]'
+                          ? 'bg-[#D4AF37] text-[#2A1208] border-[#D4AF37]'
                           : isDisabled
                           ? 'text-[#EFEAE2] border-[#EFEAE2] cursor-not-allowed'
-                          : 'text-[#C9A84C] border-[#C9A84C]/40 hover:bg-[#C9A84C]/10'
+                          : 'text-[#D4AF37] border-[#D4AF37]/40 hover:bg-[#D4AF37]/10'
                       }`}
                     >
                       {isSelected ? (
@@ -349,10 +349,10 @@ export default function RitualGrid() {
                       disabled={isDisabled}
                       className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border transition-all duration-200 flex-shrink-0 ${
                         isSelected
-                          ? 'bg-[#BD5319] text-white border-[#BD5319]'
+                          ? 'bg-[#D4AF37] text-[#2A1208] border-[#D4AF37]'
                           : isDisabled
                           ? 'text-[#EFEAE2] border-[#EFEAE2] cursor-not-allowed'
-                          : 'text-[#8C847C] border-[#EFEAE2] hover:border-[#BD5319]/50 hover:text-[#BD5319]'
+                          : 'text-[#8C847C] border-[#EFEAE2] hover:border-[#D4AF37]/50 hover:text-[#D4AF37]'
                       }`}
                     >
                       {isSelected ? (

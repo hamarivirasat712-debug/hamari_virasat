@@ -2,6 +2,7 @@
 
 @layer base {
   :root {
+    /* ── Core Brand ── */
     --color-charcoal: #2A1208;
     --color-cream: #FAF6F0;
     --color-saffron: #BD5319;
@@ -12,6 +13,14 @@
     --color-muted-dark: #5C564F;
     --color-border: #EFEAE2;
     --color-border-dark: #5E2E14;
+
+    /* ── Proposed Client Colors ── */
+    --color-sandy:      #F4DEB0;  /* Sandy Warmth   — section backgrounds, card fills        */
+    --color-periwinkle: #A0B0E0;  /* Periwinkle Dusk — badges, info steps, secondary CTAs    */
+    --color-peachy:     #F8B8A0;  /* Peachy Blush   — testimonials, celebration banners      */
+    --color-sky:        #A0E0F0;  /* Sky Mist       — success states, feature highlights     */
+    --color-gold-rich:  #D4AF37;  /* Classic Gold   — primary CTAs, premium badges, ratings  */
+
     --font-serif: var(--font-cormorant), 'Cormorant Garamond', 'Cormorant', Georgia, serif;
     --font-sans: var(--font-inter), 'Inter', system-ui, sans-serif;
   }
@@ -71,10 +80,10 @@
   .gold-shimmer {
     background: linear-gradient(
       90deg,
-      #C9A84C 0%,
-      #E8D5A3 40%,
-      #C9A84C 60%,
-      #A8843A 100%
+      #D4AF37 0%,
+      #F4DEB0 40%,
+      #D4AF37 60%,
+      #C9A84C 100%
     );
     background-size: 200% auto;
     -webkit-background-clip: text;
@@ -128,7 +137,7 @@
   .section-divider {
     width: 48px;
     height: 2px;
-    background: linear-gradient(to right, #BD5319, #C9A84C);
+    background: linear-gradient(to right, #BD5319, #D4AF37);
     border-radius: 2px;
   }
 

@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 const testimonials = [
   {
@@ -39,7 +39,7 @@ const stats = [
 
 export default function SocialProof() {
   return (
-    <section id="social-proof" className="bg-[#FAF6F0] py-20 md:py-28">
+    <section id="social-proof" className="py-20 md:py-28" style={{ background: 'linear-gradient(180deg, #FFF5F0 0%, #F8B8A0 100%)' }}>
       <div className="max-w-6xl mx-auto px-6 md:px-10">
 
         {/* Header */}
@@ -64,12 +64,12 @@ export default function SocialProof() {
           {testimonials.map((t, i) => (
             <div
               key={i}
-              className="bg-white border border-[#EFEAE2] rounded-2xl p-7 flex flex-col hover:shadow-xl hover:shadow-[#2A1208]/5 hover:border-[#C9A84C]/30 transition-all duration-300"
+              className="bg-white border border-[#f0c8b0] rounded-2xl p-7 flex flex-col hover:shadow-xl hover:shadow-[#2A1208]/8 hover:border-[#F8B8A0] transition-all duration-300" style={{ background: 'linear-gradient(145deg, #fff 60%, #FFF1EB 100%)' }}
             >
               {/* Stars */}
               <div className="flex gap-1 mb-5">
                 {[1,2,3,4,5].map((star) => (
-                  <svg key={star} width="14" height="14" viewBox="0 0 14 14" fill="#C9A84C">
+                  <svg key={star} width="14" height="14" viewBox="0 0 14 14" fill="#D4AF37">
                     <path d="M7 1l1.5 4.5H13l-3.5 2.5 1.5 4.5L7 10l-4 2.5 1.5-4.5L1 5.5h4.5L7 1z"/>
                   </svg>
                 ))}
@@ -103,7 +103,7 @@ export default function SocialProof() {
         </div>
 
         {/* Stats strip */}
-        <div className="bg-[#2A1208] rounded-2xl p-8 md:p-10">
+        <div className="bg-[#2A1208] rounded-2xl p-8 md:p-10" style={{ background: 'linear-gradient(135deg, #2A1208 0%, #3E1A0C 100%)' }}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat) => (
               <div key={stat.label} className="text-center">

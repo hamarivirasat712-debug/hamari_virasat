@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 const reasons = [
   {
@@ -70,7 +70,7 @@ const reasons = [
 
 export default function WhyPreserve() {
   return (
-    <section id="why-preserve" className="bg-[#FAF6F0] py-20 md:py-28">
+    <section id="why-preserve" className="bg-[#F4DEB0] py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-6 md:px-10">
 
         {/* Header */}
@@ -99,9 +99,9 @@ export default function WhyPreserve() {
           {reasons.map((reason, i) => (
             <div
               key={i}
-              className="group bg-white border border-[#0d0c0c] rounded-2xl p-7 hover:border-[#C9A84C]/40 hover:shadow-xl hover:shadow-[#2A1208]/5 transition-all duration-300 cursor-default"
+              className="group bg-white border border-[#e8d5b0] rounded-2xl p-7 hover:border-[#D4AF37]/50 hover:shadow-xl hover:shadow-[#2A1208]/5 transition-all duration-300 cursor-default"
             >
-              <div className="w-12 h-12 rounded-xl bg-[#FAF6F0] border border-[#EFEAE2] flex items-center justify-center mb-5 group-hover:bg-[#BD5319]/5 group-hover:border-[#BD5319]/20 transition-all duration-300">
+              <div className="w-12 h-12 rounded-xl bg-[#F4DEB0] border border-[#D4AF37]/30 flex items-center justify-center mb-5 group-hover:bg-[#D4AF37]/15 group-hover:border-[#D4AF37]/50 transition-all duration-300">
                 {reason.icon}
               </div>
               <h3
@@ -132,7 +132,7 @@ export default function WhyPreserve() {
           </div>
           <a
             href="#pricing"
-            className="flex-shrink-0 inline-flex items-center gap-2 bg-[#BD5319] hover:bg-[#A34310] text-white font-semibold text-sm px-7 py-3.5 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-[#BD5319]/30 active:scale-95"
+            className="flex-shrink-0 inline-flex items-center gap-2 bg-[#D4AF37] hover:bg-[#BD5319] text-[#2A1208] hover:text-white font-semibold text-sm px-7 py-3.5 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-[#BD5319]/30 active:scale-95"
           >
             Start Preserving
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

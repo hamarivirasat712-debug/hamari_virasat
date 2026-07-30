@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 export default function Hero() {
   return (
@@ -52,7 +52,7 @@ export default function Hero() {
             style={{ fontFamily: 'var(--font-serif)', letterSpacing: '-0.01em' }}
           >
             The rituals your family{' '}
-            <span className="italic font-normal text-[#C9A84C]">carries</span> deserve to be{' '}
+            <span className="italic font-normal text-[#D4AF37]">carries</span> deserve to be{' '}
             <span className="relative inline-block font-semibold">
               written down.
               <span
@@ -104,7 +104,7 @@ export default function Hero() {
               <span className="text-[#5C564F] text-xs">Rituals documented</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-[#C9A84C]" />
+              <div className="w-2 h-2 rounded-full bg-[#A0E0F0]" />
               <span className="text-[#5C564F] text-xs">Yours forever</span>
             </div>
             <div className="flex items-center gap-2">
@@ -139,9 +139,9 @@ export default function Hero() {
               {/* Card content */}
               <div className="relative">
                 <div className="flex items-center justify-between mb-6">
-                  <span className="text-[#C9A84C] text-xs font-bold tracking-[0.25em] uppercase">
+                  <p className="text-[#D4AF37] text-xs font-bold tracking-[0.25em] uppercase">
                     Family Heritage Record
-                  </span>
+                  </p>
                   <span className="text-[#5E2E14] text-xs">2026</span>
                 </div>
 

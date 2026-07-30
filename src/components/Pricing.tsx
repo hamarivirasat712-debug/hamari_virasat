@@ -77,7 +77,7 @@ export default function Pricing() {
                   <a
                     href="/intake"
                     id="pricing-pay-now"
-                    className="flex-1 inline-flex items-center justify-center gap-2 bg-[#BD5319] hover:bg-[#A34310] text-white font-semibold text-base px-8 py-4 rounded-xl transition-all duration-200 hover:shadow-xl hover:shadow-[#BD5319]/30 active:scale-95 text-center"
+                    className="flex-1 inline-flex items-center justify-center gap-2 bg-[#D4AF37] hover:bg-[#BD5319] text-[#2A1208] hover:text-white font-semibold text-base px-8 py-4 rounded-xl transition-all duration-200 hover:shadow-xl hover:shadow-[#BD5319]/30 active:scale-95 text-center"
                   >
                     Preserve My Family&apos;s Rituals
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -89,7 +89,7 @@ export default function Pricing() {
                     id="pricing-book-call"
                     className="flex-1 inline-flex items-center justify-center text-[#8C847C] hover:text-white text-base font-medium px-8 py-4 rounded-xl border border-[#5E2E14] hover:border-white/20 transition-all duration-200 text-center"
                   >
-                    Book a Free Call First
+                    Contact Us
                   </a>
                 </div>
 
@@ -101,11 +101,11 @@ export default function Pricing() {
                   <div className="space-y-3">
                     {inclusions.map((item) => (
                       <div key={item} className="flex items-start gap-3">
-                        <div className="w-4 h-4 rounded-full bg-[#BD5319]/15 border border-[#BD5319]/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
-                            <path d="M1.5 4l2 2 3-3" stroke="#BD5319" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                        </div>
+                        <div className="w-4 h-4 rounded-full bg-[#A0B0E0]/15 border border-[#A0B0E0]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
+                           <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+                             <path d="M1.5 4l2 2 3-3" stroke="#A0B0E0" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                           </svg>
+                         </div>
                         <span className="text-[#8C847C] text-sm font-light leading-relaxed">{item}</span>
                       </div>
                     ))}

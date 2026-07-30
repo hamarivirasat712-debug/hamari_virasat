@@ -111,8 +111,8 @@ export default function HowItWorks() {
 
                   {/* Detail chip */}
                   <div className="flex items-center gap-2 mt-auto">
-                    <div className="w-1 h-1 rounded-full bg-[#BD5319]" />
-                    <span className="text-[#5C564F] text-xs">{step.detail}</span>
+                    <div className="w-2 h-2 rounded-full bg-[#A0B0E0]" />
+                    <span className="text-[#3a4a8a] text-xs font-medium">{step.detail}</span>
                   </div>
                 </div>
 
@@ -130,7 +130,7 @@ export default function HowItWorks() {
         </div>
 
         {/* Timeline note */}
-        <div className="mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-4 p-6 bg-[#3E1A0C] border border-[#5E2E14] rounded-xl">
+        <div className="mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-4 p-6 bg-[#3E1A0C] border border-[#5E2E14] rounded-xl" style={{ borderLeft: '3px solid #A0E0F0' }}>
           <div className="w-10 h-10 bg-[#BD5319]/10 border border-[#BD5319]/20 rounded-full flex items-center justify-center flex-shrink-0">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
               <circle cx="9" cy="9" r="7.5" stroke="#BD5319" strokeWidth="1.2"/>

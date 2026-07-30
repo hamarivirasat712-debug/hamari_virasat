@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 const deliverables = [
   {
@@ -165,9 +165,9 @@ export default function WhatYouReceive() {
             {deliverables.map((item, i) => (
               <div
                 key={i}
-                className="flex items-start gap-4 p-5 bg-[#3E1A0C] border border-[#5E2E14] rounded-xl hover:border-[#C9A84C]/25 transition-all duration-200 group"
+                className="flex items-start gap-4 p-5 bg-[#3E1A0C] border border-[#5E2E14] rounded-xl hover:border-[#A0E0F0]/30 transition-all duration-200 group"
               >
-                <div className="w-10 h-10 bg-[#2A1208] border border-[#5E2E14] rounded-lg flex items-center justify-center flex-shrink-0 group-hover:border-[#C9A84C]/30 transition-all duration-200">
+                <div className="w-10 h-10 bg-[#2A1208] border border-[#A0E0F0]/20 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:border-[#A0E0F0]/50 group-hover:bg-[#A0E0F0]/5 transition-all duration-200">
                   {item.icon}
                 </div>
                 <div>
