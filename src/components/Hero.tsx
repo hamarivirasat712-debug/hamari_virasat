@@ -112,23 +112,23 @@ export default function Hero() {
               <span className="text-[#5C564F] text-xs">100% personal</span>
             </div>
           </div>
+        </div>
 
-          {/* Right — Decorative Image */}
-          <div className="relative flex items-center justify-center">
-            {/* Outer glow */}
-            <div
-              className="absolute inset-0 rounded-3xl opacity-20 blur-3xl"
-              style={{ background: 'radial-gradient(circle, #C9A84C 0%, transparent 70%)' }}
+        {/* Right — Decorative Image */}
+        <div className="relative flex items-center justify-center">
+          {/* Outer glow */}
+          <div
+            className="absolute inset-0 rounded-3xl opacity-20 blur-3xl"
+            style={{ background: 'radial-gradient(circle, #C9A84C 0%, transparent 70%)' }}
+          />
+
+          {/* Image */}
+          <div className="relative w-full max-w-lg">
+            <img 
+              src="/hero-rituals.png" 
+              alt="Hamari Virasat Rituals" 
+              className="w-full h-auto object-contain drop-shadow-2xl hover:scale-[1.02] transition-transform duration-500"
             />
-
-            {/* Image */}
-            <div className="relative w-full max-w-lg">
-              <img 
-                src="/hero-rituals.png" 
-                alt="Hamari Virasat Rituals" 
-                className="w-full h-auto object-contain drop-shadow-2xl hover:scale-[1.02] transition-transform duration-500"
-              />
-            </div>
           </div>
         </div>
       </div>

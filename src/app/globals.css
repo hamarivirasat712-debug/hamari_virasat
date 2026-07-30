@@ -15,19 +15,23 @@
     --color-border-dark: #5E2E14;
 
     /* ── Proposed Client Colors ── */
-    --color-sandy:      #F4DEB0;  /* Sandy Warmth   — section backgrounds, card fills        */
-    --color-periwinkle: #A0B0E0;  /* Periwinkle Dusk — badges, info steps, secondary CTAs    */
-    --color-peachy:     #F8B8A0;  /* Peachy Blush   — testimonials, celebration banners      */
-    --color-sky:        #A0E0F0;  /* Sky Mist       — success states, feature highlights     */
-    --color-gold-rich:  #D4AF37;  /* Classic Gold   — primary CTAs, premium badges, ratings  */
+    --color-sandy: #F4DEB0;
+    /* Sandy Warmth   — section backgrounds, card fills        */
+    --color-periwinkle: #A0B0E0;
+    /* Periwinkle Dusk — badges, info steps, secondary CTAs    */
+    --color-peachy: #F8B8A0;
+    /* Peachy Blush   — testimonials, celebration banners      */
+    --color-sky: #A0E0F0;
+    /* Sky Mist       — success states, feature highlights     */
+    --color-gold-rich: #D4AF37;
+    /* Classic Gold   — primary CTAs, premium badges, ratings  */
 
     --font-serif: var(--font-cormorant), 'Cormorant Garamond', 'Cormorant', Georgia, serif;
     --font-sans: var(--font-inter), 'Inter', system-ui, sans-serif;
   }
 
   html {
-    /* Fluid base: 15px on 320px screens → 18px at 768px → 20px at 1200px+ */
-    font-size: clamp(15px, 0.9375rem + 1.25vw, 20px);
+    font-size: 20px;
     scroll-behavior: smooth;
   }
 
@@ -44,10 +48,6 @@
   ::selection {
     background-color: var(--color-saffron);
     color: white;
-  }
-
-  h1, h2, h3 {
-    text-wrap: balance;
   }
 }
 
@@ -67,6 +67,7 @@
   .texture-overlay {
     position: relative;
   }
+
   .texture-overlay::before {
     content: '';
     position: absolute;
@@ -78,18 +79,21 @@
 
   /* Gold shimmer animation */
   @keyframes shimmer {
-    0% { background-position: -200% center; }
-    100% { background-position: 200% center; }
+    0% {
+      background-position: -200% center;
+    }
+
+    100% {
+      background-position: 200% center;
+    }
   }
 
   .gold-shimmer {
-    background: linear-gradient(
-      90deg,
-      #D4AF37 0%,
-      #F4DEB0 40%,
-      #D4AF37 60%,
-      #C9A84C 100%
-    );
+    background: linear-gradient(90deg,
+        #D4AF37 0%,
+        #F4DEB0 40%,
+        #D4AF37 60%,
+        #C9A84C 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
@@ -103,6 +107,7 @@
       opacity: 0;
       transform: translateY(24px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
@@ -115,8 +120,15 @@
 
   /* Floating animation for decorative elements */
   @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
   }
 
   .animate-float {
@@ -125,8 +137,15 @@
 
   /* Pulse ring for WhatsApp button */
   @keyframes pulseRing {
-    0% { transform: scale(1); opacity: 0.8; }
-    100% { transform: scale(1.6); opacity: 0; }
+    0% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+
+    100% {
+      transform: scale(1.6);
+      opacity: 0;
+    }
   }
 
   .pulse-ring::before {
@@ -152,6 +171,7 @@
     transform: translateY(32px);
     transition: opacity 0.7s ease, transform 0.7s ease;
   }
+
   .reveal.visible {
     opacity: 1;
     transform: none;
