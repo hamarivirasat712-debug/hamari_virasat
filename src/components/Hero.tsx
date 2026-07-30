@@ -112,79 +112,22 @@ export default function Hero() {
               <span className="text-[#5C564F] text-xs">100% personal</span>
             </div>
           </div>
-        </div>
 
-        {/* Right â€” Decorative heritage card */}
-        <div className="relative flex items-center justify-center">
-          {/* Outer glow */}
-          <div
-            className="absolute inset-0 rounded-3xl opacity-20 blur-3xl"
-            style={{ background: 'radial-gradient(circle, #C9A84C 0%, transparent 70%)' }}
-          />
+          {/* Right — Decorative Image */}
+          <div className="relative flex items-center justify-center">
+            {/* Outer glow */}
+            <div
+              className="absolute inset-0 rounded-3xl opacity-20 blur-3xl"
+              style={{ background: 'radial-gradient(circle, #C9A84C 0%, transparent 70%)' }}
+            />
 
-          {/* Heritage document card */}
-          <div className="relative w-full max-w-sm">
-            {/* Card glow */}
-            <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-[#C9A84C]/30 via-[#BD5319]/10 to-transparent" />
-
-            <div className="relative bg-[#3E1A0C] border border-[#5E2E14] rounded-2xl p-8 overflow-hidden">
-              {/* Card inner texture */}
-              <div
-                className="absolute inset-0 opacity-5"
-                style={{
-                  backgroundImage: 'repeating-linear-gradient(45deg, #C9A84C 0px, #C9A84C 1px, transparent 1px, transparent 8px)',
-                }}
+            {/* Image */}
+            <div className="relative w-full max-w-lg">
+              <img 
+                src="/hero-rituals.png" 
+                alt="Hamari Virasat Rituals" 
+                className="w-full h-auto object-contain drop-shadow-2xl hover:scale-[1.02] transition-transform duration-500"
               />
-
-              {/* Card content */}
-              <div className="relative">
-                <div className="flex items-center justify-between mb-6">
-                  <p className="text-[#D4AF37] text-xs font-bold tracking-[0.25em] uppercase">
-                    Family Heritage Record
-                  </p>
-                  <span className="text-[#5E2E14] text-xs">2026</span>
-                </div>
-
-                <div className="mb-6">
-                  <p className="text-[#f5ede2] text-xs mb-1">Family</p>
-                  <p className="font-serif text-2xl text-white italic" style={{ fontFamily: 'var(--font-serif)' }}>
-                    The Sharma Kula
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  {[
-                    { label: 'Gotra', value: 'Bharadwaja' },
-                    { label: 'Kuldevi', value: 'Vaishno Devi' },
-                    { label: 'Kuldevta', value: 'Shiva' },
-                    { label: 'Region', value: 'Rajasthan' },
-                  ].map(({ label, value }) => (
-                    <div key={label} className="bg-[#2A1208]/60 rounded-lg p-3">
-                      <p className="text-[#f5ede2] text-xs uppercase tracking-wider mb-1">{label}</p>
-                      <p className="text-[#C9A84C] text-sm font-medium">{value}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="border-t border-[#5E2E14] pt-4">
-                  <p className="text-[#f5ede2] text-xs mb-3">Rituals Preserved</p>
-                  <div className="flex flex-wrap gap-2">
-                    {['Godbharai', 'Mundan', 'Vivah Mandap', 'Pheras', '+5 more'].map((r) => (
-                      <span
-                        key={r}
-                        className="text-[#f5ede2] text-xs bg-[#2A1208] border border-[#5E2E14] rounded-full px-3 py-1"
-                      >
-                        {r}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Floating badge */}
-            <div className="absolute -top-4 -right-4 bg-[#BD5319] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg shadow-[#BD5319]/40">
-              Yours Forever âœ¦
             </div>
           </div>
         </div>

@@ -58,14 +58,20 @@ export default function Pricing() {
 
               <div className="p-8 md:p-12">
                 {/* Price */}
-                <div className="flex items-start gap-3 mb-3">
-                  <span className="text-[#5C564F] text-lg md:text-2xl mt-1 font-light" style={{ fontFamily: 'var(--font-serif)' }}>₹</span>
-                  <span
-                    className="font-serif text-5xl md:text-6xl lg:text-7xl text-white font-normal leading-none"
-                    style={{ fontFamily: 'var(--font-serif)' }}
-                  >
-                    1,499
-                  </span>
+                {/* Price */}
+                <div className="flex flex-col gap-4 mb-3">
+                  <div className="flex items-end gap-3">
+                    <span className="text-[#5C564F] text-lg md:text-2xl mb-2 font-light" style={{ fontFamily: 'var(--font-serif)' }}>₹</span>
+                    <span className="font-serif text-5xl md:text-6xl lg:text-7xl text-white font-normal leading-none" style={{ fontFamily: 'var(--font-serif)' }}>
+                      501 <span className="text-3xl md:text-4xl text-[#8C847C] line-through ml-2">999</span>
+                    </span>
+                  </div>
+                  <div className="flex items-end gap-3">
+                    <span className="text-[#5C564F] text-lg md:text-2xl mb-1 font-light" style={{ fontFamily: 'var(--font-serif)' }}>$</span>
+                    <span className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#C9A84C] font-normal leading-none" style={{ fontFamily: 'var(--font-serif)' }}>
+                      10 <span className="text-xl md:text-2xl text-[#8C847C] line-through ml-2">15</span> <span className="text-sm md:text-base text-[#5C564F] ml-2 font-sans tracking-wide uppercase">Global</span>
+                    </span>
+                  </div>
                 </div>
                 <p className="text-[#5C564F] text-sm mb-2">One-time payment · Any 3 of 9 rituals · No subscription</p>
                 <p className="text-[#C9A84C] text-sm font-medium mb-10">
