@@ -4,7 +4,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative bg-[#2A1208] text-white min-h-screen flex items-center overflow-hidden pt-24"
+      className="relative bg-[#2A1208] text-white min-h-screen flex items-center overflow-hidden pt-16 md:pt-24"
     >
       {/* Background decorative mandala rings */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
@@ -48,8 +48,8 @@ export default function Hero() {
 
           {/* Headline */}
           <h1
-            className="font-serif text-5xl sm:text-6xl md:text-6xl lg:text-7xl font-light leading-[1.08] tracking-tight mb-6"
-            style={{ fontFamily: 'var(--font-serif)', letterSpacing: '-0.01em' }}
+            className="font-serif font-light leading-[1.08] tracking-tight mb-6"
+            style={{ fontFamily: 'var(--font-serif)', letterSpacing: '-0.01em', fontSize: 'clamp(1.75rem, 2.5rem + 2vw, 4rem)' }}
           >
             The rituals your family{' '}
             <span className="italic font-normal text-[#D4AF37]">carries</span> deserve to be{' '}
@@ -64,13 +64,13 @@ export default function Hero() {
 
           {/* Subheading */}
           <p
-            className="text-[#f5ede2] text-base md:text-lg font-light leading-relaxed max-w-md mb-4"
+            className="text-[#f5ede2] text-sm md:text-base font-light leading-relaxed max-w-md mb-4"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             The greatest wealth we can pass on to our children is not just property or gold, but the knowledge of who they are and where they come from.
           </p>
           <p
-            className="text-[#de8721] text-sm md:text-base font-light leading-relaxed max-w-md mb-10"
+            className="text-[#de8721] text-xs md:text-sm font-light leading-relaxed max-w-md mb-10"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             Hamari Virasat ensures that even a grandchild born across the globe can hear their grandmother's voice and know exactly how she lit the evening diya in her home.

@@ -51,7 +51,7 @@ export default function SocialProof() {
             </p>
           </div>
           <h2
-            className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal text-[#2A1208] leading-tight"
+            className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-[#2A1208] leading-tight"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
             Stories from families who{' '}
@@ -108,7 +108,7 @@ export default function SocialProof() {
             {stats.map((stat) => (
               <div key={stat.label} className="text-center">
                 <p
-                  className="font-serif text-4xl md:text-5xl text-[#C9A84C] font-normal mb-2"
+                  className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#C9A84C] font-normal mb-2"
                   style={{ fontFamily: 'var(--font-serif)' }}
                 >
                   {stat.value}

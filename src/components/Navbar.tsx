@@ -30,11 +30,11 @@ export default function Navbar() {
             : 'bg-transparent'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-6 md:px-10 h-24 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 md:px-10 h-16 md:h-20 flex items-center justify-between">
           {/* Logo â€” mandala circle + stacked wordmark */}
           <a href="#" className="flex items-center gap-3 group" aria-label="Hamari Virasat home">
             {/* Circle â€” fill + object-cover shows complete logo: mandala + Hamari Virasat + tagline */}
-            <div className="relative w-20 h-20 rounded-full overflow-hidden flex-shrink-0 bg-[#FAF6F0] ring-2 ring-[#C9A84C]/40 group-hover:ring-[#C9A84C]/70 transition-all duration-300 shadow-lg shadow-black/20">
+            <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden flex-shrink-0 bg-[#FAF6F0] ring-2 ring-[#C9A84C]/40 group-hover:ring-[#C9A84C]/70 transition-all duration-300 shadow-lg shadow-black/20">
               <Image
                 src={logoAsset}
                 alt="Hamari Virasat logo"
@@ -48,7 +48,7 @@ export default function Navbar() {
             <div className="flex flex-col leading-none">
               <span
                 className="text-white font-normal tracking-wide"
-                style={{ fontFamily: 'var(--font-serif)', fontSize: '1.35rem', letterSpacing: '0.04em' }}
+                style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(0.95rem, 2vw, 1.35rem)', letterSpacing: '0.04em' }}
               >
                 Hamari Virasat
               </span>

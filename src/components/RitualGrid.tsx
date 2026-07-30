@@ -124,7 +124,7 @@ export default function RitualGrid() {
               </p>
             </div>
             <h2
-              className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal text-[#2A1208] leading-tight"
+              className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-[#2A1208] leading-tight"
               style={{ fontFamily: 'var(--font-serif)' }}
             >
               9 rituals.{' '}

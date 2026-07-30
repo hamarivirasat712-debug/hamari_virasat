@@ -49,7 +49,7 @@ export default function FAQ() {
             </p>
           </div>
           <h2
-            className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal text-white leading-tight"
+            className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-white leading-tight"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
             Everything you need to{' '}

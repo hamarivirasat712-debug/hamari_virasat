@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 export default function BookACall() {
   return (
@@ -16,7 +16,7 @@ export default function BookACall() {
               </p>
             </div>
             <h2
-              className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal text-[#2A1208] leading-tight mb-5"
+              className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-[#2A1208] leading-tight mb-5"
               style={{ fontFamily: 'var(--font-serif)' }}
             >
               Not ready to pay yet?{' '}

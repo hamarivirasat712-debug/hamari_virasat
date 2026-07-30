@@ -29,7 +29,7 @@ export default function Pricing() {
             <div className="section-divider" style={{ background: 'linear-gradient(to left, #BD5319, #C9A84C)' }} />
           </div>
           <h2
-            className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal text-[#2A1208] leading-tight mb-5"
+            className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-[#2A1208] leading-tight mb-5"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
             One price. Any 3 rituals.{' '}
@@ -59,9 +59,9 @@ export default function Pricing() {
               <div className="p-8 md:p-12">
                 {/* Price */}
                 <div className="flex items-start gap-3 mb-3">
-                  <span className="text-[#5C564F] text-2xl mt-2 font-light" style={{ fontFamily: 'var(--font-serif)' }}>₹</span>
+                  <span className="text-[#5C564F] text-lg md:text-2xl mt-1 font-light" style={{ fontFamily: 'var(--font-serif)' }}>₹</span>
                   <span
-                    className="font-serif text-6xl md:text-7xl text-white font-normal leading-none"
+                    className="font-serif text-5xl md:text-6xl lg:text-7xl text-white font-normal leading-none"
                     style={{ fontFamily: 'var(--font-serif)' }}
                   >
                     1,499

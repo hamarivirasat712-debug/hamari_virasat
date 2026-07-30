@@ -82,7 +82,7 @@ export default function WhyPreserve() {
             </p>
           </div>
           <h2
-            className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal text-[#2A1208] leading-tight mb-5"
+            className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-[#2A1208] leading-tight mb-5"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
             What happens when no one writes{' '}
@@ -121,7 +121,7 @@ export default function WhyPreserve() {
         <div className="mt-16 bg-[#2A1208] rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
             <p
-              className="font-serif text-xl md:text-2xl text-white font-normal mb-2"
+              className="font-serif text-lg md:text-xl md:text-2xl text-white font-normal mb-2"
               style={{ fontFamily: 'var(--font-serif)' }}
             >
               Your next family ceremony is a starting point.

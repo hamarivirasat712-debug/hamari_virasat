@@ -26,7 +26,8 @@
   }
 
   html {
-    font-size: 20px;
+    /* Fluid base: 15px on 320px screens → 18px at 768px → 20px at 1200px+ */
+    font-size: clamp(15px, 0.9375rem + 1.25vw, 20px);
     scroll-behavior: smooth;
   }
 
@@ -43,6 +44,10 @@
   ::selection {
     background-color: var(--color-saffron);
     color: white;
+  }
+
+  h1, h2, h3 {
+    text-wrap: balance;
   }
 }
 

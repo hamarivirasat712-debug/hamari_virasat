@@ -60,7 +60,7 @@ export default function HowItWorks() {
             </p>
           </div>
           <h2
-            className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal text-white leading-tight mb-5"
+            className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-white leading-tight mb-5"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
             Three steps to a heritage{' '}
