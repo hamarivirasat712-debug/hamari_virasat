@@ -3,9 +3,9 @@ import React from 'react';
 const steps = [
   {
     number: '01',
-    title: 'Choose your rituals',
+    title: 'Choose rituals/Festivals',
     body:
-      'Choose any 3 from our 9 documented rituals — from Prebirth ceremonies to the Ancestral rites. Pick the 3 most important to your family, or those you most want to preserve first.',
+      'Select any 3 rituals/festivals from the list. If your ritual/festival is not listed, select the custom ritual/festival.',
     detail: 'Godbharai, Mundan, Vivah Mandap, Pheras & more',
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -18,9 +18,9 @@ const steps = [
   },
   {
     number: '02',
-    title: 'We document everything',
+    title: 'Treasure it effortlessly',
     body:
-      'After your payment, you fill out a warm, guided intake form — at your own pace, over several days. Samagri lists, songs, photos, the role of every relative, the Gotra and Kuldevi of your lineage.',
+      'Take your time to fill out the form using the link provided. once you submit it, we will sent you a draft version to check and approve.',
     detail: '6 sub-sections per ritual · Save & resume anytime',
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -33,9 +33,9 @@ const steps = [
   },
   {
     number: '03',
-    title: 'Yours forever',
+    title: 'Preserve it forever',
     body:
-      'We assemble your family\'s answers into a beautifully formatted heirloom document and deliver it to you. One complete, structured record of your family\'s rituals — to read, share, and pass down.',
+      'After your approval, you will receive a beautiful document to preserve, share and treasure.',
     detail: 'Beautifully formatted PDF · Delivered to your inbox',
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">

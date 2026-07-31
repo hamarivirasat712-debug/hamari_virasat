@@ -42,7 +42,7 @@ export default function Hero() {
           <div className="flex items-center gap-3 mb-6">
             <div className="section-divider" />
             <p className="text-[#BD5319] text-xs font-bold tracking-[0.3em] uppercase">
-              Memory Â· Ritual Â· Continuity
+              Legacy · Preservation · Continuity
             </p>
           </div>
 
@@ -51,10 +51,10 @@ export default function Hero() {
             className="font-serif font-light leading-[1.08] tracking-tight mb-6"
             style={{ fontFamily: 'var(--font-serif)', letterSpacing: '-0.01em', fontSize: 'clamp(1.75rem, 2.5rem + 2vw, 4rem)' }}
           >
-            The rituals your family{' '}
-            <span className="italic font-normal text-[#D4AF37]">carries</span> deserve to be{' '}
+            Your family&apos;s {' '}
+            <span className="italic font-normal text-[#D4AF37]">authentic</span> traditions deserve to be{' '}
             <span className="relative inline-block font-semibold">
-              written down.
+              documented for generations to come.
               <span
                 className="absolute bottom-1 left-0 w-full h-0.5 bg-[#BD5319]"
                 style={{ borderRadius: '1px' }}
@@ -67,13 +67,13 @@ export default function Hero() {
             className="text-[#f5ede2] text-sm md:text-base font-light leading-relaxed max-w-md mb-4"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
-            The greatest wealth we can pass on to our children is not just property or gold, but the knowledge of who they are and where they come from.
+            More than any wealth, give your next generation the story of their identity
           </p>
           <p
             className="text-[#de8721] text-xs md:text-sm font-light leading-relaxed max-w-md mb-10"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
-            Hamari Virasat ensures that even a grandchild born across the globe can hear their grandmother's voice and know exactly how she lit the evening diya in her home.
+            We bridge the distance of time and geography. Keep your family&apos;s traditions, recipes and core memories alive, for generations to come.
           </p>
 
           {/* CTAs */}

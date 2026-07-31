@@ -61,15 +61,15 @@ export default function Pricing() {
                 {/* Price */}
                 <div className="flex flex-col gap-4 mb-3">
                   <div className="flex items-end gap-3">
-                    <span className="text-[#5C564F] text-lg md:text-2xl mb-2 font-light" style={{ fontFamily: 'var(--font-serif)' }}>₹</span>
-                    <span className="font-serif text-5xl md:text-6xl lg:text-7xl text-white font-normal leading-none" style={{ fontFamily: 'var(--font-serif)' }}>
-                      501 <span className="text-3xl md:text-4xl text-[#8C847C] line-through ml-2">999</span>
+                    <span className="text-[#5C564F] text-lg md:text-2xl mb-2 font-medium">₹</span>
+                    <span className="font-sans text-5xl md:text-6xl lg:text-7xl text-white font-semibold leading-none tracking-tight">
+                      501 <span className="text-3xl md:text-4xl text-[#8C847C] line-through ml-2 font-medium">999</span>
                     </span>
                   </div>
                   <div className="flex items-end gap-3">
-                    <span className="text-[#5C564F] text-lg md:text-2xl mb-1 font-light" style={{ fontFamily: 'var(--font-serif)' }}>$</span>
-                    <span className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#C9A84C] font-normal leading-none" style={{ fontFamily: 'var(--font-serif)' }}>
-                      10 <span className="text-xl md:text-2xl text-[#8C847C] line-through ml-2">15</span> <span className="text-sm md:text-base text-[#5C564F] ml-2 font-sans tracking-wide uppercase">Global</span>
+                    <span className="text-[#5C564F] text-lg md:text-2xl mb-1 font-medium">$</span>
+                    <span className="font-sans text-3xl md:text-4xl lg:text-5xl text-[#C9A84C] font-semibold leading-none tracking-tight">
+                      10 <span className="text-xl md:text-2xl text-[#8C847C] line-through ml-2 font-medium">15</span> <span className="text-sm md:text-base text-[#5C564F] ml-2 tracking-wide uppercase">Global</span>
                     </span>
                   </div>
                 </div>

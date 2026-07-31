@@ -3,7 +3,7 @@ import Hero from '@/components/Hero';
 import WhyPreserve from '@/components/WhyPreserve';
 import HowItWorks from '@/components/HowItWorks';
 import RitualGrid from '@/components/RitualGrid';
-import WhatYouReceive from '@/components/WhatYouReceive';
+
 import SocialProof from '@/components/SocialProof';
 import Pricing from '@/components/Pricing';
 import ComingSoon from '@/components/ComingSoon';
@@ -21,7 +21,7 @@ export default function Home() {
       <WhyPreserve />
       <HowItWorks />
       <RitualGrid />
-      <WhatYouReceive />
+
       <SocialProof />
       <Pricing />
       <ComingSoon />

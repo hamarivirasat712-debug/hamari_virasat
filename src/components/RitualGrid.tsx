@@ -14,7 +14,7 @@ const rituals: Array<{
 }> = [
   {
     number: '01',
-    title: 'God e Bharai / Sadh',
+    title: 'GodBharai / Sadh',
     category: 'Pre-birth',
     description: 'The Godbharai ceremony blesses the expectant mother and invokes divine protection for both mother and child. Each element — from the Samagri to the songs sung by the women of the house — carries generations of meaning.',
     subSections: ['Samagri & Offerings', 'Ritual Songs (Geet)', 'Relative Roles', 'Special Foods', 'Ritual Steps', 'Family Photos'],

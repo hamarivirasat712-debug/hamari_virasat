@@ -34,38 +34,7 @@ const reasons = [
     body:
       'No two families celebrate a wedding the same way. The regional customs, the family-specific variations, the inside meanings â€” your rituals deserve to be documented in your words, not generic templates.',
   },
-  {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <path d="M8 4h12a2 2 0 012 2v16a2 2 0 01-2 2H8a2 2 0 01-2-2V6a2 2 0 012-2z" stroke="#BD5319" strokeWidth="1.5"/>
-        <path d="M10 9h8M10 13h8M10 17h5" stroke="#BD5319" strokeWidth="1.5" strokeLinecap="round"/>
-      </svg>
-    ),
-    title: 'Something tangible to pass on',
-    body:
-      'A beautifully formatted heirloom document your children and grandchildren can hold, read, and understand. Not a folder of disconnected voice notes and blurry photos, but one complete, structured record.',
-  },
-  {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <path d="M14 4l2.5 7.5H24l-6 4.5 2.5 7.5L14 19l-6.5 4.5 2.5-7.5L4 11.5h7.5L14 4z" stroke="#BD5319" strokeWidth="1.5" strokeLinejoin="round"/>
-      </svg>
-    ),
-    title: 'The generational gap is widening',
-    body:
-      'Young families in cities are losing touch with practices their grandparents performed naturally. Every year without documentation is a year lost. The best time to start was at your last ceremony. The next best time is now.',
-  },
-  {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <path d="M7 13l5 5L21 8" stroke="#BD5319" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <circle cx="14" cy="14" r="10" stroke="#BD5319" strokeWidth="1.5"/>
-      </svg>
-    ),
-    title: 'You already have the stories',
-    body:
-      'You do not need to be a historian or writer. Hamari Virasat gives your family a warm, structured form to fill in â€” and we assemble it into a beautiful heirloom document. Your only job is to remember.',
-  },
+
 ];
 
 export default function WhyPreserve() {
@@ -89,8 +58,7 @@ export default function WhyPreserve() {
             <span className="italic text-[#BD5319]">it down?</span>
           </h2>
           <p className="text-[#0d0c0c] text-base md:text-lg font-light leading-relaxed">
-            Most Indian families believe someone else is keeping track. Most of the time, no one is.
-            The rituals survive â€” but the meaning, the detail, the why â€” those disappear quietly.
+            Most of us assume these traditions are being passed down automatically, but they aren&apos;t. While the rituals themselves may survive, the heart - the specific details will quietly fade away.
           </p>
         </div>
 
