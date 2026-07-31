@@ -13,14 +13,28 @@ import BookACall from '@/components/BookACall';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 
-export default function Home() {
+import { client } from '@/sanity/client';
+
+const RITUALS_QUERY = `*[_type == "ritual"] | order(number asc) {
+  number,
+  title,
+  category,
+  description,
+  subSections,
+  color,
+  imageIcon,
+  isDIY
+}`;
+
+export default async function Home() {
+  const rituals = await client.fetch(RITUALS_QUERY);
   return (
     <main>
       <Navbar />
       <Hero />
       <WhyPreserve />
       <HowItWorks />
-      <RitualGrid />
+      <RitualGrid rituals={rituals} />
 
       <SocialProof />
       <Pricing />

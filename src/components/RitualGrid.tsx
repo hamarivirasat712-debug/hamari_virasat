@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 
-const rituals: Array<{
+type Ritual = {
   number: string;
   title: string;
   category: string;
@@ -11,92 +11,9 @@ const rituals: Array<{
   color: string;
   isDIY?: boolean;
   imageIcon?: string;
-}> = [
-  {
-    number: '01',
-    title: 'GodBharai / Sadh',
-    category: 'Pre-birth',
-    description: 'The Godbharai ceremony blesses the expectant mother and invokes divine protection for both mother and child. Each element — from the Samagri to the songs sung by the women of the house — carries generations of meaning.',
-    subSections: ['Samagri & Offerings', 'Ritual Songs (Geet)', 'Relative Roles', 'Special Foods', 'Ritual Steps', 'Family Photos'],
-    color: '#BD5319',
-    imageIcon: '/icons/icon_godbharai.png',
-  },
-  {
-    number: '02',
-    title: 'Chatti / Shashti Puja',
-    category: 'Post-birth',
-    description: 'On the sixth day after birth, the Chatti Puja formally introduces the newborn to the family and the divine. The Mama\'s role, the naming ritual, and the songs of welcome are all meticulously observed.',
-    subSections: ['Samagri & Offerings', 'Naming Ceremony', 'Mama\'s Role', 'Special Foods', 'Ritual Steps', 'Family Photos'],
-    color: '#C9A84C',
-    imageIcon: '/icons/icon_chatti.png',
-  },
-  {
-    number: '03',
-    title: 'Janeu / Upanayan',
-    category: 'Initiation',
-    description: 'The sacred thread ceremony initiates a young man into his spiritual duties. The Guru\'s instructions, the specific mantras of your lineage, and the roles of the extended family all deserve to be preserved in full.',
-    subSections: ['Samagri & Offerings', 'Mantra Traditions', 'Guru\'s Instructions', 'Special Foods', 'Ritual Steps'],
-    color: '#BD5319',
-    imageIcon: '/icons/icon_janeu.png',
-  },
-  {
-    number: '04',
-    title: 'Ritu Kala Samskar',
-    category: 'Puberty',
-    description: 'A beautiful ceremony celebrating a young woman coming of age. The specific traditions, half-saree customs, family gifts, and special blessings are cherished moments to be remembered.',
-    subSections: ['Samagri & Offerings', 'Attire & Jewelry', 'Family Blessings', 'Special Foods', 'Ritual Steps', 'Family Photos'],
-    color: '#C9A84C',
-    imageIcon: '/icons/icon_puberty.png',
-  },
-  {
-    number: '05',
-    title: 'Ganapati Puja',
-    category: 'Festival',
-    description: 'The beloved celebration of Lord Ganesha in your home. The exact way your family prepares the modaks, decorates the mandap, and performs the aarti is a tradition unique to your household.',
-    subSections: ['Samagri & Offerings', 'Decoration details', 'Aarti & Bhajans', 'Special Foods', 'Ritual Steps', 'Family Photos'],
-    color: '#BD5319',
-    imageIcon: '/icons/icon_ganapati.png',
-  },
-  {
-    number: '06',
-    title: 'Navratri / Dussehra',
-    category: 'Festival',
-    description: 'Nine nights of divine worship, culminating in Vijayadashami. Capture how your family observes the fasting rules, the Kanya Pujan, the Garba traditions, and the specific offerings made to the Goddess.',
-    subSections: ['Samagri & Offerings', 'Kanya Pujan', 'Fasting Rules', 'Special Foods', 'Ritual Steps', 'Family Photos'],
-    color: '#C9A84C',
-    imageIcon: '/icons/icon_navratri.png',
-  },
-  {
-    number: '07',
-    title: 'Karwa Chauth',
-    category: 'Festival',
-    description: 'The sacred fast for marital bliss. The specific items in the Sargi, the evening puja thali preparation, and the story reading are cherished practices passed down from mother-in-law to daughter-in-law.',
-    subSections: ['Samagri & Offerings', 'Sargi details', 'Evening Puja', 'Special Foods', 'Ritual Steps', 'Family Photos'],
-    color: '#BD5319',
-    imageIcon: '/icons/icon_karwachauth.png',
-  },
-  {
-    number: '08',
-    title: 'Teej (Hariyali/Haritalika)',
-    category: 'Festival',
-    description: 'The vibrant celebration of monsoon and marital devotion. The swings, the green attire, the mehndi designs, and the traditional songs sung with family are memories worth keeping forever.',
-    subSections: ['Samagri & Offerings', 'Attire & Mehndi', 'Traditional Songs', 'Special Foods', 'Ritual Steps', 'Family Photos'],
-    color: '#C9A84C',
-    imageIcon: '/icons/icon_teej.png',
-  },
-  {
-    number: '09',
-    title: 'DIY: Custom Family Ritual',
-    category: 'Custom · DIY',
-    description: 'Every family carries ceremonies that belong only to them. If your family observes a ritual that is not in this list — document it here. You describe it, we preserve it exactly as you tell us.',
-    subSections: ['You name the ritual', 'You describe the steps', 'You list the Samagri', 'You share the songs', 'You define what matters', 'We document it all'],
-    color: '#BD5319',
-    isDIY: true,
-    imageIcon: '/icons/icon_diy.png',
-  },
-];
+};
 
-export default function RitualGrid() {
+export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
   const [expanded, setExpanded] = useState<string | null>(null);
   const [selected, setSelected] = useState<string[]>([]);
 
@@ -230,7 +147,7 @@ export default function RitualGrid() {
 
                     {/* Steps */}
                     <div className="flex flex-wrap gap-2 mb-5">
-                      {ritual.subSections.map((sub) => (
+                      {(ritual.subSections || []).map((sub) => (
                         <span
                           key={sub}
                           className="text-[#8A8076] text-xs bg-[#FAF6F0] border border-[#D4AF37]/20 rounded-full px-3 py-1"
@@ -335,7 +252,7 @@ export default function RitualGrid() {
 
                   {/* Sub-sections */}
                   <div className={`flex flex-wrap gap-2 ${isExpanded ? '' : 'mt-1'}`}>
-                    {ritual.subSections.map((sub) => (
+                    {(ritual.subSections || []).map((sub) => (
                       <span
                         key={sub}
                         className="text-[#8A8076] text-xs bg-[#FAF6F0] border border-[#EFEAE2] rounded-full px-3 py-1"
@@ -348,7 +265,7 @@ export default function RitualGrid() {
                   {/* Expand toggle + Select button */}
                   <div className="mt-5 flex items-center justify-between gap-3">
                     <div className="flex items-center gap-1.5 text-[#BD5319] text-xs font-medium">
-                      <span>{isExpanded ? 'Show less' : `See all ${ritual.subSections.length} sub-sections`}</span>
+                      <span>{isExpanded ? 'Show less' : `See all ${(ritual.subSections || []).length} sub-sections`}</span>
                       <svg
                         width="12"
                         height="12"

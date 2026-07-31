@@ -21,7 +21,7 @@ const testimonials = [
   },
   {
     quote:
-      'The intake form was so thoughtfully written â€” it felt like someone who truly understood our culture had designed it. It prompted questions I wouldn\'t have thought to ask. The final document made my parents cry when they read it.',
+      'The intake form was so thoughtfully written and it felt like someone who truly understood our culture had designed it. It prompted questions I wouldn\'t have thought to ask. The final document made my parents cry when they read it.',
     author: 'Ananya Krishnan',
     location: 'Bengaluru, Karnataka',
     ritual: 'Complete Heritage Record',
@@ -34,7 +34,7 @@ const stats = [
   { value: '9', label: 'Rituals documented' },
   { value: '6+', label: 'Sub-sections per ritual' },
   { value: '100%', label: 'Family-specific record' },
-  { value: 'âˆž', label: 'Generations it will last' },
+  { value: 'â-ž', label: 'Generations it will last' },
 ];
 
 export default function SocialProof() {
