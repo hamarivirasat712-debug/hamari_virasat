@@ -10,7 +10,7 @@ const reasons = [
     ),
     title: 'Time is not on our side',
     body:
-      'Every elder who passes carries irreplaceable knowledge with them. The Mama\'s role, the exact Samagri list, the order of the Pheras â€” none of it is written down, and each generation knows a little less than the one before.',
+      'Every elder who passes carries irreplaceable knowledge with them. The Mama\'s role, the exact Samagri list, the order of the Pheras - none of it is written down, and each generation knows a little less than the one before.',
   },
   {
     icon: (
@@ -21,7 +21,7 @@ const reasons = [
     ),
     title: 'Photos fade. Memory fades faster.',
     body:
-      'You have the photos, but who remembers what song was sung, or why the ritual was performed that way? Hamari Virasat captures the context, not just the image â€” so the meaning is never lost.',
+      'You have the photos, but who remembers what song was sung, or why the ritual was performed that way? Hamari Virasat captures the context, not just the image - so the meaning is never lost.',
   },
   {
     icon: (
@@ -32,7 +32,7 @@ const reasons = [
     ),
     title: 'Your family is unique',
     body:
-      'No two families celebrate a wedding the same way. The regional customs, the family-specific variations, the inside meanings â€” your rituals deserve to be documented in your words, not generic templates.',
+      'No two families celebrate a wedding the same way. The regional customs, the family-specific variations, the inside meanings - your rituals deserve to be documented in your words, not generic templates.',
   },
 
 ];
@@ -51,7 +51,7 @@ export default function WhyPreserve() {
             </p>
           </div>
           <h2
-            className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-[#2A1208] leading-tight mb-5"
+            className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#2A1208] leading-tight mb-5"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
             What happens when no one writes{' '}
@@ -73,7 +73,7 @@ export default function WhyPreserve() {
                 {reason.icon}
               </div>
               <h3
-                className="font-serif text-lg font-normal text-[#0d0c0c] mb-3"
+                className="font-serif text-lg font-bold text-[#0d0c0c] mb-3"
                 style={{ fontFamily: 'var(--font-serif)' }}
               >
                 {reason.title}
@@ -88,12 +88,6 @@ export default function WhyPreserve() {
         {/* Bottom CTA strip */}
         <div className="mt-16 bg-[#2A1208] rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <p
-              className="font-serif text-lg md:text-xl md:text-2xl text-white font-normal mb-2"
-              style={{ fontFamily: 'var(--font-serif)' }}
-            >
-              Your next family ceremony is a starting point.
-            </p>
             <p className="text-[#8C847C] text-sm font-light">
               Start documenting before the details are lost to time.
             </p>
@@ -102,7 +96,7 @@ export default function WhyPreserve() {
             href="#pricing"
             className="flex-shrink-0 inline-flex items-center gap-2 bg-[#D4AF37] hover:bg-[#BD5319] text-[#2A1208] hover:text-white font-semibold text-sm px-7 py-3.5 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-[#BD5319]/30 active:scale-95"
           >
-            Start Preserving
+            Preserve My Family&apos;s Rituals
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>

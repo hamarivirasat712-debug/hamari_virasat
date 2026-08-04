@@ -49,28 +49,24 @@ export default function Hero() {
           {/* Headline */}
           <h1
             className="font-serif font-light leading-[1.08] tracking-tight mb-6"
-            style={{ fontFamily: 'var(--font-serif)', letterSpacing: '-0.01em', fontSize: 'clamp(1.75rem, 2.5rem + 2vw, 4rem)' }}
+            style={{ fontFamily: 'var(--font-serif)', letterSpacing: '-0.01em', fontSize: 'clamp(2.1rem, 3rem + 2vw, 4.75rem)' }}
           >
             Your family&apos;s {' '}
-            <span className="italic font-normal text-[#D4AF37]">authentic</span> traditions deserve to be{' '}
+            <span className="italic font-normal text-[#D4AF37]">authentic</span> traditions deserves to be{' '}
             <span className="relative inline-block font-semibold">
-              documented for generations to come.
-              <span
-                className="absolute bottom-1 left-0 w-full h-0.5 bg-[#BD5319]"
-                style={{ borderRadius: '1px' }}
-              />
+              documented.
             </span>
           </h1>
 
           {/* Subheading */}
           <p
-            className="text-[#f5ede2] text-sm md:text-base font-light leading-relaxed max-w-md mb-4"
+            className="text-[#f5ede2] text-base md:text-lg font-light leading-relaxed max-w-md mb-4"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             More than any wealth, give your next generation the story of their identity
           </p>
           <p
-            className="text-[#de8721] text-xs md:text-sm font-light leading-relaxed max-w-md mb-10"
+            className="text-[#de8721] text-sm md:text-base font-light leading-relaxed max-w-md mb-10"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             We bridge the distance of time and geography. Keep your family&apos;s traditions, recipes and core memories alive, for generations to come.
@@ -81,7 +77,7 @@ export default function Hero() {
             <a
               href="#pricing"
               id="hero-pay-now"
-              className="inline-flex items-center justify-center gap-2 bg-[#BD5319] hover:bg-[#A34310] text-white font-semibold text-base px-8 py-4 rounded-xl transition-all duration-200 hover:shadow-xl hover:shadow-[#BD5319]/30 active:scale-95"
+              className="inline-flex items-center justify-center gap-2 text-[#C9A84C] hover:text-white text-base font-medium px-8 py-4 rounded-xl border border-[#C9A84C]/40 hover:border-[#C9A84C]/80 hover:bg-[#C9A84C]/10 transition-all duration-200 active:scale-95"
             >
               Preserve My Family&apos;s Rituals
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">

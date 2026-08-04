@@ -34,14 +34,14 @@ export default function Navbar() {
           {/* Logo â€” mandala circle + stacked wordmark */}
           <a href="#" className="flex items-center gap-3 group" aria-label="Hamari Virasat home">
             {/* Circle â€” fill + object-cover shows complete logo: mandala + Hamari Virasat + tagline */}
-            <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden flex-shrink-0 bg-[#FAF6F0] ring-2 ring-[#C9A84C]/40 group-hover:ring-[#C9A84C]/70 transition-all duration-300 shadow-lg shadow-black/20">
+            <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-[#C9A84C]/40 group-hover:ring-[#C9A84C]/70 transition-all duration-300 shadow-lg shadow-black/20">
               <Image
                 src={logoAsset}
                 alt="Hamari Virasat logo"
                 fill
                 sizes="80px"
                 priority
-                className="object-cover"
+                className="object-contain scale-[1.35]"
               />
             </div>
             {/* Stacked text â€” Hamari Virasat + tagline */}
@@ -77,15 +77,16 @@ export default function Navbar() {
           {/* CTA */}
           <div className="flex items-center gap-4">
             <a
-              href="#pricing"
+              href="#enquiry"
+              id="nav-contact-us"
               className="hidden md:inline-flex items-center text-[#8C847C] hover:text-white text-sm font-medium transition-colors duration-200"
             >
-              Book a Free Call
+              Contact Us
             </a>
             <a
               href="#pricing"
               id="nav-pay-now"
-              className="bg-[#D4AF37] hover:bg-[#BD5319] text-[#2A1208] hover:text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-[#BD5319]/25 active:scale-95"
+              className="text-[#C9A84C] hover:text-white text-sm font-medium px-5 py-2.5 rounded-lg border border-[#C9A84C]/30 hover:border-[#C9A84C]/60 hover:bg-[#C9A84C]/10 transition-all duration-200 active:scale-95"
             >
               Pay Now
             </a>
