@@ -59,7 +59,7 @@ export default function BookACall() {
                 href="#pricing"
                 className="inline-flex items-center justify-center gap-2 text-[#8C847C] hover:text-[#2A1208] text-sm font-medium px-7 py-3.5 rounded-xl border border-[#EFEAE2] hover:border-[#2A1208]/20 transition-all duration-200"
               >
-                I&apos;m ready â€” go to pricing
+                I&apos;m ready go to pricing
               </a>
             </div>
           </div>

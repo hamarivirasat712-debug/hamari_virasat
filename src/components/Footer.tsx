@@ -20,10 +20,10 @@ export default function Footer() {
             </div>
             <p className="text-[#5C564F] text-sm font-light leading-relaxed max-w-xs mb-6">
               A structured platform where Indian families can record the rituals that define them â€”
-              from Prebirth to the Ancestral rites â€” and preserve them in a form that lasts.
+              from Prebirth to the Ancestral rites and preserve them in a form that lasts.
             </p>
             <p className="text-[#5C564F] text-xs font-light">
-              âœ¦ 25% returning family discount on your next ritual documentation
+            25% returning family discount on your next ritual documentation
             </p>
           </div>
 
@@ -101,7 +101,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-[#3E1A0C] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-[#5C564F] text-xs font-light text-center sm:text-left">
-            Â© {year} Hamari Virasat. All rights reserved. Â· Memory &amp; Ritual Preservation Platform
+            Â© {year} Hamari Virasat. All rights reserved. Memory &amp; Ritual Preservation Platform
           </p>
           <div className="flex items-center gap-5">
             <a href="#" className="text-[#5C564F] hover:text-white text-xs font-light transition-colors">Privacy Policy</a>
