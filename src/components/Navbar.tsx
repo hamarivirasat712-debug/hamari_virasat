@@ -34,7 +34,7 @@ export default function Navbar() {
           {/* Logo â€” mandala circle + stacked wordmark */}
           <a href="#" className="flex items-center gap-3 group" aria-label="Hamari Virasat home">
             {/* Circle â€” fill + object-cover shows complete logo: mandala + Hamari Virasat + tagline */}
-            <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-[#C9A84C]/40 group-hover:ring-[#C9A84C]/70 transition-all duration-300 shadow-lg shadow-black/20">
+            <div className={`relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden flex-shrink-0 ring-2 transition-all duration-300 shadow-lg shadow-black/20 ${scrolled ? 'ring-[#C9A84C]/40 group-hover:ring-[#C9A84C]/70' : 'ring-[#2A1208]/40 group-hover:ring-[#2A1208]/70'}`}>
               <Image
                 src={logoAsset}
                 alt="Hamari Virasat logo"
@@ -47,13 +47,13 @@ export default function Navbar() {
             {/* Stacked text â€” Hamari Virasat + tagline */}
             <div className="flex flex-col leading-none">
               <span
-                className="text-white font-normal tracking-wide"
+                className={`font-normal tracking-wide transition-colors duration-300 ${scrolled ? 'text-white' : 'text-[#2A1208]'}`}
                 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(0.95rem, 2vw, 1.35rem)', letterSpacing: '0.04em' }}
               >
                 Hamari Virasat
               </span>
               <span
-                className="text-[#C9A84C] font-bold tracking-[0.18em] uppercase mt-1"
+                className={`font-bold tracking-[0.18em] uppercase mt-1 transition-colors duration-300 ${scrolled ? 'text-[#C9A84C]' : 'text-[#6B2A07]'}`}
                 style={{ fontFamily: 'var(--font-sans)', fontSize: '0.58rem' }}
               >
                 Legacy · Preservation · Continuity
@@ -67,7 +67,7 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-[#8C847C] hover:text-white text-sm font-medium tracking-wide transition-colors duration-200"
+                className={`text-sm font-medium tracking-wide transition-colors duration-200 ${scrolled ? 'text-[#8C847C] hover:text-white' : 'text-[#2A1208] hover:text-[#5E2E14]'}`}
               >
                 {link.label}
               </a>
@@ -79,20 +79,20 @@ export default function Navbar() {
             <a
               href="#enquiry"
               id="nav-contact-us"
-              className="hidden md:inline-flex items-center text-[#8C847C] hover:text-white text-sm font-medium transition-colors duration-200"
+              className={`hidden md:inline-flex items-center text-sm font-medium transition-colors duration-200 ${scrolled ? 'text-[#8C847C] hover:text-white' : 'text-[#2A1208] hover:text-[#5E2E14]'}`}
             >
               Contact Us
             </a>
             <a
               href="#pricing"
               id="nav-pay-now"
-              className="text-[#C9A84C] hover:text-white text-sm font-medium px-5 py-2.5 rounded-lg border border-[#C9A84C]/30 hover:border-[#C9A84C]/60 hover:bg-[#C9A84C]/10 transition-all duration-200 active:scale-95"
+              className={`text-sm font-medium px-5 py-2.5 rounded-lg border transition-all duration-200 active:scale-95 ${scrolled ? 'text-[#C9A84C] hover:text-white border-[#C9A84C]/30 hover:border-[#C9A84C]/60 hover:bg-[#C9A84C]/10' : 'text-[#2A1208] hover:text-[#5E2E14] border-[#2A1208]/30 hover:border-[#2A1208]/60 hover:bg-[#2A1208]/10'}`}
             >
               Pay Now
             </a>
             {/* Mobile menu toggle */}
             <button
-              className="md:hidden text-white p-1"
+              className={`md:hidden p-1 transition-colors duration-300 ${scrolled ? 'text-white' : 'text-[#2A1208]'}`}
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >
