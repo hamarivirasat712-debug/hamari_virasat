@@ -45,12 +45,12 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
               className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-[#2A1208] leading-tight"
               style={{ fontFamily: 'var(--font-serif)' }}
             >
-              9 rituals.{' '}
+              Choose from our collection of rituals.{' '}
               <span className="italic text-[#BD5319]">Pick any 3.</span>
             </h2>
           </div>
           <p className="text-[#8C847C] text-sm md:text-base font-light leading-relaxed max-w-xs">
-            Choose any 3 rituals from our collection of 9 — including a slot for your own family-specific ceremony. All documented in full.
+            Choose any 3 rituals from our collection — including a slot for your own family-specific ceremony. All documented in full.
           </p>
         </div>
 
