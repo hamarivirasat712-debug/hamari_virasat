@@ -49,7 +49,7 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
               <span className="italic text-[#BD5319]">Pick any 3.</span>
             </h2>
           </div>
-          <p className="text-[#8C847C] text-sm md:text-base font-light leading-relaxed max-w-xs">
+          <p className="text-[#8C847C] text-sm md:text-base font-semibold leading-relaxed max-w-xs">
             Choose any 3 rituals from our collection including a slot for your own family-specific ceremony. All documented in full.
           </p>
         </div>

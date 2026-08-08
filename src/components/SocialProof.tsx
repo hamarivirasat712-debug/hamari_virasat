@@ -31,7 +31,7 @@ const testimonials = [
 ];
 
 const stats = [
-  { value: '9', label: 'Rituals documented' },
+  { value: '100%', label: 'Personal & Private' },
   { value: '6+', label: 'Sub-sections per ritual' },
   { value: '100%', label: 'Family-specific record' },
   { value: 'â-ž', label: 'Generations it will last' },

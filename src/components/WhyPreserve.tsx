@@ -88,7 +88,7 @@ export default function WhyPreserve() {
         {/* Bottom CTA strip */}
         <div className="mt-16 bg-[#2A1208] rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <p className="text-[#8C847C] text-sm font-light">
+            <p className="text-[#C9A84C] text-sm font-semibold">
               Start documenting before the details are lost to time.
             </p>
           </div>

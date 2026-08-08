@@ -66,7 +66,7 @@ export default function HowItWorks() {
             Three steps to a heritage{' '}
             <span className="italic text-[#C9A84C]">that lasts</span>
           </h2>
-          <p className="text-[#8C847C] text-base md:text-lg font-light leading-relaxed">
+          <p className="text-[#8C847C] text-base md:text-lg font-semibold leading-relaxed">
             No writing skills needed. No historian required. Just your family&apos;s stories, and a little time.
           </p>
         </div>
@@ -136,7 +136,7 @@ export default function HowItWorks() {
             <p className="text-white text-sm font-medium mb-1">
               Fill at your own pace — no rush, no deadline
             </p>
-            <p className="text-[#5C564F] text-xs font-light">
+            <p className="text-[#C9A84C] text-xs font-semibold">
               After payment, you receive a save-and-resume link. Gather your family, consult your elders, and come back when you&apos;re ready. Most families complete their form over 3–7 days.
             </p>
           </div>
