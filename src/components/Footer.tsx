@@ -19,7 +19,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-[#5C564F] text-sm font-light leading-relaxed max-w-xs mb-6">
-              A structured platform where Indian families can record the rituals that define them â€”
+              A structured platform where Indian families can record the rituals that define them
               from Prebirth to the Ancestral rites and preserve them in a form that lasts.
             </p>
             <p className="text-[#5C564F] text-xs font-light">

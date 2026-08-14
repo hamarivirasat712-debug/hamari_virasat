@@ -19,7 +19,7 @@ export default function BookACall() {
               className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-[#2A1208] leading-tight mb-5"
               style={{ fontFamily: 'var(--font-serif)' }}
             >
-              Not ready to pay yet?{' '}
+              Still having doubts?{' '}
               <span className="italic text-[#BD5319]">Talk to us.</span>
             </h2>
             <p className="text-[#8C847C] text-base font-light leading-relaxed mb-6">

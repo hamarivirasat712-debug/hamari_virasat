@@ -1,4 +1,13 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
+import Script from 'next/script';
+
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
 
 const inclusions = [
   'Your choice of any 3 rituals — documented in full',
@@ -15,7 +24,136 @@ const inclusions = [
 ];
 
 export default function Pricing() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const handlePayment = async () => {
+    if (!email) {
+      alert('Please enter your email address.');
+      return;
+    }
+    
+    setIsLoading(true);
+    try {
+      const res = await fetch('/api/razorpay/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: 1, email })
+      });
+      const order = await res.json();
+      if (!order.id) throw new Error('Failed to create order');
+
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '', // Ensure this is available
+        amount: order.amount,
+        currency: order.currency,
+        name: "Hamari Virasat",
+        description: "Ritual Documentation (3 Rituals)",
+        order_id: order.id,
+        handler: async function (response: any) {
+          setIsLoading(true);
+          try {
+            const verifyRes = await fetch('/api/razorpay/verify', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                email
+              })
+            });
+            
+            const verifyData = await verifyRes.json();
+            if (verifyData.success) {
+              setSuccess(true);
+            } else {
+              alert('Payment verification failed. Please contact support.');
+            }
+          } catch (err) {
+            console.error(err);
+            alert('An error occurred during verification.');
+          } finally {
+            setIsLoading(false);
+          }
+        },
+        prefill: { email },
+        theme: { color: "#BD5319" }
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.on('payment.failed', function (response: any){
+         alert(`Payment failed: ${response.error.description}`);
+      });
+      rzp.open();
+    } catch (error) {
+      console.error(error);
+      alert('Failed to initiate payment. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
+    <>
+    <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
+    
+    {/* Email Collection Modal */}
+    {isModalOpen && (
+      <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+        <div className="bg-[#FAF6F0] rounded-2xl w-full max-w-md overflow-hidden animate-fade-in-up border border-[#EFEAE2]">
+          {success ? (
+            <div className="p-8 text-center">
+              <div className="w-16 h-16 bg-[#BD5319]/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#BD5319]/20">
+                <span className="text-3xl">✨</span>
+              </div>
+              <h3 className="font-serif text-2xl text-[#2A1208] mb-2">Payment Successful!</h3>
+              <p className="text-[#8C847C] text-sm mb-6">
+                Thank you for your purchase. We have sent a secure link to your email to start documenting your family's rituals.
+              </p>
+              <button 
+                onClick={() => { setIsModalOpen(false); setSuccess(false); }}
+                className="bg-[#BD5319] text-white px-6 py-3 rounded-xl font-medium text-sm hover:bg-[#A34310] transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          ) : (
+            <div className="p-8 text-center">
+              <h3 className="font-serif text-2xl text-[#2A1208] mb-2">Where should we send your secure link?</h3>
+              <p className="text-[#8C847C] text-sm mb-6">
+                After payment, you will receive an email with a unique link to your family's documentation form.
+              </p>
+              <input 
+                type="email" 
+                placeholder="Enter your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full bg-white border border-[#EFEAE2] rounded-xl px-4 py-3 mb-4 text-[#2A1208] placeholder:text-[#8C847C] focus:outline-none focus:border-[#C9A84C]/60"
+              />
+              <div className="flex gap-3">
+                <button 
+                  onClick={() => setIsModalOpen(false)}
+                  className="flex-1 px-4 py-3 rounded-xl border border-[#EFEAE2] text-[#8C847C] hover:bg-white transition-colors text-sm font-medium"
+                >
+                  Cancel
+                </button>
+                <button 
+                  onClick={handlePayment}
+                  disabled={isLoading || !email}
+                  className="flex-1 px-4 py-3 rounded-xl bg-[#BD5319] text-white hover:bg-[#A34310] disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm font-medium inline-flex items-center justify-center gap-2"
+                >
+                  {isLoading ? 'Processing...' : 'Proceed to Pay'}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    )}
+
     <section id="pricing" className="bg-[#FAF6F0] py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-6 md:px-10">
 
@@ -63,7 +201,7 @@ export default function Pricing() {
                   <div className="flex items-end gap-3">
                     <span className="text-[#5C564F] text-lg md:text-2xl mb-2 font-medium">₹</span>
                     <span className="font-sans text-5xl md:text-6xl lg:text-7xl text-white font-semibold leading-none tracking-tight">
-                      501 <span className="text-3xl md:text-4xl text-[#8C847C] line-through ml-2 font-medium">999</span>
+                      1 <span className="text-3xl md:text-4xl text-[#8C847C] line-through ml-2 font-medium">999</span>
                     </span>
                   </div>
                   <div className="flex items-end gap-3">
@@ -80,8 +218,8 @@ export default function Pricing() {
 
                 {/* CTAs */}
                 <div className="flex flex-col sm:flex-row gap-4 mb-10">
-                  <a
-                    href="/intake"
+                  <button
+                    onClick={() => setIsModalOpen(true)}
                     id="pricing-pay-now"
                     className="flex-1 inline-flex items-center justify-center gap-2 bg-[#D4AF37] hover:bg-[#BD5319] text-[#2A1208] hover:text-white font-semibold text-base px-8 py-4 rounded-xl transition-all duration-200 hover:shadow-xl hover:shadow-[#BD5319]/30 active:scale-95 text-center"
                   >
@@ -89,7 +227,7 @@ export default function Pricing() {
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                       <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
-                  </a>
+                  </button>
                   <a
                     href="#book-a-call"
                     id="pricing-book-call"
@@ -143,5 +281,6 @@ export default function Pricing() {
 
       </div>
     </section>
+    </>
   );
 }

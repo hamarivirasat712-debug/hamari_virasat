@@ -72,7 +72,7 @@ export default function Hero() {
       {/* ═══════════════════ DECORATIVE BACKGROUND ═══════════════════ */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
 
-        {/* ── Large OM (ॐ) watermark — desktop only, right image column ── */}
+        {/* ── Large OM (ॐ) watermark — desktop only, right image column (Remove this as it overlap the image) ── */}
         <div
           className="hidden md:block absolute top-1/2 right-[2%] -translate-y-[52%] text-[#2A1208] opacity-[0.22]"
           style={{ fontSize: 'clamp(160px, 24vw, 340px)', fontFamily: 'Georgia, serif', lineHeight: 1 }}
@@ -167,7 +167,7 @@ export default function Hero() {
             style={{ fontFamily: 'var(--font-serif)', letterSpacing: '-0.01em', fontSize: 'clamp(2.1rem, 3rem + 2vw, 4.75rem)' }}
           >
             Your family&apos;s {' '}
-            <span className="italic font-normal text-[#2A1208]">authentic</span> traditions deserves to be{' '}
+            <span className="italic font-normal text-[#6B2A07]">authentic</span> traditions deserves to be{' '}
             <span className="relative inline-block font-semibold">
               documented.
             </span>
@@ -178,7 +178,7 @@ export default function Hero() {
             className="text-[#3D1A0A] text-base md:text-lg font-medium leading-relaxed max-w-md mb-4"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
-            More than any wealth, give your next generation the story of their identity
+            More than any wealth, give your next generation the story of their identity.
           </p>
           <p
             className="text-[#5E2E14] text-sm md:text-base font-medium leading-relaxed max-w-md mb-10"
