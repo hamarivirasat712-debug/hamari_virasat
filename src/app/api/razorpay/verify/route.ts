@@ -40,7 +40,7 @@ export async function POST(req: Request) {
 
     if (process.env.RESEND_API_KEY && resend) {
       await resend.emails.send({
-        from: 'Hamari Virasat <hello@hamarivirasat.com>', // Update this to a verified domain on Resend
+        from: 'onboarding@resend.dev', // Update this to a verified domain on Resend before going live
         to: email,
         subject: 'Your Ritual Documentation Link - Hamari Virasat',
         html: `

@@ -40,7 +40,7 @@ export default function Pricing() {
       const res = await fetch('/api/razorpay/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: 1, email })
+        body: JSON.stringify({ amount: 501, email })
       });
       const order = await res.json();
       if (!order.id) throw new Error('Failed to create order');
@@ -201,7 +201,7 @@ export default function Pricing() {
                   <div className="flex items-end gap-3">
                     <span className="text-[#5C564F] text-lg md:text-2xl mb-2 font-medium">₹</span>
                     <span className="font-sans text-5xl md:text-6xl lg:text-7xl text-white font-semibold leading-none tracking-tight">
-                      1 <span className="text-3xl md:text-4xl text-[#8C847C] line-through ml-2 font-medium">999</span>
+                      501 <span className="text-3xl md:text-4xl text-[#8C847C] line-through ml-2 font-medium">999</span>
                     </span>
                   </div>
                   <div className="flex items-end gap-3">
