@@ -3,10 +3,10 @@ import crypto from 'crypto';
 import { SignJWT } from 'jose';
 import { Resend } from 'resend';
 
-const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-for-development-only';
 
 export async function POST(req: Request) {
+  const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
   try {
     const body = await req.json();
     const {

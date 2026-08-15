@@ -29,6 +29,7 @@ export default function Pricing() {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [magicLink, setMagicLink] = useState<string | null>(null);
   const { selectedRituals, getIntakeIndices, calculateTotal } = useRitualSelection();
 
   const handlePayment = async () => {
@@ -73,6 +74,12 @@ export default function Pricing() {
             
             const verifyData = await verifyRes.json();
             if (verifyData.success) {
+              // Build the magic link from the returned token so we can show it as fallback
+              const base = process.env.NEXT_PUBLIC_APP_URL || window.location.origin;
+              const rParam = ritualIndices.length > 0 ? `&r=${ritualIndices.join(',')}` : '';
+              const link = `${base}/intake?token=${verifyData.token}${rParam}`;
+              setMagicLink(link);
+              console.log('✅ Magic Link (use this if email did not arrive):', link);
               setSuccess(true);
             } else {
               alert('Payment verification failed. Please contact support.');
@@ -115,12 +122,32 @@ export default function Pricing() {
                 <span className="text-3xl">✨</span>
               </div>
               <h3 className="font-serif text-2xl text-[#2A1208] mb-2">Payment Successful!</h3>
-              <p className="text-[#8C847C] text-sm mb-6">
-                Thank you for your purchase. We have sent a secure link to your email to start documenting your family's rituals.
+              <p className="text-[#8C847C] text-sm mb-4">
+                A secure link has been sent to <span className="font-semibold text-[#2A1208]">{email}</span>.<br/>
+                You can also use the link below directly:
               </p>
-              <button 
-                onClick={() => { setIsModalOpen(false); setSuccess(false); }}
-                className="bg-[#BD5319] text-white px-6 py-3 rounded-xl font-medium text-sm hover:bg-[#A34310] transition-colors"
+
+              {/* Direct link — shown always as a fallback */}
+              {magicLink && (
+                <div className="mb-5">
+                  <a
+                    href={magicLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-[#BD5319] text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-[#A34310] transition-colors mb-3"
+                  >
+                    Open My Documentation Form →
+                  </a>
+                  <div className="bg-[#F4DEB0] border border-[#EFEAE2] rounded-xl p-3 text-left">
+                    <p className="text-[#8C847C] text-xs mb-1 font-medium">Or copy this link:</p>
+                    <p className="text-[#2A1208] text-xs break-all font-mono leading-relaxed">{magicLink}</p>
+                  </div>
+                </div>
+              )}
+
+              <button
+                onClick={() => { setIsModalOpen(false); setSuccess(false); setMagicLink(null); }}
+                className="text-[#8C847C] text-sm hover:text-[#2A1208] transition-colors"
               >
                 Close
               </button>
