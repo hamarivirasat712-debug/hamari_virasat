@@ -54,9 +54,12 @@ const defaultForm = (): FormData => ({
   customRitualName: '',
 });
 
-function buildSteps(sel: number[], card9: boolean): StepId[] {
-  const s: StepId[] = ['intro', 'contact', 'select', 'ancestral'];
-  sel.slice(0, MAX_SELECT).forEach(i => s.push(i));
+// showSelect=false when customer arrives via magic link — rituals are already known
+function buildSteps(sel: number[], card9: boolean, showSelect = true): StepId[] {
+  const s: StepId[] = ['intro', 'contact'];
+  if (showSelect) s.push('select');
+  s.push('ancestral');
+  sel.forEach(i => s.push(i)); // no cap — all purchased rituals included
   if (card9) s.push('card9');
   s.push('review');
   return s;
@@ -73,7 +76,8 @@ function IntakeInner() {
   const [hasRestored, setHasRestored] = useState(false);
   const [urlLocked, setUrlLocked] = useState(false);
 
-  const steps = buildSteps(form.selectedRituals, form.includeCard9);
+  // When urlLocked the ritual selection came from the URL — skip the 'select' step
+  const steps = buildSteps(form.selectedRituals, form.includeCard9, !urlLocked);
   const currentId = steps[stepIndex] ?? 'review';
 
   // URL params (Razorpay flow)
