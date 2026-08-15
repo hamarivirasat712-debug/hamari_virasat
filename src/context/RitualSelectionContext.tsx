@@ -35,6 +35,8 @@ interface RitualSelectionContextType {
   setSelectedRituals: React.Dispatch<React.SetStateAction<SelectedRitual[]>>;
   // Converts selected rituals to intake form indices e.g. [0, 3, 6]
   getIntakeIndices: () => number[];
+  // Returns total price: ₹501 base + ₹199 per ritual beyond 3
+  calculateTotal: () => number;
 }
 
 const RitualSelectionContext = createContext<RitualSelectionContextType | null>(null);
@@ -48,8 +50,14 @@ export function RitualSelectionProvider({ children }: { children: React.ReactNod
       .filter(idx => idx !== undefined);
   };
 
+  const calculateTotal = () => {
+    const base = 1;
+    const extra = Math.max(0, selectedRituals.length - 3) * 1;
+    return base + extra;
+  };
+
   return (
-    <RitualSelectionContext.Provider value={{ selectedRituals, setSelectedRituals, getIntakeIndices }}>
+    <RitualSelectionContext.Provider value={{ selectedRituals, setSelectedRituals, getIntakeIndices, calculateTotal }}>
       {children}
     </RitualSelectionContext.Provider>
   );

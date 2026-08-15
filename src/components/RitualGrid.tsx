@@ -16,7 +16,7 @@ type Ritual = {
 
 export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
   const [expanded, setExpanded] = useState<string | null>(null);
-  const { selectedRituals, setSelectedRituals } = useRitualSelection();
+  const { selectedRituals, setSelectedRituals, calculateTotal } = useRitualSelection();
 
   const isSelected = (number: string) => selectedRituals.some(r => r.number === number);
 
@@ -24,12 +24,9 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
     e.stopPropagation();
     setSelectedRituals((prev) => {
       if (prev.some(r => r.number === number)) return prev.filter(r => r.number !== number);
-      if (prev.length >= 3) return prev;
       return [...prev, { number, title }];
     });
   };
-
-  const maxReached = selectedRituals.length >= 3;
 
   return (
     <section id="rituals" className="bg-[#F4DEB0] py-20 md:py-28">
@@ -49,12 +46,17 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
               style={{ fontFamily: 'var(--font-serif)' }}
             >
               Choose from our collection of rituals.{' '}
-              <span className="italic text-[#BD5319]">Pick any 3.</span>
+              <span className="italic text-[#BD5319]">Pick at least 3.</span>
             </h2>
           </div>
-          <p className="text-[#8C847C] text-sm md:text-base font-semibold leading-relaxed max-w-xs">
-            Choose any 3 rituals from our collection including a slot for your own family-specific ceremony. All documented in full.
-          </p>
+          <div className="max-w-xs">
+            <p className="text-[#8C847C] text-sm md:text-base font-semibold leading-relaxed mb-1">
+              Any 3 rituals for ₹501.
+            </p>
+            <p className="text-[#BD5319] text-sm font-semibold">
+              + ₹199 for each additional ritual.
+            </p>
+          </div>
         </div>
 
         {/* ── How it works instruction banner ── */}
@@ -68,9 +70,9 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
           <div>
             <p className="text-[#2A1208] text-sm font-bold mb-0.5">How to get started — 3 simple steps</p>
             <p className="text-[#5E2E14] text-sm font-medium leading-relaxed">
-              <span className="font-bold">①</span> Select up to 3 rituals below &nbsp;·&nbsp;
-              <span className="font-bold">②</span> Click <span className="font-bold">&quot;Preserve My Heritage&quot;</span> in the bar that appears &nbsp;·&nbsp;
-              <span className="font-bold">③</span> Complete your payment to receive the personalised form
+              <span className="font-bold">①</span> Select at least 3 rituals (add more at ₹199 each) &nbsp;·&nbsp;
+              <span className="font-bold">②</span> Click <span className="font-bold">&quot;Proceed to Payment&quot;</span> in the bar below &nbsp;·&nbsp;
+              <span className="font-bold">③</span> Complete payment to receive your personalised form
             </p>
           </div>
         </div>
@@ -79,16 +81,12 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
         {selectedRituals.length > 0 && (
           <div className="mb-6 flex items-center justify-center">
             <div className="inline-flex items-center gap-3 bg-[#2A1208] text-white text-sm px-5 py-2.5 rounded-full shadow-lg">
-              <span className="text-[#C9A84C] font-semibold">{selectedRituals.length}/3</span>
-              <span className="text-[#8C847C]">selected</span>
+              <span className="text-[#C9A84C] font-semibold">{selectedRituals.length} selected</span>
               <span className="text-[#5E2E14]">·</span>
-              <div className="flex gap-2">
-                {selectedRituals.map((r) => (
-                  <span key={r.number} className="text-white text-xs font-medium">
-                    {r.title}
-                  </span>
-                ))}
-              </div>
+              <span className="text-[#C9A84C] font-bold">₹{calculateTotal().toLocaleString('en-IN')}</span>
+              {selectedRituals.length > 3 && (
+                <span className="text-[#8C847C] text-xs">({selectedRituals.length - 3} extra × ₹199)</span>
+              )}
             </div>
           </div>
         )}
@@ -98,7 +96,8 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
           {rituals.map((ritual) => {
             const isExpanded = expanded === ritual.number;
             const isItemSelected = isSelected(ritual.number);
-            const isDisabled = maxReached && !isItemSelected;
+            const isDisabled = false; // No cap — all rituals always selectable
+            const isExtra = !isItemSelected && selectedRituals.length >= 3; // 4th+ selection costs extra
 
             /* ---- DIY card ---- */
             if (ritual.isDIY) {
@@ -146,14 +145,14 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
                           className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full border-2 transition-all duration-200 ${
                             isItemSelected
                               ? 'bg-[#D4AF37] text-[#2A1208] border-[#D4AF37] shadow-md'
-                              : isDisabled
-                              ? 'text-[#EFEAE2] border-[#EFEAE2] cursor-not-allowed'
+                              : isExtra
+                              ? 'text-[#BD5319] border-[#BD5319] hover:bg-[#BD5319] hover:text-white'
                               : 'text-[#D4AF37] border-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#2A1208]'
                           }`}
                         >
                           {isItemSelected ? (
                             <><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg> Selected</>
-                          ) : '+ Select'}
+                          ) : isExtra ? '+ ₹199' : '+ Select'}
                         </button>
                         <span
                           className="text-xs font-semibold tracking-wide px-2.5 py-1 rounded-full"
@@ -254,14 +253,14 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
                         className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full border-2 transition-all duration-200 ${
                           isItemSelected
                             ? 'bg-[#D4AF37] text-[#2A1208] border-[#D4AF37] shadow-md'
-                            : isDisabled
-                            ? 'text-[#EFEAE2] border-[#EFEAE2] cursor-not-allowed'
+                            : isExtra
+                            ? 'text-[#BD5319] border-[#BD5319] hover:bg-[#BD5319] hover:text-white'
                             : 'text-[#8C847C] border-[#EFEAE2] hover:border-[#D4AF37] hover:text-[#D4AF37]'
                         }`}
                       >
                         {isItemSelected ? (
                           <><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg> Selected</>
-                        ) : '+ Select'}
+                        ) : isExtra ? '+ ₹199' : '+ Select'}
                       </button>
                       <span
                         className="text-xs font-semibold tracking-wide px-2.5 py-1 rounded-full"
@@ -352,7 +351,10 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
               {/* Selected names */}
               <div className="flex-1 min-w-0">
                 <p className="text-[#C9A84C] text-xs font-bold tracking-wider uppercase mb-1.5">
-                  {selectedRituals.length === 3 ? '3 of 3 selected — ready to preserve' : `${selectedRituals.length} of 3 selected — choose ${3 - selectedRituals.length} more`}
+                  {selectedRituals.length < 3
+                    ? `${selectedRituals.length} of 3 selected — choose ${3 - selectedRituals.length} more`
+                    : `${selectedRituals.length} ritual${selectedRituals.length > 1 ? 's' : ''} selected — Total: ₹${calculateTotal().toLocaleString('en-IN')}`
+                  }
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {selectedRituals.map((r) => (
@@ -371,12 +373,12 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
               <a
                 href="#pricing"
                 className={`flex-shrink-0 inline-flex items-center gap-2 font-semibold text-sm px-6 py-3 rounded-xl transition-all duration-200 active:scale-95 ${
-                  selectedRituals.length === 3
+                  selectedRituals.length >= 3
                     ? 'bg-[#BD5319] hover:bg-[#A34310] text-white hover:shadow-lg hover:shadow-[#BD5319]/30'
                     : 'bg-white/10 text-[#8C847C] border border-white/10'
                 }`}
               >
-                {selectedRituals.length === 3 ? 'Preserve My Heritage' : 'See pricing'}
+                {selectedRituals.length >= 3 ? 'Proceed to Payment' : 'Select more'}
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>

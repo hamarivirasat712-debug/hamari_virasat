@@ -29,7 +29,7 @@ export default function Pricing() {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const { selectedRituals, getIntakeIndices } = useRitualSelection();
+  const { selectedRituals, getIntakeIndices, calculateTotal } = useRitualSelection();
 
   const handlePayment = async () => {
     if (!email) {
@@ -40,10 +40,11 @@ export default function Pricing() {
     setIsLoading(true);
     try {
       const ritualIndices = getIntakeIndices();
+      const total = calculateTotal();
       const res = await fetch('/api/razorpay/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: 501, email, ritualIndices })
+        body: JSON.stringify({ amount: total, email, ritualIndices })
       });
       const order = await res.json();
       if (!order.id) throw new Error('Failed to create order');
@@ -212,9 +213,17 @@ export default function Pricing() {
                 <div className="flex items-end gap-3 mb-3">
                   <span className="text-[#5C564F] text-lg md:text-2xl mb-2 font-medium">₹</span>
                   <span className="font-sans text-5xl md:text-6xl lg:text-7xl text-white font-semibold leading-none tracking-tight">
-                    501 <span className="text-3xl md:text-4xl text-[#8C847C] line-through ml-2 font-medium">999</span>
+                    {selectedRituals.length >= 3
+                      ? calculateTotal().toLocaleString('en-IN')
+                      : '1'}
+                    <span className="text-3xl md:text-4xl text-[#8C847C] line-through ml-2 font-medium">999</span>
                   </span>
                 </div>
+                {selectedRituals.length > 3 && (
+                  <p className="text-[#C9A84C] text-xs font-medium mb-1">
+                    ₹1 base + {selectedRituals.length - 3} × ₹1 extra ritual{selectedRituals.length - 3 > 1 ? 's' : ''}
+                  </p>
+                )}
                 <p className="text-[#5C564F] text-sm mb-2">One-time payment · Any 3 of 9 rituals · No subscription</p>
                 <p className="text-[#C9A84C] text-sm font-medium mb-10">
                   ✦ Early access price — limited time offer
