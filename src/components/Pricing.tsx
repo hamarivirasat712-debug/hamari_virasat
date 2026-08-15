@@ -43,7 +43,7 @@ export default function Pricing() {
       const res = await fetch('/api/razorpay/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: 1, email, ritualIndices })
+        body: JSON.stringify({ amount: 501, email, ritualIndices })
       });
       const order = await res.json();
       if (!order.id) throw new Error('Failed to create order');
@@ -209,20 +209,11 @@ export default function Pricing() {
 
               <div className="p-8 md:p-12">
                 {/* Price */}
-                {/* Price */}
-                <div className="flex flex-col gap-4 mb-3">
-                  <div className="flex items-end gap-3">
-                    <span className="text-[#5C564F] text-lg md:text-2xl mb-2 font-medium">₹</span>
-                    <span className="font-sans text-5xl md:text-6xl lg:text-7xl text-white font-semibold leading-none tracking-tight">
-                      1 <span className="text-3xl md:text-4xl text-[#8C847C] line-through ml-2 font-medium">999</span>
-                    </span>
-                  </div>
-                  <div className="flex items-end gap-3">
-                    <span className="text-[#5C564F] text-lg md:text-2xl mb-1 font-medium">$</span>
-                    <span className="font-sans text-3xl md:text-4xl lg:text-5xl text-[#C9A84C] font-semibold leading-none tracking-tight">
-                      10 <span className="text-xl md:text-2xl text-[#8C847C] line-through ml-2 font-medium">15</span> <span className="text-sm md:text-base text-[#5C564F] ml-2 tracking-wide uppercase">Global</span>
-                    </span>
-                  </div>
+                <div className="flex items-end gap-3 mb-3">
+                  <span className="text-[#5C564F] text-lg md:text-2xl mb-2 font-medium">₹</span>
+                  <span className="font-sans text-5xl md:text-6xl lg:text-7xl text-white font-semibold leading-none tracking-tight">
+                    501 <span className="text-3xl md:text-4xl text-[#8C847C] line-through ml-2 font-medium">999</span>
+                  </span>
                 </div>
                 <p className="text-[#5C564F] text-sm mb-2">One-time payment · Any 3 of 9 rituals · No subscription</p>
                 <p className="text-[#C9A84C] text-sm font-medium mb-10">

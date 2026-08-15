@@ -190,7 +190,7 @@ export default function Hero() {
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-10">
             <a
-              href="#pricing"
+              href="#rituals"
               id="hero-pay-now"
               className="inline-flex items-center justify-center gap-2 text-[#2A1208] hover:text-[#5E2E14] text-base font-medium px-8 py-4 rounded-xl border border-[#2A1208]/40 hover:border-[#2A1208]/80 hover:bg-[#2A1208]/10 transition-all duration-200 active:scale-95"
             >

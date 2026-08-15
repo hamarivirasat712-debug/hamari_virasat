@@ -57,6 +57,24 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
           </p>
         </div>
 
+        {/* ── How it works instruction banner ── */}
+        <div className="bg-[#2A1208]/8 border border-[#BD5319]/20 rounded-2xl px-6 py-5 mb-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <div className="flex-shrink-0 w-9 h-9 rounded-full bg-[#BD5319] flex items-center justify-center">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 1v7l4 2" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <circle cx="8" cy="8" r="7" stroke="white" strokeWidth="1.5"/>
+            </svg>
+          </div>
+          <div>
+            <p className="text-[#2A1208] text-sm font-bold mb-0.5">How to get started — 3 simple steps</p>
+            <p className="text-[#5E2E14] text-sm font-medium leading-relaxed">
+              <span className="font-bold">①</span> Select up to 3 rituals below &nbsp;·&nbsp;
+              <span className="font-bold">②</span> Click <span className="font-bold">&quot;Preserve My Heritage&quot;</span> in the bar that appears &nbsp;·&nbsp;
+              <span className="font-bold">③</span> Complete your payment to receive the personalised form
+            </p>
+          </div>
+        </div>
+
         {/* Selection counter pill */}
         {selectedRituals.length > 0 && (
           <div className="mb-6 flex items-center justify-center">
@@ -120,6 +138,23 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
                           </div>
                         )}
                       </div>
+                    {/* Top-right: select button + category */}
+                    <div className="flex flex-col items-end gap-2">
+                      <button
+                        onClick={(e) => toggleSelect(ritual.number, ritual.title, e)}
+                        disabled={isDisabled}
+                        className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full border-2 transition-all duration-200 ${
+                          isItemSelected
+                            ? 'bg-[#D4AF37] text-[#2A1208] border-[#D4AF37] shadow-md'
+                            : isDisabled
+                            ? 'text-[#EFEAE2] border-[#EFEAE2] cursor-not-allowed'
+                            : 'text-[#D4AF37] border-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#2A1208]'
+                        }`}
+                      >
+                        {isItemSelected ? (
+                          <><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg> Selected</>
+                        ) : '+ Select'}
+                      </button>
                       <span
                         className="text-xs font-semibold tracking-wide px-2.5 py-1 rounded-full"
                         style={{ background: '#D4AF3718', color: '#D4AF37' }}
@@ -160,23 +195,7 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
                       ))}
                     </div>
 
-                    {/* Select button */}
-                    <button
-                      onClick={(e) => toggleSelect(ritual.number, ritual.title, e)}
-                      disabled={isDisabled}
-                      className={`w-full flex items-center justify-center gap-2 text-xs font-semibold px-4 py-2.5 rounded-xl border transition-all duration-200 ${
-                        isItemSelected
-                          ? 'bg-[#D4AF37] text-[#2A1208] border-[#D4AF37]'
-                          : isDisabled
-                          ? 'text-[#EFEAE2] border-[#EFEAE2] cursor-not-allowed'
-                          : 'text-[#D4AF37] border-[#D4AF37]/40 hover:bg-[#D4AF37]/10'
-                      }`}
-                    >
-                      {isItemSelected ? (
-                        <><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> Selected</>
-                      ) : 'Select this ritual'}
-                    </button>
-                  </div>
+
                 </div>
               );
             }
@@ -227,16 +246,33 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
                         </div>
                       )}
                     </div>
-                    <span
-                      className="text-xs font-semibold tracking-wide px-2.5 py-1 rounded-full"
-                      style={{
-                        background: `${ritual.color}15`,
-                        color: ritual.color,
-                      }}
-                    >
-                      {ritual.category}
-                    </span>
-                  </div>
+                    {/* Top-right: select button + category */}
+                    <div className="flex flex-col items-end gap-2">
+                      <button
+                        onClick={(e) => toggleSelect(ritual.number, ritual.title, e)}
+                        disabled={isDisabled}
+                        className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full border-2 transition-all duration-200 ${
+                          isItemSelected
+                            ? 'bg-[#D4AF37] text-[#2A1208] border-[#D4AF37] shadow-md'
+                            : isDisabled
+                            ? 'text-[#EFEAE2] border-[#EFEAE2] cursor-not-allowed'
+                            : 'text-[#8C847C] border-[#EFEAE2] hover:border-[#D4AF37] hover:text-[#D4AF37]'
+                        }`}
+                      >
+                        {isItemSelected ? (
+                          <><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg> Selected</>
+                        ) : '+ Select'}
+                      </button>
+                      <span
+                        className="text-xs font-semibold tracking-wide px-2.5 py-1 rounded-full"
+                        style={{
+                          background: `${ritual.color}15`,
+                          color: ritual.color,
+                        }}
+                      >
+                        {ritual.category}
+                      </span>
+                    </div>
 
                   {/* Title */}
                   <h3
@@ -265,35 +301,18 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
                     ))}
                   </div>
 
-                  {/* Expand toggle + Select button */}
-                  <div className="mt-5 flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-1.5 text-[#BD5319] text-xs font-medium">
-                      <span>{isExpanded ? 'Show less' : `See all ${(ritual.subSections || []).length} sub-sections`}</span>
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 12 12"
-                        fill="none"
-                        className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}
-                      >
-                        <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
-                    <button
-                      onClick={(e) => toggleSelect(ritual.number, ritual.title, e)}
-                      disabled={isDisabled}
-                      className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border transition-all duration-200 flex-shrink-0 ${
-                        isItemSelected
-                          ? 'bg-[#D4AF37] text-[#2A1208] border-[#D4AF37]'
-                          : isDisabled
-                          ? 'text-[#EFEAE2] border-[#EFEAE2] cursor-not-allowed'
-                          : 'text-[#8C847C] border-[#EFEAE2] hover:border-[#D4AF37]/50 hover:text-[#D4AF37]'
-                      }`}
+                  {/* Expand toggle only — select button moved to top-right */}
+                  <div className="mt-5 flex items-center gap-1.5 text-[#BD5319] text-xs font-medium">
+                    <span>{isExpanded ? 'Show less' : `See all ${(ritual.subSections || []).length} sub-sections`}</span>
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}
                     >
-                      {isItemSelected ? (
-                        <><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg> Selected</>
-                      ) : '+ Select'}
-                    </button>
+                      <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                   </div>
                 </div>
               </div>
