@@ -242,13 +242,13 @@ export default function Pricing() {
                   <span className="font-sans text-5xl md:text-6xl lg:text-7xl text-white font-semibold leading-none tracking-tight">
                     {selectedRituals.length >= 3
                       ? calculateTotal().toLocaleString('en-IN')
-                      : '1'}
+                      : '501'}
                     <span className="text-3xl md:text-4xl text-[#8C847C] line-through ml-2 font-medium">999</span>
                   </span>
                 </div>
                 {selectedRituals.length > 3 && (
                   <p className="text-[#C9A84C] text-xs font-medium mb-1">
-                    ₹1 base + {selectedRituals.length - 3} × ₹1 extra ritual{selectedRituals.length - 3 > 1 ? 's' : ''}
+                    ₹501 base + {selectedRituals.length - 3} × ₹199 extra ritual{selectedRituals.length - 3 > 1 ? 's' : ''}
                   </p>
                 )}
                 <p className="text-[#5C564F] text-sm mb-2">One-time payment · Any 3 of 9 rituals · No subscription</p>

@@ -51,8 +51,8 @@ export function RitualSelectionProvider({ children }: { children: React.ReactNod
   };
 
   const calculateTotal = () => {
-    const base = 1;
-    const extra = Math.max(0, selectedRituals.length - 3) * 1;
+    const base = 501;
+    const extra = Math.max(0, selectedRituals.length - 3) * 199;
     return base + extra;
   };
 
