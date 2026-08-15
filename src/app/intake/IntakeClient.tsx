@@ -1,18 +1,18 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-// â”€â”€â”€ Data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Data ─────────────────────────────────────────────────────────────────
 
 const ALL_RITUALS = [
   { index: 0, label: 'Namkaran',              sublabel: 'Naming Ceremony' },
   { index: 1, label: 'Mundan',                sublabel: 'First Haircut' },
   { index: 2, label: 'Upanayana / Janeu',     sublabel: 'Sacred Thread Ceremony' },
   { index: 3, label: 'Engagement',            sublabel: 'Sagai' },
-  { index: 4, label: 'Wedding â€” Haldi',       sublabel: 'Turmeric Ceremony' },
-  { index: 5, label: 'Wedding â€” Mehendi',     sublabel: 'Henna Ceremony' },
-  { index: 6, label: 'Wedding â€” Main Ceremony', sublabel: 'Pheras & Vidaai' },
+  { index: 4, label: 'Wedding — Haldi',       sublabel: 'Turmeric Ceremony' },
+  { index: 5, label: 'Wedding — Mehendi',     sublabel: 'Henna Ceremony' },
+  { index: 6, label: 'Wedding — Main Ceremony', sublabel: 'Pheras & Vidaai' },
   { index: 7, label: 'Griha Pravesh',         sublabel: 'Housewarming' },
 ];
 
@@ -22,7 +22,7 @@ const SUB_QUESTIONS = [
   { key: 'songs',      label: 'Songs, prayers & mantras',                   placeholder: 'Include the words or phonetic spelling as your family says them...' },
   { key: 'roles',      label: 'Roles of each family member',                placeholder: 'Who stands where, who performs which action...' },
   { key: 'variations', label: 'Regional or family-specific variations',     placeholder: 'Anything your family does differently from the standard version...' },
-  { key: 'photos',     label: 'Photos or videos you can share later',       placeholder: 'Just describe what you have â€” we will follow up for the actual files...' },
+  { key: 'photos',     label: 'Photos or videos you can share later',       placeholder: 'Just describe what you have — we will follow up for the actual files...' },
 ];
 
 const MAX_SELECT = 3;
@@ -62,7 +62,7 @@ function buildSteps(sel: number[], card9: boolean): StepId[] {
   return s;
 }
 
-// â”€â”€â”€ Inner (needs useSearchParams) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Inner (needs useSearchParams) ────────────────────────────────────────
 
 function IntakeInner() {
   const searchParams = useSearchParams();
@@ -187,7 +187,7 @@ function IntakeInner() {
             Submitted. <span className="italic text-[#C9A84C]">Thank you.</span>
           </h1>
           <p className="text-[#8C847C] text-base font-light leading-relaxed max-w-md mb-6">
-            Our team will begin documentation and deliver your heirloom record within 7 days.
+            Our team will begin documentation and deliver your record within 7 days.
           </p>
           <p className="text-[#5C564F] text-sm">Confirmation sent to <span className="text-white">{form.email}</span></p>
         </div>
@@ -207,11 +207,11 @@ function IntakeInner() {
               Your Family&apos;s Rituals,<br /><span className="italic text-[#C9A84C]">Written Down Forever.</span>
             </h1>
             <p className="text-[#8C847C] text-base font-light leading-relaxed max-w-lg mb-10">
-              This form takes about 20â€“40 minutes. You don&apos;t have to do it all at once â€” your answers are saved automatically as you go.
+              This form takes about 20–40 minutes. You don&apos;t have to do it all at once — your answers are saved automatically as you go.
             </p>
             {hasRestored && (
               <div className="w-full max-w-md bg-[#3E1A0C] border border-[#C9A84C]/30 rounded-2xl p-5 mb-8 text-left">
-                <p className="text-[#C9A84C] text-sm font-medium mb-1">âœ¦ Welcome back</p>
+                <p className="text-[#C9A84C] text-sm font-medium mb-1">Welcome back</p>
                 <p className="text-[#8C847C] text-sm font-light">We found your saved progress{savedAt ? ` from ${savedAt}` : ''}.</p>
                 <div className="flex gap-3 mt-4">
                   <button onClick={() => goTo(stepIndex === 0 ? 1 : stepIndex)} className="flex-1 bg-[#BD5319] hover:bg-[#A34310] text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all">Continue</button>
@@ -222,13 +222,13 @@ function IntakeInner() {
             <button onClick={() => goTo(1)} className="inline-flex items-center gap-2 bg-[#BD5319] hover:bg-[#A34310] text-white font-semibold text-base px-10 py-4 rounded-xl transition-all hover:shadow-xl hover:shadow-[#BD5319]/30 active:scale-95">
               {hasRestored ? 'View My Progress' : 'Begin Documentation'} <Arrow />
             </button>
-            <p className="text-[#5C564F] text-xs mt-6 font-light">Takes 20â€“40 min Â· Save &amp; resume anytime Â· Completely private</p>
+            <p className="text-[#5C564F] text-xs mt-6 font-light">Takes 20–40 min · Save & resume anytime · Completely private</p>
           </div>
         )}
 
         {/* CONTACT */}
         {currentId === 'contact' && (
-          <Card step={stepLabel} total={stepTotal} title="Let's start with you" sub="So we can send your documentation and resume link.">
+          <Card step={stepLabel} total={stepTotal} title="Let's start with you" sub="We'll use your details to manage your account and send final files.">
             <Fld label="Your name" req><input className={inputCls} type="text" placeholder="Rohit Sharma" value={form.name} onChange={e => updateForm({ name: e.target.value })} /></Fld>
             <Fld label="Email address" req><input className={inputCls} type="email" placeholder="rohit@example.com" value={form.email} onChange={e => updateForm({ email: e.target.value })} /></Fld>
             <Fld label="Phone number" hint="optional"><input className={inputCls} type="tel" placeholder="+91 98765 43210" value={form.phone} onChange={e => updateForm({ phone: e.target.value })} /></Fld>
@@ -240,7 +240,7 @@ function IntakeInner() {
         {currentId === 'select' && (
           <Card step={stepLabel} total={stepTotal}
             title="Which rituals did you purchase?"
-            sub={urlLocked ? 'Your ritual selection has been pre-loaded from your order.' : `Select up to ${MAX_SELECT} rituals â€” only those sections will appear in the form.`}
+            sub={urlLocked ? 'Your ritual selection has been pre-loaded from your order.' : `Select up to ${MAX_SELECT} rituals — only those sections will appear in the form.`}
           >
             {urlLocked ? (
               <div className="flex flex-wrap gap-2 mb-4">
@@ -256,7 +256,7 @@ function IntakeInner() {
               <>
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-[#5C564F] text-xs">{form.selectedRituals.length} of {MAX_SELECT} selected</span>
-                  {form.selectedRituals.length === MAX_SELECT && <span className="text-[#C9A84C] text-xs font-medium">âœ¦ Maximum reached</span>}
+                  {form.selectedRituals.length === MAX_SELECT && <span className="text-[#C9A84C] text-xs font-medium">✦ Maximum reached</span>}
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                   {ALL_RITUALS.map(({ index, label, sublabel }) => {
@@ -283,7 +283,7 @@ function IntakeInner() {
                   <div className="flex items-center justify-between gap-2">
                     <div>
                       <p className="text-white text-sm font-medium">Custom / Regional Ritual</p>
-                      <p className="text-[#5C564F] text-xs mt-0.5 font-light">Card 9 â€” your family&apos;s unique ritual not in the list above</p>
+                      <p className="text-[#5C564F] text-xs mt-0.5 font-light">Card 9 — your family's unique ritual, not found in the list above</p>
                     </div>
                     <div className={`w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center border transition-colors ${form.includeCard9 ? 'bg-[#C9A84C] border-[#C9A84C]' : 'border-[#5E2E14]'}`}>
                       {form.includeCard9 && <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>}
@@ -314,7 +314,7 @@ function IntakeInner() {
           const info = ALL_RITUALS[currentId];
           const pos = form.selectedRituals.indexOf(currentId) + 1;
           return (
-            <Card step={stepLabel} total={stepTotal} title={info.label} sub={`Ritual ${pos} of ${form.selectedRituals.length} â€” ${info.sublabel}. Fill in as much or as little as you know.`}>
+            <Card step={stepLabel} total={stepTotal} title={info.label} sub={`Ritual ${pos} of ${form.selectedRituals.length} — ${info.sublabel}. Fill in as much or as little as you know.`}>
               {SUB_QUESTIONS.map(q => (
                 <Fld key={q.key} label={q.label}>
                   <textarea className={`${inputCls} min-h-[80px]`} rows={3} placeholder={q.placeholder}
@@ -328,7 +328,7 @@ function IntakeInner() {
 
         {/* CARD 9 */}
         {currentId === 'card9' && (
-          <Card step={stepLabel} total={stepTotal} title="Your Custom Ritual" sub="Describe your family's unique ritual â€” one that might not be in any standard list.">
+          <Card step={stepLabel} total={stepTotal} title="Your Custom Ritual" sub="Describe your family's unique ritual — one that might not be in any standard list.">
             <Fld label="Name of this ritual"><input className={inputCls} type="text" placeholder="e.g. Satyanarayan Puja, Sheetla Ashtami" value={form.customRitualName} onChange={e => updateForm({ customRitualName: e.target.value })} /></Fld>
             {SUB_QUESTIONS.map(q => (
               <Fld key={q.key} label={q.label}>
@@ -367,19 +367,19 @@ function IntakeInner() {
                     <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 border ${Object.values(form.rituals[8]).some(v => v.trim()) ? 'bg-[#C9A84C]/20 border-[#C9A84C]/40' : 'border-[#5E2E14]'}`}>
                       {Object.values(form.rituals[8]).some(v => v.trim()) && <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="#C9A84C" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" /></svg>}
                     </div>
-                    <span className="text-[#8C847C] text-sm font-light flex-1">Custom Ritual{form.customRitualName ? ` â€” ${form.customRitualName}` : ''}</span>
+                    <span className="text-[#8C847C] text-sm font-light flex-1">Custom Ritual{form.customRitualName ? ` — ${form.customRitualName}` : ''}</span>
                   </div>
                 )}
               </div>
             </div>
             {status === 'error' && <p className="text-[#BD5319] text-sm mb-4">Something went wrong. Please try again.</p>}
             <div className="flex flex-col sm:flex-row gap-3">
-              <button onClick={() => goTo(stepIndex - 1)} className="text-[#5C564F] hover:text-white text-sm px-5 py-3 rounded-xl border border-[#5E2E14] hover:border-white/20 transition-all">â† Back</button>
+              <button onClick={() => goTo(stepIndex - 1)} className="text-[#5C564F] hover:text-white text-sm px-5 py-3 rounded-xl border border-[#5E2E14] hover:border-white/20 transition-all">← Back</button>
               <button onClick={handleSubmit} disabled={status === 'submitting' || !form.email}
                 className="flex-1 inline-flex items-center justify-center gap-2 bg-[#BD5319] hover:bg-[#A34310] disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold text-base px-8 py-3.5 rounded-xl transition-all active:scale-95">
                 {status === 'submitting'
                   ? <><svg className="animate-spin" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="white" strokeWidth="1.5" strokeDasharray="28" strokeDashoffset="10" /></svg>Submitting...</>
-                  : <>Submit My Family&apos;s Details <Arrow /></>}
+                  : <>Submit My Family's Details <Arrow /></>}
               </button>
             </div>
           </Card>
@@ -389,7 +389,7 @@ function IntakeInner() {
   );
 }
 
-// â”€â”€â”€ Page export (Suspense wraps useSearchParams) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Page export (Suspense wraps useSearchParams) ──────────────────────────
 export default function IntakePage() {
   return (
     <Suspense fallback={<div className="min-h-screen bg-[#2A1208] flex items-center justify-center"><span className="text-[#5C564F] text-sm">Loading...</span></div>}>
@@ -398,7 +398,7 @@ export default function IntakePage() {
   );
 }
 
-// â”€â”€â”€ Tiny reusable components â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Tiny reusable components ──────────────────────────────────────────────
 
 function Shell({ children, bar, pct, savedAt }: { children: React.ReactNode; bar: boolean; pct: number; savedAt: string | null }) {
   return (
@@ -451,7 +451,7 @@ function Fld({ label, hint, req, children }: { label: string; hint?: string; req
 function Nav({ back, next, canNext, nextLabel }: { back: () => void; next: () => void; canNext: boolean; nextLabel?: string }) {
   return (
     <div className="flex gap-3 pt-4">
-      <button onClick={back} className="text-[#5C564F] hover:text-white text-sm px-5 py-3 rounded-xl border border-[#5E2E14] hover:border-white/20 transition-all">â† Back</button>
+      <button onClick={back} className="text-[#5C564F] hover:text-white text-sm px-5 py-3 rounded-xl border border-[#5E2E14] hover:border-white/20 transition-all">← Back</button>
       <button onClick={next} disabled={!canNext} className="flex-1 inline-flex items-center justify-center gap-2 bg-[#BD5319] hover:bg-[#A34310] disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold text-sm px-6 py-3 rounded-xl transition-all active:scale-95">
         {nextLabel ?? 'Continue'} <Arrow />
       </button>
