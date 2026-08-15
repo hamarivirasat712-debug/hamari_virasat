@@ -152,20 +152,31 @@ function IntakeInner() {
   const handleSubmit = async () => {
     setStatus('submitting');
     try {
-      const url = process.env.NEXT_PUBLIC_APPS_SCRIPT_INTAKE_URL;
-      if (url) {
-        await fetch(url, {
+      const selectedRitualNames = form.selectedRituals.map(i => ALL_RITUALS[i].label);
+      const payload = { ...form, selectedRitualNames };
+
+      // Save to Supabase (admin dashboard) via our own API
+      await fetch('/api/admin/submissions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      // Also save to Google Sheets as raw backup
+      const scriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_INTAKE_URL;
+      if (scriptUrl) {
+        await fetch(scriptUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             secret: process.env.NEXT_PUBLIC_APPS_SCRIPT_SHARED_SECRET,
             type: 'intake',
-            ...form,
-            selectedRitualNames: form.selectedRituals.map(i => ALL_RITUALS[i].label),
+            ...payload,
           }),
           mode: 'no-cors',
         });
       }
+
       localStorage.removeItem(STORAGE_KEY);
       setStatus('success');
     } catch { setStatus('error'); }

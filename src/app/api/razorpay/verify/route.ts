@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { SignJWT } from 'jose';
 import { Resend } from 'resend';
+import { supabase } from '@/lib/supabase';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-for-development-only';
 
@@ -36,7 +37,22 @@ export async function POST(req: Request) {
       .setExpirationTime('30d') // Link valid for 30 days
       .sign(secretKey);
 
-    // 3. Build magic link — append ?r=0,3,6 so the form pre-loads only selected rituals
+    // 3. Save order to Supabase for the admin dashboard
+    const ritualLabels: Record<number, string> = {
+      0: 'Namkaran', 1: 'Mundan', 2: 'Upanayana / Janeu', 3: 'Engagement',
+      4: 'Wedding — Haldi', 5: 'Wedding — Mehendi', 6: 'Wedding — Main Ceremony',
+      7: 'Griha Pravesh',
+    };
+    await supabase.from('orders').insert([{
+      customer_email: email,
+      payment_id: razorpay_payment_id,
+      order_id: razorpay_order_id,
+      ritual_indices: ritualIndices,
+      ritual_names: ritualIndices.map((i: number) => ritualLabels[i] || `Ritual ${i}`),
+      status: 'pending',
+    }]);
+
+    // 4. Build magic link
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
     const rParam = ritualIndices.length > 0 ? `&r=${ritualIndices.join(',')}` : '';
     const magicLink = `${baseUrl}/intake?token=${token}${rParam}`;
