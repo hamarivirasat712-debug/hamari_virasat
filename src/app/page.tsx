@@ -2,10 +2,9 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import WhyPreserve from '@/components/WhyPreserve';
 import HowItWorks from '@/components/HowItWorks';
-import RitualGrid from '@/components/RitualGrid';
+import RitualPricingSection from '@/components/RitualPricingSection';
 
 import SocialProof from '@/components/SocialProof';
-import Pricing from '@/components/Pricing';
 import ComingSoon from '@/components/ComingSoon';
 import FAQ from '@/components/FAQ';
 import EnquiryForm from '@/components/EnquiryForm';
@@ -34,10 +33,9 @@ export default async function Home() {
       <Hero />
       <WhyPreserve />
       <HowItWorks />
-      <RitualGrid rituals={rituals} />
+      <RitualPricingSection rituals={rituals} />
 
       <SocialProof />
-      <Pricing />
       <ComingSoon />
       <FAQ />
       <EnquiryForm />

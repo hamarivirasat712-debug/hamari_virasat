@@ -14,6 +14,7 @@ export async function POST(req: Request) {
       razorpay_payment_id,
       razorpay_signature,
       email,
+      ritualIndices = [] as number[],
     } = body;
 
     // 1. Verify the signature
@@ -29,39 +30,48 @@ export async function POST(req: Request) {
 
     // 2. Generate a secure JWT for the intake form access
     const secretKey = new TextEncoder().encode(JWT_SECRET);
-    const token = await new SignJWT({ email, payment_id: razorpay_payment_id })
+    const token = await new SignJWT({ email, payment_id: razorpay_payment_id, ritualIndices })
       .setProtectedHeader({ alg: 'HS256' })
       .setIssuedAt()
       .setExpirationTime('30d') // Link valid for 30 days
       .sign(secretKey);
 
-    // 3. Send email using Resend
-    const magicLink = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/intake?token=${token}`;
+    // 3. Build magic link — append ?r=0,3,6 so the form pre-loads only selected rituals
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const rParam = ritualIndices.length > 0 ? `&r=${ritualIndices.join(',')}` : '';
+    const magicLink = `${baseUrl}/intake?token=${token}${rParam}`;
 
     if (process.env.RESEND_API_KEY && resend) {
-      await resend.emails.send({
-        from: 'onboarding@resend.dev', // Update this to a verified domain on Resend before going live
-        to: email,
-        subject: 'Your Ritual Documentation Link - Hamari Virasat',
-        html: `
-          <div style="font-family: sans-serif; max-w: 600px; margin: 0 auto; color: #2A1208;">
-            <h1 style="color: #BD5319;">Thank you for your purchase!</h1>
-            <p>Your payment (ID: ${razorpay_payment_id}) was successful.</p>
-            <p>You can now begin documenting your family's rituals using the secure link below. You can save your progress and return to this link anytime within the next 30 days.</p>
-            <div style="margin: 30px 0;">
-              <a href="${magicLink}" style="background-color: #BD5319; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">
-                Start Documentation
-              </a>
+      try {
+        const emailResult = await resend.emails.send({
+          from: 'onboarding@resend.dev', // TODO: Replace with professional domain email before going live
+          to: email,
+          subject: 'Your Ritual Documentation Link - Hamari Virasat',
+          html: `
+            <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #2A1208;">
+              <h1 style="color: #BD5319;">Thank you for your purchase!</h1>
+              <p>Your payment (ID: ${razorpay_payment_id}) was successful.</p>
+              <p>You can now begin documenting your family's rituals using the secure link below. You can save your progress and return to this link anytime within the next 30 days.</p>
+              <div style="margin: 30px 0;">
+                <a href="${magicLink}" style="background-color: #BD5319; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+                  Start Documentation
+                </a>
+              </div>
+              <p>Or copy and paste this URL into your browser:</p>
+              <p style="word-break: break-all; color: #8C847C;">${magicLink}</p>
+              <br/>
+              <p>Warmly,<br/>The Hamari Virasat Team</p>
             </div>
-            <p>Or copy and paste this URL into your browser:</p>
-            <p style="word-break: break-all; color: #8C847C;">${magicLink}</p>
-            <br/>
-            <p>Warmly,<br/>The Hamari Virasat Team</p>
-          </div>
-        `,
-      });
+          `,
+        });
+        console.log('✅ Email sent successfully via Resend:', JSON.stringify(emailResult));
+      } catch (emailError: any) {
+        console.error('❌ Resend email failed:', emailError?.message || emailError);
+        // Don't block the success response — the JWT token is still valid
+        // The magic link is still returned in the API response for fallback
+      }
     } else {
-      console.warn('RESEND_API_KEY is not set. Magic link generated but not emailed:', magicLink);
+      console.warn('⚠️ RESEND_API_KEY is not set. Magic link (copy this to test):', magicLink);
     }
 
     return NextResponse.json({ success: true, token }, { status: 200 });

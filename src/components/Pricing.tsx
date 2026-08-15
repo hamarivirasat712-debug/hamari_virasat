@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Script from 'next/script';
+import { useRitualSelection } from '@/context/RitualSelectionContext';
 
 declare global {
   interface Window {
@@ -28,6 +29,7 @@ export default function Pricing() {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const { selectedRituals, getIntakeIndices } = useRitualSelection();
 
   const handlePayment = async () => {
     if (!email) {
@@ -37,10 +39,11 @@ export default function Pricing() {
     
     setIsLoading(true);
     try {
+      const ritualIndices = getIntakeIndices();
       const res = await fetch('/api/razorpay/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: 501, email })
+        body: JSON.stringify({ amount: 1, email, ritualIndices })
       });
       const order = await res.json();
       if (!order.id) throw new Error('Failed to create order');
@@ -62,7 +65,8 @@ export default function Pricing() {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
-                email
+                email,
+                ritualIndices
               })
             });
             
@@ -123,8 +127,17 @@ export default function Pricing() {
           ) : (
             <div className="p-8 text-center">
               <h3 className="font-serif text-2xl text-[#2A1208] mb-2">Where should we send your secure link?</h3>
+              {selectedRituals.length > 0 && (
+                <div className="flex flex-wrap justify-center gap-2 mb-4">
+                  {selectedRituals.map(r => (
+                    <span key={r.number} className="text-xs bg-[#BD5319]/10 border border-[#BD5319]/20 text-[#BD5319] px-3 py-1 rounded-full font-medium">
+                      {r.title}
+                    </span>
+                  ))}
+                </div>
+              )}
               <p className="text-[#8C847C] text-sm mb-6">
-                After payment, you will receive an email with a unique link to your family's documentation form.
+                After payment, you will receive an email with a secure link to the form — pre-loaded with your selected rituals.
               </p>
               <input 
                 type="email" 
@@ -201,7 +214,7 @@ export default function Pricing() {
                   <div className="flex items-end gap-3">
                     <span className="text-[#5C564F] text-lg md:text-2xl mb-2 font-medium">₹</span>
                     <span className="font-sans text-5xl md:text-6xl lg:text-7xl text-white font-semibold leading-none tracking-tight">
-                      501 <span className="text-3xl md:text-4xl text-[#8C847C] line-through ml-2 font-medium">999</span>
+                      1 <span className="text-3xl md:text-4xl text-[#8C847C] line-through ml-2 font-medium">999</span>
                     </span>
                   </div>
                   <div className="flex items-end gap-3">
