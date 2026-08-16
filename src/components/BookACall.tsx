@@ -116,7 +116,7 @@ export default function BookACall() {
                 </div>
 
                 <div className="border-t border-[#EFEAE2] pt-4">
-                  <p className="text-[#8C847C] text-xs mb-3">Available times â€” 13 July</p>
+                  <p className="text-[#8C847C] text-xs mb-3">Available times 13 July</p>
                   <div className="grid grid-cols-3 gap-2">
                     {['10:00 AM', '11:30 AM', '2:00 PM', '3:30 PM', '5:00 PM', '6:30 PM'].map((time) => (
                       <button

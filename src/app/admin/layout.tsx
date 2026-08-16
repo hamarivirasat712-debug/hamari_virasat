@@ -19,6 +19,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { label: 'Enquiries', href: '/admin/enquiries' },
   ];
 
+  const isLoginPage = pathname === '/admin/login';
+
+  if (isLoginPage) {
+    return <>{children}</>;
+  }
+
   return (
     <div className="min-h-screen bg-[#1A0C04]">
       {/* Top nav */}

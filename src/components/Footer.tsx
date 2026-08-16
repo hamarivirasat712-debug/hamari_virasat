@@ -101,7 +101,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-[#3E1A0C] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-[#5C564F] text-xs font-light text-center sm:text-left">
-            Â© {year} Hamari Virasat. All rights reserved. Memory &amp; Ritual Preservation Platform
+          © {year} Hamari Virasat. All rights reserved. Memory &amp; Ritual Preservation Platform
           </p>
           <div className="flex items-center gap-5">
             <a href="#" className="text-[#5C564F] hover:text-white text-xs font-light transition-colors">Privacy Policy</a>
