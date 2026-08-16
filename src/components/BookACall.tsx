@@ -1,4 +1,5 @@
 import React from 'react';
+import Script from 'next/script';
 
 export default function BookACall() {
   return (
@@ -7,7 +8,7 @@ export default function BookACall() {
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
 
-          {/* Left â€” Copy */}
+          {/* Left — Copy */}
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="section-divider" />
@@ -46,7 +47,9 @@ export default function BookACall() {
 
             <div className="flex flex-col sm:flex-row gap-3">
               <a
-                href="#"
+                href="https://calendly.com/hamarivirasat712"
+                target="_blank"
+                rel="noopener noreferrer"
                 id="book-call-btn"
                 className="inline-flex items-center justify-center gap-2 bg-[#2A1208] hover:bg-[#3E1A0C] text-white font-semibold text-sm px-7 py-3.5 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-black/20 active:scale-95"
               >
@@ -64,80 +67,19 @@ export default function BookACall() {
             </div>
           </div>
 
-          {/* Right â€” Calendly embed placeholder */}
+          {/* Right — Calendly inline widget */}
           <div className="relative">
-            <div className="bg-white border border-[#EFEAE2] rounded-2xl overflow-hidden shadow-lg shadow-[#2A1208]/5">
-              {/* Header */}
-              <div className="bg-[#2A1208] px-6 py-5">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-[#BD5319] rounded-full flex items-center justify-center">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                      <rect x="2" y="3" width="10" height="9" rx="1.5" stroke="white" strokeWidth="1.2"/>
-                      <path d="M5 2v2M9 2v2" stroke="white" strokeWidth="1.2" strokeLinecap="round"/>
-                      <path d="M2 6h10" stroke="white" strokeWidth="1.2"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-white text-sm font-medium">Book a Free 15-min Call</p>
-                    <p className="text-[#5C564F] text-xs">with Hamari Virasat</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Calendar placeholder */}
-              <div className="p-6">
-                <p className="text-[#8C847C] text-xs uppercase tracking-wider mb-4">Select a date</p>
-                {/* Fake calendar grid */}
-                <div className="grid grid-cols-7 gap-1 mb-4">
-                  {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, i) => (
-                    <div key={i} className="text-center text-[#8C847C] text-xs py-1 font-medium">{d}</div>
-                  ))}
-                  {Array.from({ length: 35 }, (_, i) => {
-                    const day = i - 2;
-                    const isToday = day === 13;
-                    const isAvailable = day > 0 && day <= 31 && ![1, 7, 8, 14, 15, 21, 22].includes(day);
-                    return (
-                      <div
-                        key={i}
-                        className={`text-center text-xs py-1.5 rounded-lg cursor-pointer transition-all ${
-                          day <= 0 || day > 31
-                            ? 'text-transparent'
-                            : isToday
-                            ? 'bg-[#BD5319] text-white font-semibold'
-                            : isAvailable
-                            ? 'text-[#2A1208] hover:bg-[#BD5319]/10 font-medium'
-                            : 'text-[#EFEAE2]'
-                        }`}
-                      >
-                        {day > 0 && day <= 31 ? day : ''}
-                      </div>
-                    );
-                  })}
-                </div>
-
-                <div className="border-t border-[#EFEAE2] pt-4">
-                  <p className="text-[#8C847C] text-xs mb-3">Available times 13 July</p>
-                  <div className="grid grid-cols-3 gap-2">
-                    {['10:00 AM', '11:30 AM', '2:00 PM', '3:30 PM', '5:00 PM', '6:30 PM'].map((time) => (
-                      <button
-                        key={time}
-                        className="text-[#2A1208] text-xs border border-[#EFEAE2] rounded-lg py-2 hover:bg-[#BD5319] hover:text-white hover:border-[#BD5319] transition-all duration-150 font-medium"
-                      >
-                        {time}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
+            <div className="bg-white border border-[#EFEAE2] rounded-2xl overflow-hidden shadow-lg shadow-[#2A1208]/5 min-h-[600px] flex items-center justify-center">
+              <div 
+                className="calendly-inline-widget w-full" 
+                data-url="https://calendly.com/hamarivirasat712?hide_landing_page_details=1&hide_gdpr_banner=1" 
+                style={{ minWidth: '320px', height: '600px' }} 
+              ></div>
             </div>
-
-            {/* Note */}
-            <p className="text-center text-[#8C847C] text-xs mt-4 font-light">
-              Calendly embed will be configured with your link at launch
-            </p>
           </div>
         </div>
       </div>
+      <Script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" strategy="lazyOnload" />
     </section>
   );
 }
