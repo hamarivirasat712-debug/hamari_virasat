@@ -1,7 +1,8 @@
-﻿export default function WhatsAppButton() {
+export default function WhatsAppButton() {
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919238820685';
   return (
     <a
-      href="https://wa.me/919999999999?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20Hamari Virasat%20ritual%20documentation."
+      href={`https://wa.me/${whatsappNumber}?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20Hamari%20Virasat%20ritual%20documentation.`}
       target="_blank"
       rel="noopener noreferrer"
       id="whatsapp-float"

@@ -279,7 +279,7 @@ export default function EnquiryForm() {
             {/* Alternate contact options */}
             <div className="space-y-3">
               <a
-                href="https://wa.me/919238820685 "
+                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919238820685'}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 id="enquiry-whatsapp-link"

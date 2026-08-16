@@ -69,11 +69,11 @@ export default function BookACall() {
 
           {/* Right — Calendly inline widget */}
           <div className="relative">
-            <div className="bg-white border border-[#EFEAE2] rounded-2xl overflow-hidden shadow-lg shadow-[#2A1208]/5 min-h-[600px] flex items-center justify-center">
+            <div className="bg-white border border-[#EFEAE2] rounded-2xl overflow-hidden shadow-lg shadow-[#2A1208]/5 min-h-[700px] flex items-center justify-center">
               <div 
                 className="calendly-inline-widget w-full" 
                 data-url="https://calendly.com/hamarivirasat712?hide_landing_page_details=1&hide_gdpr_banner=1" 
-                style={{ minWidth: '320px', height: '600px' }} 
+                style={{ minWidth: '320px', height: '700px' }} 
               ></div>
             </div>
           </div>

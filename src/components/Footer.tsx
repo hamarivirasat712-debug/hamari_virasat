@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import Image from 'next/image';
 import logoAsset from '../assets/logo.png';
 
@@ -56,7 +56,7 @@ export default function Footer() {
             <p className="text-[#8C847C] text-xs font-bold tracking-[0.25em] uppercase mb-5">Get in Touch</p>
             <div className="space-y-4">
               <a
-                href="https://wa.me/919999999999"
+                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919238820685'}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-[#5C564F] hover:text-white text-sm font-light transition-colors"

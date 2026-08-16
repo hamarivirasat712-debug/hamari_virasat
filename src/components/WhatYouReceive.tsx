@@ -86,7 +86,7 @@ export default function WhatYouReceive() {
           </h2>
           <p className="text-[#8C847C] text-base md:text-lg font-light leading-relaxed">
             Not a data export. Not a digital file to be forgotten in a folder. A structured, beautiful record
-            of your family&apos;s rituals â€” formatted to be printed, framed, and passed down.
+            of your family&apos;s rituals formatted to be printed, framed, and passed down.
           </p>
         </div>
 
@@ -110,7 +110,7 @@ export default function WhatYouReceive() {
                       Hamari Virasat
                     </span>
                   </div>
-                  <span className="text-[#5C564F] text-xs">Heritage Record Â· 2026</span>
+                  <span className="text-[#5C564F] text-xs">Heritage Record · 2026</span>
                 </div>
                 <h3
                   className="font-serif text-2xl text-white font-normal italic"
@@ -132,7 +132,7 @@ export default function WhatYouReceive() {
                 {/* Ritual entry */}
                 <div className="mb-6">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="text-[#C9A84C] text-xs font-bold tracking-wider uppercase">01 Â· Godbharai</span>
+                    <span className="text-[#C9A84C] text-xs font-bold tracking-wider uppercase">01 · Godbharai</span>
                     <span className="text-xs text-[#BD5319] bg-[#BD5319]/10 px-2 py-0.5 rounded-full">Prebirth</span>
                   </div>
 

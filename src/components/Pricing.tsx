@@ -279,7 +279,7 @@ export default function Pricing() {
 
                 {/* Divider */}
                 <div className="border-t border-[#5E2E14] pt-8 mb-8">
-                  <p className="text-[#8C847C] text-xs uppercase tracking-wider font-medium mb-5">
+                  <p className="text-white text-xs uppercase tracking-wider font-medium mb-5">
                     Everything that&apos;s included:
                   </p>
                   <div className="space-y-3">
@@ -289,8 +289,8 @@ export default function Pricing() {
                            <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
                              <path d="M1.5 4l2 2 3-3" stroke="#A0B0E0" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
                            </svg>
-                         </div>
-                        <span className="text-[#8C847C] text-sm font-light leading-relaxed">{item}</span>
+                          </div>
+                        <span className="text-white text-sm font-light leading-relaxed">{item}</span>
                       </div>
                     ))}
                   </div>

@@ -282,24 +282,24 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
                     {ritual.title}
                   </h3>
 
-                  {/* Description (visible when expanded) */}
-                  {isExpanded && (
-                    <p className="text-[#8C847C] text-sm leading-relaxed font-light mb-5">
-                      {ritual.description}
-                    </p>
-                  )}
+                  {/* Description (always visible) */}
+                  <p className="text-[#8C847C] text-sm leading-relaxed font-light mb-5">
+                    {ritual.description}
+                  </p>
 
-                  {/* Sub-sections */}
-                  <div className={`flex flex-wrap gap-2 ${isExpanded ? '' : 'mt-1'}`}>
-                    {(ritual.subSections || []).map((sub) => (
-                      <span
-                        key={sub}
-                        className="text-[#8A8076] text-xs bg-[#FAF6F0] border border-[#EFEAE2] rounded-full px-3 py-1"
-                      >
-                        {sub}
-                      </span>
-                    ))}
-                  </div>
+                  {/* Sub-sections (visible when expanded) */}
+                  {isExpanded && (
+                    <div className="flex flex-wrap gap-2 mt-2 animate-fade-in-up">
+                      {(ritual.subSections || []).map((sub) => (
+                        <span
+                          key={sub}
+                          className="text-[#8A8076] text-xs bg-[#FAF6F0] border border-[#EFEAE2] rounded-full px-3 py-1"
+                        >
+                          {sub}
+                        </span>
+                      ))}
+                    </div>
+                  )}
 
                   {/* Expand toggle */}
                   <div className="mt-5 flex items-center gap-1.5 text-[#BD5319] text-xs font-medium">

@@ -20,7 +20,7 @@ const steps = [
     number: '02',
     title: 'Treasure it effortlessly',
     body:
-      'Take your time to fill out the form using the link provided. once you submit it, we will sent you a draft version to check and approve.',
+      'Take your time to fill out the form using the link provided. Once you submit all the information, we will send you draft version for approval.',
     detail: '6 sub-sections per ritual · Save & resume anytime',
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -105,7 +105,7 @@ export default function HowItWorks() {
                   >
                     {step.title}
                   </h3>
-                  <p className="text-[#8C847C] text-sm leading-relaxed font-light mb-6">
+                  <p className="text-white text-sm leading-relaxed font-light mb-6">
                     {step.body}
                   </p>
 
