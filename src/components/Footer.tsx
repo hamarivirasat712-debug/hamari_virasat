@@ -63,6 +63,7 @@ export default function Footer() {
             <p className="text-[#C9A84C] text-xs font-bold tracking-[0.25em] uppercase mb-5">Navigate</p>
             <div className="space-y-3">
               {[
+                { label: 'About Us', href: '#about-us' },
                 { label: 'Our Rituals', href: '#rituals' },
                 { label: 'How It Works', href: '#how-it-works' },
                 { label: 'What You Receive', href: '#what-you-receive' },

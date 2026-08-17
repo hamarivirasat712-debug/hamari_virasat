@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import WhyPreserve from '@/components/WhyPreserve';
+import AboutUs from '@/components/AboutUs';
 import HowItWorks from '@/components/HowItWorks';
 import RitualPricingSection from '@/components/RitualPricingSection';
 
@@ -32,6 +33,7 @@ export default async function Home() {
       <Navbar />
       <Hero />
       <WhyPreserve />
+      <AboutUs />
       <HowItWorks />
       <RitualPricingSection rituals={rituals} />
 
