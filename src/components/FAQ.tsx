@@ -4,6 +4,10 @@ import React, { useState } from 'react';
 
 const faqs = [
   {
+    q: 'What is Hamari Virasat?',
+    a: 'Hamari Virasat is a secure digital-first family rituals archiving platform. We help you systematically record your family’s unique traditions, food, recipes, ritual-specific songs, and document ritual-specific images. We turn your rituals into a structured, permanent family legacy.',
+  },
+  {
     q: 'What format does the final document come in?',
     a: 'You receive a beautifully formatted PDF — designed with heritage typography and structured sections, built to be printed and kept. It is not a data export or a plain text file. It is a document that looks like the heirloom it is.',
   },
@@ -12,32 +16,44 @@ const faqs = [
     a: 'Once your intake form is fully completed, we assemble and deliver your document within 7 working days. Most families complete their form over 3–7 days, working in sittings with their elders. You can save and resume at any time — there is no deadline.',
   },
   {
-    q: 'What if I don\'t remember all the details of a ritual?',
-    a: 'That is completely fine. Fill in what you know, and leave the rest for later. Our save-and-resume feature means you can go back to consult a grandparent, look through old photos, or gather the family before finishing. Partial records are better than none — and we will work with what you have.',
+    q: 'Can we add our own custom family rituals which are not listed?',
+    a: 'Absolutely. Every family has its own unique flavor. While we provide pre-built baseline templates, your family can create custom entries for any regional or unique traditions that fall outside the documented ceremonies.',
   },
   {
-    q: 'Can we add our own custom family rituals which are not listed?',
-    a: 'Absolutely. Every family has its own unique flavor. While we provide pre-built baseline templates, your family can create custom entries for any regional or unique traditions that fall outside the 9 documented ceremonies.',
+    q: 'How do you collect stories from your elders?',
+    a: 'We make it effortless. The platform features an intuitive, guided template where you can write details from your memory or by asking your elders.',
   },
   {
     q: 'Do my grandparents need to download a mobile app?',
-    a: 'Not at all. We know technology can be an obstacle for elders. They can contribute their memories, songs, and stories simply by sharing details with you or replying to prompts.',
+    a: 'Not at all. We know technology can be an obstacle for elders. They can contribute their memories, songs, and stories simply by replying to voice notes or text prompts inside WhatsApp.',
   },
   {
-    q: 'Can my siblings or cousins contribute to the same record?',
-    a: 'Yes! You can collaborate easily by sharing your secure save-and-resume form link with family members so they can add details, songs, and photographs.',
+    q: 'What if my elders speak a regional language or dialect?',
+    a: 'We embrace it. Regional language support is being incorporated. Our platform features an intake pipeline that captures raw regional audio and transcribes/translates the dialect into a clean, written format for your review before logging it in your digital guide.',
+  },
+  {
+    q: 'Are there hidden charges for custom rituals?',
+    a: 'No hidden surprises. The launching plan includes 3 rituals at a flat discounted rate, and additional rituals can be added anytime.',
+  },
+  {
+    q: 'Who has access to our family\'s data and media?',
+    a: 'Your privacy is our highest priority. Your cloud vault is encrypted and entirely private. No external user or search engine can view your stories, photos, or voice clips without your direct invitation.',
+  },
+  {
+    q: 'Can my siblings or cousins contribute to the same vault?',
+    a: 'Yes! You can collaborate easily by sharing your secure link with family members so they can add details, songs, and photographs to your shared vault.',
+  },
+  {
+    q: 'What if I don\'t remember all the details of a ritual?',
+    a: 'That is completely fine. Fill in what you know, and leave the rest for later. Our save-and-resume feature means you can go back to consult a grandparent, look through old photos, or gather the family before finishing.',
   },
   {
     q: 'What is your refund policy?',
-    a: 'We offer a 7-day money-back guarantee. If you are not completely satisfied after completing the intake form and receiving your document, contact us within 7 days of delivery for a full refund.',
-  },
-  {
-    q: 'Is my family\'s information kept private?',
-    a: 'Completely. Your family\'s information — the Gotra, the songs, the ritual details, the photographs — is encrypted, entirely private, used only to produce your document, and is never shared with any third party or used for public AI training.',
+    a: 'We offer a 7-day money-back guarantee. If you are not completely satisfied after completing the intake form and receiving your document, contact us within 7 days of delivery and we will make it right, or issue a full refund.',
   },
   {
     q: 'How do I get started with the onboarding process?',
-    a: 'Once you complete payment, you will receive an email with your secure form link. You can complete step-by-step ritual prompts, upload high-definition family media, and take your time gathering stories from your elders.',
+    a: 'Once you subscribe, you will receive an email with your secure link. You can complete step-by-step ritual prompts and upload high-definition family media. You can take your time to ask and collect information from your elders and family members.',
   },
 ];
 
