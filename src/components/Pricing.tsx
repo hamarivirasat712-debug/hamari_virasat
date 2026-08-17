@@ -48,7 +48,9 @@ export default function Pricing() {
         body: JSON.stringify({ amount: total, email, ritualIndices })
       });
       const order = await res.json();
-      if (!order.id) throw new Error('Failed to create order');
+      if (!res.ok || !order.id) {
+        throw new Error(order.error || 'Failed to create order');
+      }
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '', // Ensure this is available
@@ -82,11 +84,11 @@ export default function Pricing() {
               console.log('✅ Magic Link (use this if email did not arrive):', link);
               setSuccess(true);
             } else {
-              alert('Payment verification failed. Please contact support.');
+              alert(`Payment verification failed: ${verifyData.error || 'Please contact support.'}`);
             }
-          } catch (err) {
+          } catch (err: any) {
             console.error(err);
-            alert('An error occurred during verification.');
+            alert(`An error occurred during verification: ${err?.message || 'Please try again.'}`);
           } finally {
             setIsLoading(false);
           }
@@ -100,9 +102,9 @@ export default function Pricing() {
          alert(`Payment failed: ${response.error.description}`);
       });
       rzp.open();
-    } catch (error) {
-      console.error(error);
-      alert('Failed to initiate payment. Please try again.');
+    } catch (error: any) {
+      console.error('Payment initiation error:', error);
+      alert(`Payment Error: ${error?.message || 'Failed to initiate payment. Please try again.'}`);
     } finally {
       setIsLoading(false);
     }
