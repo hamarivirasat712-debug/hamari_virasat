@@ -134,7 +134,7 @@ export default function Footer() {
           <p className="text-white/70 text-xs font-normal text-center sm:text-left">
             © {year} Hamari Virasat. All rights reserved. &nbsp;·&nbsp; Crafted with care by{' '}
             <a
-              href="https://github.com/hamarivirasat712-debug"
+              href="https://my-portfolio-six-alpha-80.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#C9A84C] hover:underline font-medium"
