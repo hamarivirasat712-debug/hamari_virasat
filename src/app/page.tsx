@@ -15,7 +15,10 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 
 import { client } from '@/sanity/client';
 
-const RITUALS_QUERY = `*[_type == "ritual"] | order(number asc) {
+export const revalidate = 0;
+export const dynamic = 'force-dynamic';
+
+const RITUALS_QUERY = `*[_type == "ritual"] | order(order asc, number asc) {
   number,
   title,
   category,
@@ -23,7 +26,8 @@ const RITUALS_QUERY = `*[_type == "ritual"] | order(number asc) {
   subSections,
   color,
   imageIcon,
-  isDIY
+  isDIY,
+  order
 }`;
 
 export default async function Home() {
