@@ -217,7 +217,7 @@ export default function Pricing() {
               <span className="italic text-[#BD5319]">Yours forever.</span>
           </h2>
           <p className="text-[#8C847C] text-base font-light leading-relaxed">
-            No tiers. No hidden fees. No subscriptions. Pick any 3 rituals from our collection of 9 — each one documented in full at one flat price.
+            No tiers. No hidden fees. No subscriptions. Pick any 3 rituals from our collection — each one documented in full at one flat price.
           </p>
         </div>
 
@@ -253,7 +253,7 @@ export default function Pricing() {
                     ₹501 base + {selectedRituals.length - 3} × ₹199 extra ritual{selectedRituals.length - 3 > 1 ? 's' : ''}
                   </p>
                 )}
-                <p className="text-[#5C564F] text-sm mb-2">One-time payment · Any 3 of 9 rituals · No subscription</p>
+                <p className="text-white text-sm mb-2 font-medium">One-time payment · Any 3 rituals of your choice · No subscription</p>
                 <p className="text-[#C9A84C] text-sm font-medium mb-10">
                   ✦ Early access price — limited time offer
                 </p>
