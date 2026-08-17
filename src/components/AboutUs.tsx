@@ -26,7 +26,7 @@ export default function AboutUs() {
           </div>
 
           <h2
-            className="font-serif text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight mb-4"
+            className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-white leading-tight mb-4"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
             The Story Behind{' '}
@@ -39,14 +39,14 @@ export default function AboutUs() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
           {/* Main Story Text */}
-          <div className="lg:col-span-7 space-y-6 text-white/85 text-base md:text-lg font-light leading-relaxed">
+          <div className="lg:col-span-7 space-y-5 text-white/80 text-sm md:text-base font-light leading-relaxed">
             <p>
               We all carry a unique thread of heritage — the subtle fragrance of a morning puja, the authentic sequence of a ritual. Yet, too often, when the time comes to perform these precious traditions, we find ourselves confused, searching for answers, unsure of the steps.
             </p>
             <p>
               As families become nuclear and spread across the globe, the living libraries once held by our elders are quietly fading away.
             </p>
-            <p className="text-white font-normal pt-2">
+            <p className="text-white font-medium pt-1">
               Hamari Virasat is that home. It is a secure, timeless digital space created for you to document, preserve, and honor your family’s unique rituals and festivals.
             </p>
             <p>
@@ -55,9 +55,9 @@ export default function AboutUs() {
           </div>
 
           {/* Featured Pull Quote Box */}
-          <div className="lg:col-span-5 bg-gradient-to-br from-[#3E1A0C] to-[#2A1208] border border-[#C9A84C]/35 rounded-3xl p-8 md:p-10 shadow-2xl relative">
-            <div className="text-[#C9A84C] text-5xl font-serif leading-none mb-3 opacity-40">“</div>
-            <p className="text-white/95 text-base md:text-lg font-light italic leading-relaxed mb-6">
+          <div className="lg:col-span-5 bg-gradient-to-br from-[#3E1A0C] to-[#2A1208] border border-[#C9A84C]/35 rounded-3xl p-6 md:p-8 shadow-2xl relative">
+            <div className="text-[#C9A84C] text-4xl font-serif leading-none mb-2 opacity-40">“</div>
+            <p className="text-white/90 text-sm md:text-base font-light italic leading-relaxed mb-6">
               Hamari Virasat was born from this exact heartfelt realization. As a family person, I watched family gatherings get clouded by uncertainty and chaos, simply because no one could recall the authentic ways our elders celebrated life&apos;s milestones. I realized that without a home for our traditions, we risk losing not just the steps of a ritual, but the very essence of who we are.
             </p>
             
