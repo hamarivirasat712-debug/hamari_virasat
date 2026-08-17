@@ -24,7 +24,7 @@ export default function Footer() {
               from Prebirth to the Ancestral rites and preserve them in a form that lasts.
             </p>
             <p className="text-[#C9A84C] text-xs font-semibold mb-4">
-              25% returning family discount on your next ritual documentation
+              10% returning family discount on your next ritual documentation
             </p>
 
             {/* Social Handles */}

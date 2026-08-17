@@ -21,7 +21,7 @@ const inclusions = [
   'Beautifully formatted PDF heirloom document',
   'Delivered to your inbox within 7 days of form completion',
   'Save & resume — fill at your own pace over multiple sittings',
-  '25% discount on your next ritual documentation',
+  '10% discount on your next ritual documentation',
 ];
 
 export default function Pricing() {
