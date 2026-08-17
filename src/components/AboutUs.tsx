@@ -56,22 +56,15 @@ export default function AboutUs() {
 
           {/* Featured Pull Quote Box */}
           <div className="lg:col-span-5 bg-gradient-to-br from-[#3E1A0C] to-[#2A1208] border border-[#C9A84C]/35 rounded-3xl p-6 md:p-8 shadow-2xl relative">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-[#C9A84C] text-xs font-bold tracking-[0.2em] uppercase bg-[#C9A84C]/10 border border-[#C9A84C]/30 px-3 py-1 rounded-full">
+                Founder&apos;s Note
+              </span>
+            </div>
             <div className="text-[#C9A84C] text-4xl font-serif leading-none mb-2 opacity-40">“</div>
-            <p className="text-white/90 text-sm md:text-base font-light italic leading-relaxed mb-6">
+            <p className="text-white/90 text-sm md:text-base font-light italic leading-relaxed">
               Hamari Virasat was born from this exact heartfelt realization. As a family person, I watched family gatherings get clouded by uncertainty and chaos, simply because no one could recall the authentic ways our elders celebrated life&apos;s milestones. I realized that without a home for our traditions, we risk losing not just the steps of a ritual, but the very essence of who we are.
             </p>
-            
-            <div className="border-t border-[#5E2E14] pt-5 flex items-center justify-between">
-              <div>
-                <p className="text-white font-medium text-sm">Founder &amp; Heritage Preserver</p>
-                <p className="text-[#C9A84C] text-xs font-normal">IIM Alumnus</p>
-              </div>
-              <div className="text-right">
-                <span className="text-[#BD5319] text-xs font-semibold uppercase tracking-widest bg-[#BD5319]/10 border border-[#BD5319]/30 px-3 py-1 rounded-full">
-                  Our Mission
-                </span>
-              </div>
-            </div>
           </div>
 
         </div>
