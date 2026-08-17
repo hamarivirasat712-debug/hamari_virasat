@@ -60,7 +60,7 @@ export async function POST(req: Request) {
     if (process.env.RESEND_API_KEY && resend) {
       try {
         const emailResult = await resend.emails.send({
-          from: 'onboarding@resend.dev', // TODO: Replace with professional domain email before going live
+          from: process.env.RESEND_FROM_EMAIL || 'Hamari Virasat <namaste.hamarivirasat@outlook.com>',
           to: email,
           subject: 'Your Ritual Documentation Link - Hamari Virasat',
           html: `
