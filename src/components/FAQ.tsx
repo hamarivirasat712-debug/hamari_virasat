@@ -16,20 +16,28 @@ const faqs = [
     a: 'That is completely fine. Fill in what you know, and leave the rest for later. Our save-and-resume feature means you can go back to consult a grandparent, look through old photos, or gather the family before finishing. Partial records are better than none — and we will work with what you have.',
   },
   {
-    q: 'Can I document more than 3 rituals, or fewer?',
-    a: 'Our standard package covers any 3 rituals of your choice at one flat price. If you would like to document more, each additional ritual can be added at the same per-ritual rate — just mention it in your enquiry or after payment. We do not offer a single-ritual option as a minimum, because three rituals ensures your document is a meaningful heritage record, not just a fragment.',
+    q: 'Can we add our own custom family rituals which are not listed?',
+    a: 'Absolutely. Every family has its own unique flavor. While we provide pre-built baseline templates, your family can create custom entries for any regional or unique traditions that fall outside the 9 documented ceremonies.',
+  },
+  {
+    q: 'Do my grandparents need to download a mobile app?',
+    a: 'Not at all. We know technology can be an obstacle for elders. They can contribute their memories, songs, and stories simply by sharing details with you or replying to prompts.',
+  },
+  {
+    q: 'Can my siblings or cousins contribute to the same record?',
+    a: 'Yes! You can collaborate easily by sharing your secure save-and-resume form link with family members so they can add details, songs, and photographs.',
   },
   {
     q: 'What is your refund policy?',
-    a: 'If you are not satisfied after completing the intake form and receiving your document, we offer a 7-day satisfaction window. Contact us within 7 days of delivery and we will make it right, or issue a full refund. We stand behind the quality of every document we produce.',
+    a: 'We offer a 7-day money-back guarantee. If you are not completely satisfied after completing the intake form and receiving your document, contact us within 7 days of delivery for a full refund.',
   },
   {
     q: 'Is my family\'s information kept private?',
-    a: 'Completely. Your family\'s information — the Gotra, the songs, the ritual details, the photographs — is used only to produce your document and is never shared with any third party. We take the privacy of something this personal very seriously.',
+    a: 'Completely. Your family\'s information — the Gotra, the songs, the ritual details, the photographs — is encrypted, entirely private, used only to produce your document, and is never shared with any third party or used for public AI training.',
   },
   {
-    q: 'What if my family has rituals that are not in your standard list?',
-    a: 'We have designed the intake form with a custom section for family-specific or regional rituals that fall outside the 9 documented ceremonies. If your family observes a unique ritual, you can describe it in full and we will include it in your document. No family\'s heritage should be left out.',
+    q: 'How do I get started with the onboarding process?',
+    a: 'Once you complete payment, you will receive an email with your secure form link. You can complete step-by-step ritual prompts, upload high-definition family media, and take your time gathering stories from your elders.',
   },
 ];
 

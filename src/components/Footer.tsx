@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import logoAsset from '../assets/logo.png';
 
 export default function Footer() {
@@ -134,9 +135,9 @@ export default function Footer() {
             © {year} Hamari Virasat. All rights reserved. Memory &amp; Ritual Preservation Platform
           </p>
           <div className="flex items-center gap-5 pr-0 sm:pr-14">
-            <a href="#" className="text-white/70 hover:text-[#C9A84C] text-xs font-normal transition-colors">Privacy Policy</a>
-            <a href="#" className="text-white/70 hover:text-[#C9A84C] text-xs font-normal transition-colors">Terms</a>
-            <a href="#" className="text-white/70 hover:text-[#C9A84C] text-xs font-normal transition-colors">Refund Policy</a>
+            <Link href="/privacy" className="text-white/70 hover:text-[#C9A84C] text-xs font-normal transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="text-white/70 hover:text-[#C9A84C] text-xs font-normal transition-colors">Terms</Link>
+            <Link href="/refund-policy" className="text-white/70 hover:text-[#C9A84C] text-xs font-normal transition-colors">Refund Policy</Link>
           </div>
         </div>
       </div>
