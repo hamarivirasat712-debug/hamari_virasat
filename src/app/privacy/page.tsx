@@ -95,7 +95,7 @@ export default function PrivacyPolicy() {
             <p className="text-sm">
               For any privacy questions or data requests, contact our Data Protection Lead:
             </p>
-            <p className="mt-2 text-white font-mono text-sm">Email: namaste.hamarivirasat@outlook.com</p>
+            <p className="mt-2 text-white font-mono text-sm">Email: namaste@hamarivirasat.in</p>
           </section>
         </div>
       </div>

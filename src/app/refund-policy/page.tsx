@@ -42,7 +42,7 @@ export default function RefundPolicy() {
             <h2 className="font-serif text-xl text-white mb-3" style={{ fontFamily: 'var(--font-serif)' }}>
               2. How to Request a Refund
             </h2>
-            <p className="mb-3">To initiate a refund request, simply email us at <strong>namaste.hamarivirasat@outlook.com</strong> with the following details:</p>
+            <p className="mb-3">To initiate a refund request, simply email us at <strong>namaste@hamarivirasat.in</strong> with the following details:</p>
             <ol className="list-decimal pl-6 space-y-2 text-[#FAF6F0]/80 font-mono text-sm">
               <li>Your registered email address</li>
               <li>Your Razorpay Payment / Transaction ID</li>
@@ -64,7 +64,7 @@ export default function RefundPolicy() {
               Questions About Refunds?
             </h2>
             <p className="text-sm">Reach out to our customer support team anytime:</p>
-            <p className="mt-2 text-white font-mono text-sm">Email: namaste.hamarivirasat@outlook.com</p>
+            <p className="mt-2 text-white font-mono text-sm">Email: namaste@hamarivirasat.in</p>
           </section>
         </div>
       </div>

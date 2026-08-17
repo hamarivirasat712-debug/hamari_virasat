@@ -85,7 +85,7 @@ export default function TermsAndConditions() {
               Contact Us
             </h2>
             <p className="text-sm">For any questions regarding these Terms &amp; Conditions, contact us at:</p>
-            <p className="mt-2 text-white font-mono text-sm">Email: namaste.hamarivirasat@outlook.com</p>
+            <p className="mt-2 text-white font-mono text-sm">Email: namaste@hamarivirasat.in</p>
             <p className="text-xs text-[#8C847C] mt-1">Location: Bhopal, Madhya Pradesh, India</p>
           </section>
         </div>

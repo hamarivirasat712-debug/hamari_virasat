@@ -60,7 +60,7 @@ export async function POST(req: Request) {
     if (process.env.RESEND_API_KEY && resend) {
       try {
         const emailResult = await resend.emails.send({
-          from: process.env.RESEND_FROM_EMAIL || 'Hamari Virasat <namaste.hamarivirasat@outlook.com>',
+          from: process.env.RESEND_FROM_EMAIL || 'Hamari Virasat <namaste@hamarivirasat.in>',
           to: email,
           subject: 'Your Ritual Documentation Link - Hamari Virasat',
           html: `
