@@ -34,7 +34,7 @@ const stats = [
   { value: '100%', label: 'Personal & Private' },
   { value: '6+', label: 'Sub-sections per ritual' },
   { value: '100%', label: 'Family-specific record' },
-  { value: 'â-ž', label: 'Generations it will last' },
+  { value: '∞', label: 'Generations it will last' },
 ];
 
 export default function SocialProof() {
@@ -113,7 +113,7 @@ export default function SocialProof() {
                 >
                   {stat.value}
                 </p>
-                <p className="text-[#5C564F] text-xs tracking-wide uppercase">{stat.label}</p>
+                <p className="text-white text-xs tracking-wide uppercase">{stat.label}</p>
               </div>
             ))}
           </div>
