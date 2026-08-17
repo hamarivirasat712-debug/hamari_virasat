@@ -30,7 +30,7 @@ export default function Footer() {
             {/* Social Handles */}
             <div className="flex items-center gap-3">
               <a
-                href="https://instagram.com/hamarivirasat"
+                href={process.env.NEXT_PUBLIC_INSTAGRAM_URL || "https://instagram.com/hamarivirasat712"}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -44,7 +44,7 @@ export default function Footer() {
                 Instagram
               </a>
               <a
-                href="https://facebook.com/hamarivirasat"
+                href={process.env.NEXT_PUBLIC_FACEBOOK_URL || "https://facebook.com/hamarivirasat712"}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
