@@ -22,9 +22,39 @@ export default function Footer() {
               A structured platform where Indian families can record the rituals that define them
               from Prebirth to the Ancestral rites and preserve them in a form that lasts.
             </p>
-            <p className="text-[#C9A84C] text-xs font-semibold">
+            <p className="text-[#C9A84C] text-xs font-semibold mb-4">
               25% returning family discount on your next ritual documentation
             </p>
+
+            {/* Social Handles */}
+            <div className="flex items-center gap-3">
+              <a
+                href="https://instagram.com/hamarivirasat"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="flex items-center gap-2 text-xs text-white/70 hover:text-[#E1306C] bg-white/5 border border-white/10 hover:border-[#E1306C]/40 px-3 py-1.5 rounded-lg transition-all duration-200"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+                Instagram
+              </a>
+              <a
+                href="https://facebook.com/hamarivirasat"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="flex items-center gap-2 text-xs text-white/70 hover:text-[#1877F2] bg-white/5 border border-white/10 hover:border-[#1877F2]/40 px-3 py-1.5 rounded-lg transition-all duration-200"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+                Facebook
+              </a>
+            </div>
           </div>
 
           {/* Quick Links */}
