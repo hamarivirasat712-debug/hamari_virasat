@@ -132,7 +132,15 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-[#3E1A0C] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/70 text-xs font-normal text-center sm:text-left">
-            © {year} Hamari Virasat. All rights reserved. Memory &amp; Ritual Preservation Platform
+            © {year} Hamari Virasat. All rights reserved. &nbsp;·&nbsp; Crafted with care by{' '}
+            <a
+              href="https://github.com/hamarivirasat712-debug"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#C9A84C] hover:underline font-medium"
+            >
+              Sanket Raj
+            </a>
           </p>
           <div className="flex items-center gap-5 pr-0 sm:pr-14">
             <Link href="/privacy" className="text-white/70 hover:text-[#C9A84C] text-xs font-normal transition-colors">Privacy Policy</Link>
