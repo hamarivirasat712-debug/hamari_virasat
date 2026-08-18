@@ -4,7 +4,7 @@ import { SignJWT } from 'jose';
 import { Resend } from 'resend';
 import { supabase } from '@/lib/supabase';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-for-development-only';
+const JWT_SECRET = process.env.JWT_SECRET || 'hamari_virasat_super_secure_random_key_998877';
 
 export async function POST(req: Request) {
   const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;

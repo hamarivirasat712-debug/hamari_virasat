@@ -48,9 +48,9 @@ interface FormData {
 
 const emptyRitual = (): RitualData => ({ steps: '', samagri: '', songs: '', roles: '', variations: '', photos: '', additionalInfo: '' });
 
-const defaultForm = (): FormData => ({
-  email: '', name: '', phone: '',
-  selectedRituals: [0, 1, 2], includeCard9: false,
+const defaultForm = (email = '', rituals: number[] = []): FormData => ({
+  email: email, name: '', phone: '',
+  selectedRituals: rituals.length > 0 ? rituals : [0, 1, 2], includeCard9: false,
   gotra: '', kuldevi: '', kuldevta: '',
   rituals: Array.from({ length: 9 }, emptyRitual),
   customRitualName: '',
@@ -66,11 +66,16 @@ function buildSteps(sel: number[], card9: boolean): StepId[] {
   return s;
 }
 
+interface IntakeClientProps {
+  initialEmail?: string;
+  initialRitualIndices?: number[];
+}
+
 // ─── Inner (needs useSearchParams) ────────────────────────────────────────
 
-function IntakeInner() {
+function IntakeInner({ initialEmail = '', initialRitualIndices = [] }: IntakeClientProps) {
   const searchParams = useSearchParams();
-  const [form, setForm] = useState<FormData>(defaultForm());
+  const [form, setForm] = useState<FormData>(() => defaultForm(initialEmail, initialRitualIndices));
   const [stepIndex, setStepIndex] = useState(0);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [savedAt, setSavedAt] = useState<string | null>(null);
@@ -79,7 +84,18 @@ function IntakeInner() {
   const steps = buildSteps(form.selectedRituals, form.includeCard9);
   const currentId = steps[stepIndex] ?? 'review';
 
-  // URL params (Razorpay flow & magic link)
+  // Apply server-decoded JWT props directly
+  useEffect(() => {
+    if (initialEmail || (initialRitualIndices && initialRitualIndices.length > 0)) {
+      setForm(prev => ({
+        ...prev,
+        email: initialEmail || prev.email,
+        selectedRituals: initialRitualIndices.length > 0 ? initialRitualIndices : prev.selectedRituals,
+      }));
+    }
+  }, [initialEmail, initialRitualIndices]);
+
+  // URL params fallback (Razorpay flow & magic link)
   useEffect(() => {
     const token = searchParams.get('token');
     const r = searchParams.get('r');
@@ -112,12 +128,12 @@ function IntakeInner() {
     if (indices.length > 0 || emailFromToken) {
       setForm(prev => ({
         ...prev,
-        email: emailFromToken || prev.email,
+        email: emailFromToken || prev.email || initialEmail,
         selectedRituals: indices.length > 0 ? indices : (prev.selectedRituals.length > 0 ? prev.selectedRituals : [0, 1, 2]),
         includeCard9: c9 === '1' || prev.includeCard9,
       }));
     }
-  }, [searchParams]);
+  }, [searchParams, initialEmail]);
 
   // Restore localStorage (only if no token or r in URL)
   useEffect(() => {
@@ -353,10 +369,10 @@ function IntakeInner() {
 }
 
 // ─── Page export (Suspense wraps useSearchParams) ──────────────────────────
-export default function IntakePage() {
+export default function IntakeClient({ initialEmail = '', initialRitualIndices = [] }: IntakeClientProps) {
   return (
     <Suspense fallback={<div className="min-h-screen bg-[#2A1208] flex items-center justify-center"><span className="text-[#5C564F] text-sm">Loading...</span></div>}>
-      <IntakeInner />
+      <IntakeInner initialEmail={initialEmail} initialRitualIndices={initialRitualIndices} />
     </Suspense>
   );
 }

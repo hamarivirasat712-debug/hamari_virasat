@@ -2,16 +2,16 @@ import { jwtVerify } from 'jose';
 import IntakeClient from './IntakeClient';
 import Link from 'next/link';
 
-// Fallback secret for local development
-const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-for-development-only';
+const JWT_SECRET = process.env.JWT_SECRET || 'hamari_virasat_super_secure_random_key_998877';
 
 export default async function IntakePage({
   searchParams,
 }: {
-  searchParams: Promise<{ token?: string }>;
+  searchParams: Promise<{ token?: string; r?: string }>;
 }) {
   const resolvedParams = await searchParams;
   const token = resolvedParams.token;
+  const rParam = resolvedParams.r;
 
   if (!token) {
     return (
@@ -32,11 +32,25 @@ export default async function IntakePage({
 
   try {
     const secretKey = new TextEncoder().encode(JWT_SECRET);
-    // Verify the token
-    await jwtVerify(token, secretKey);
+    // Verify the token and get decoded payload
+    const { payload } = await jwtVerify(token, secretKey);
     
-    // If successful, render the client form
-    return <IntakeClient />;
+    const initialEmail = typeof payload.email === 'string' ? payload.email : '';
+    let initialRituals: number[] = Array.isArray(payload.ritualIndices)
+      ? payload.ritualIndices.map(Number).filter(n => !isNaN(n) && n >= 0 && n <= 7)
+      : [];
+
+    if (initialRituals.length === 0 && rParam) {
+      initialRituals = rParam.split(',').map(Number).filter(n => !isNaN(n) && n >= 0 && n <= 7);
+    }
+
+    // If successful, render the client form with server-verified JWT parameters
+    return (
+      <IntakeClient
+        initialEmail={initialEmail}
+        initialRitualIndices={initialRituals}
+      />
+    );
   } catch (error) {
     console.error('Invalid token:', error);
     return (
