@@ -50,7 +50,7 @@ const emptyRitual = (): RitualData => ({ steps: '', samagri: '', songs: '', role
 
 const defaultForm = (): FormData => ({
   email: '', name: '', phone: '',
-  selectedRituals: [], includeCard9: false,
+  selectedRituals: [0, 1, 2], includeCard9: false,
   gotra: '', kuldevi: '', kuldevta: '',
   rituals: Array.from({ length: 9 }, emptyRitual),
   customRitualName: '',
@@ -58,8 +58,9 @@ const defaultForm = (): FormData => ({
 
 // Rituals are determined via JWT token from order payment
 function buildSteps(sel: number[], card9: boolean): StepId[] {
+  const effectiveRituals = sel.length > 0 ? sel : [0, 1, 2];
   const s: StepId[] = ['intro', 'contact', 'ancestral'];
-  sel.forEach(i => s.push(i)); // all purchased rituals from JWT token
+  effectiveRituals.forEach(i => s.push(i)); // all purchased rituals from JWT token
   if (card9) s.push('card9');
   s.push('review');
   return s;
@@ -112,7 +113,7 @@ function IntakeInner() {
       setForm(prev => ({
         ...prev,
         email: emailFromToken || prev.email,
-        selectedRituals: indices.length > 0 ? indices : prev.selectedRituals,
+        selectedRituals: indices.length > 0 ? indices : (prev.selectedRituals.length > 0 ? prev.selectedRituals : [0, 1, 2]),
         includeCard9: c9 === '1' || prev.includeCard9,
       }));
     }
