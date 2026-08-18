@@ -11,12 +11,13 @@ type Submission = {
   gotra: string | null;
   kuldevi: string | null;
   kuldevta: string | null;
+  selected_ritual_indices?: number[];
   selected_ritual_names: string[];
   ritual_data: Record<string, string>[];
   custom_ritual_name: string | null;
 };
 
-const RITUAL_LABELS = ['Namkaran', 'Mundan', 'Upanayana / Janeu', 'Engagement', 'Wedding — Haldi', 'Wedding — Mehendi', 'Wedding — Main Ceremony', 'Griha Pravesh'];
+const ALL_RITUAL_LABELS = ['Namkaran', 'Mundan', 'Upanayana / Janeu', 'Engagement', 'Wedding — Haldi', 'Wedding — Mehendi', 'Wedding — Main Ceremony', 'Griha Pravesh'];
 
 const FIELD_LABELS: Record<string, string> = {
   steps: 'Steps & Sequence',
@@ -63,7 +64,8 @@ export default function SubmissionsPage() {
         ${s.kuldevta ? ` · Kuldevta: ${s.kuldevta}` : ''}
       </div>
       ${(s.selected_ritual_names || []).map((name, idx) => {
-        const data = s.ritual_data?.[idx] || {};
+        const rIdx = s.selected_ritual_indices?.[idx] ?? ALL_RITUAL_LABELS.indexOf(name);
+        const data = (rIdx !== -1 && s.ritual_data?.[rIdx]) ? s.ritual_data[rIdx] : (s.ritual_data?.[idx] || {});
         return `<div class="ritual"><h2>${name}</h2>
           ${Object.entries(FIELD_LABELS).map(([key, label]) =>
             data[key] ? `<div class="field"><div class="label">${label}</div><div class="value">${data[key]}</div></div>` : ''
@@ -83,8 +85,8 @@ export default function SubmissionsPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-white font-semibold text-lg">Intake Submissions</h1>
-        <span className="text-[#5C564F] text-xs">{submissions.length} total</span>
+        <h1 className="text-[#C9A84C] font-serif text-[#F3EFE0] font-medium text-xl">Intake Submissions</h1>
+        <span className="text-[#8C847C] text-xs">{submissions.length} total</span>
       </div>
 
       {loading ? (
@@ -93,7 +95,7 @@ export default function SubmissionsPage() {
         </div>
       ) : submissions.length === 0 ? (
         <div className="bg-[#2A1208] border border-[#5E2E14] rounded-2xl text-center py-20">
-          <p className="text-[#5C564F] text-sm">No submissions yet. They will appear here after a customer fills the intake form.</p>
+          <p className="text-[#8C847C] text-sm">No submissions yet. They will appear here after a customer fills the intake form.</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -103,23 +105,23 @@ export default function SubmissionsPage() {
               <div className="px-6 py-4 flex items-center justify-between gap-4">
                 <div className="flex-1 min-w-0">
                   <p className="text-white font-medium">{sub.customer_name}</p>
-                  <p className="text-[#5C564F] text-xs mt-0.5">{sub.customer_email} · {new Date(sub.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                  <p className="text-[#8C847C] text-xs mt-0.5">{sub.customer_email} · {new Date(sub.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
                   <div className="flex flex-wrap gap-1 mt-2">
                     {(sub.selected_ritual_names || []).map(r => (
-                      <span key={r} className="text-xs bg-[#BD5319]/10 border border-[#BD5319]/20 text-[#C9A84C] px-2 py-0.5 rounded-full">{r}</span>
+                      <span key={r} className="text-xs bg-[#BD5319]/10 border border-[#BD5319]/20 text-[#C9A84C] px-2.5 py-0.5 rounded-full">{r}</span>
                     ))}
                   </div>
                 </div>
                 <div className="flex items-center gap-2 flex-shrink-0">
                   <button
                     onClick={() => printSubmission(sub)}
-                    className="text-[#5C564F] hover:text-white text-xs border border-[#5E2E14] hover:border-white/20 px-3 py-2 rounded-lg transition-colors"
+                    className="text-[#8C847C] hover:text-white text-xs border border-[#5E2E14] hover:border-white/20 px-3 py-2 rounded-lg transition-colors"
                   >
                     ⬇ Export PDF
                   </button>
                   <button
                     onClick={() => setExpanded(expanded === sub.id ? null : sub.id)}
-                    className="text-[#5C564F] hover:text-white text-xs border border-[#5E2E14] hover:border-white/20 px-3 py-2 rounded-lg transition-colors"
+                    className="text-[#8C847C] hover:text-white text-xs border border-[#5E2E14] hover:border-white/20 px-3 py-2 rounded-lg transition-colors"
                   >
                     {expanded === sub.id ? '▲ Hide' : '▼ View details'}
                   </button>
@@ -134,17 +136,18 @@ export default function SubmissionsPage() {
                     <div>
                       <p className="text-[#BD5319] text-xs font-bold uppercase tracking-wider mb-3">Ancestral Profile</p>
                       <div className="grid sm:grid-cols-3 gap-4">
-                        {sub.gotra && <div><p className="text-[#5C564F] text-xs uppercase tracking-wide mb-1">Gotra</p><p className="text-white text-sm">{sub.gotra}</p></div>}
-                        {sub.kuldevi && <div><p className="text-[#5C564F] text-xs uppercase tracking-wide mb-1">Kuldevi</p><p className="text-white text-sm">{sub.kuldevi}</p></div>}
-                        {sub.kuldevta && <div><p className="text-[#5C564F] text-xs uppercase tracking-wide mb-1">Kuldevta</p><p className="text-white text-sm">{sub.kuldevta}</p></div>}
+                        {sub.gotra && <div><p className="text-[#8C847C] text-xs uppercase tracking-wide mb-1">Gotra</p><p className="text-white text-sm">{sub.gotra}</p></div>}
+                        {sub.kuldevi && <div><p className="text-[#8C847C] text-xs uppercase tracking-wide mb-1">Kuldevi</p><p className="text-white text-sm">{sub.kuldevi}</p></div>}
+                        {sub.kuldevta && <div><p className="text-[#8C847C] text-xs uppercase tracking-wide mb-1">Kuldevta</p><p className="text-white text-sm">{sub.kuldevta}</p></div>}
                       </div>
                     </div>
                   )}
 
                   {/* Ritual answers */}
                   {(sub.selected_ritual_names || []).map((ritualName, idx) => {
-                    const data = sub.ritual_data?.[idx] || {};
-                    const hasData = Object.values(data).some(v => v?.trim());
+                    const rIdx = sub.selected_ritual_indices?.[idx] ?? ALL_RITUAL_LABELS.indexOf(ritualName);
+                    const data = (rIdx !== -1 && sub.ritual_data?.[rIdx]) ? sub.ritual_data[rIdx] : (sub.ritual_data?.[idx] || {});
+                    const hasData = Object.values(data).some(v => typeof v === 'string' && v.trim());
                     return (
                       <div key={ritualName}>
                         <p className="text-[#BD5319] text-xs font-bold uppercase tracking-wider mb-3">{ritualName}</p>
@@ -152,15 +155,15 @@ export default function SubmissionsPage() {
                           <div className="grid sm:grid-cols-2 gap-4">
                             {Object.entries(FIELD_LABELS).map(([key, label]) =>
                               data[key] ? (
-                                <div key={key} className="bg-[#3E1A0C] rounded-xl p-4">
-                                  <p className="text-[#5C564F] text-xs uppercase tracking-wide mb-2">{label}</p>
+                                <div key={key} className="bg-[#3E1A0C] border border-[#5E2E14]/40 rounded-xl p-4">
+                                  <p className="text-[#8C847C] text-xs uppercase tracking-wide mb-2 font-medium">{label}</p>
                                   <p className="text-white text-sm leading-relaxed whitespace-pre-wrap">{data[key]}</p>
                                 </div>
                               ) : null
                             )}
                           </div>
                         ) : (
-                          <p className="text-[#5C564F] text-sm italic">Not filled yet</p>
+                          <p className="text-[#8C847C] text-sm italic">Not filled yet</p>
                         )}
                       </div>
                     );
