@@ -1,4 +1,4 @@
-﻿/**
+/**
  * CreateIntakeForm.gs
  * ───────────────────────────────────────────────────────────────────────────
  * Run this ONCE from the Apps Script editor to create the Virasat intake form.
@@ -69,6 +69,8 @@ function createIntakeForm() {
       help:  'Anything your family does differently from the "standard" version.' },
     { label: 'Any photos or videos you can share later',
       help:  'Just describe what you have — we will follow up for the files.' },
+    { label: 'Additional Information',
+      help:  'Share any special memories, stories, unique family customs, or personal touches you want included.' },
   ];
 
   rituals.forEach(function(ritual) {

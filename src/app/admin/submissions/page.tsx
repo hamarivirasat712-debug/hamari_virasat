@@ -25,6 +25,7 @@ const FIELD_LABELS: Record<string, string> = {
   roles: 'Family Roles',
   variations: 'Regional Variations',
   photos: 'Photos / Videos',
+  additionalInfo: 'Additional Information',
 };
 
 export default function SubmissionsPage() {

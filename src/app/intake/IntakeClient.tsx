@@ -17,12 +17,13 @@ const ALL_RITUALS = [
 ];
 
 const SUB_QUESTIONS = [
-  { key: 'steps',       label: "Ritual steps in your family's sequence",    placeholder: 'Describe what happens, in order, from start to finish...' },
-  { key: 'samagri',    label: 'Samagri / items required',                   placeholder: 'List everything needed: materials, utensils, flowers...' },
-  { key: 'songs',      label: 'Songs, prayers & mantras',                   placeholder: 'Include the words or phonetic spelling as your family says them...' },
-  { key: 'roles',      label: 'Roles of each family member',                placeholder: 'Who stands where, who performs which action...' },
-  { key: 'variations', label: 'Regional or family-specific variations',     placeholder: 'Anything your family does differently from the standard version...' },
-  { key: 'photos',     label: 'Photos or videos you can share later',       placeholder: 'Just describe what you have — we will follow up for the actual files...' },
+  { key: 'steps',          label: "Ritual steps in your family's sequence",    placeholder: 'Describe what happens, in order, from start to finish...' },
+  { key: 'samagri',       label: 'Samagri / items required',                   placeholder: 'List everything needed: materials, utensils, flowers...' },
+  { key: 'songs',         label: 'Songs, prayers & mantras',                   placeholder: 'Include the words or phonetic spelling as your family says them...' },
+  { key: 'roles',         label: 'Roles of each family member',                placeholder: 'Who stands where, who performs which action...' },
+  { key: 'variations',    label: 'Regional or family-specific variations',     placeholder: 'Anything your family does differently from the standard version...' },
+  { key: 'photos',        label: 'Photos or videos you can share later',       placeholder: 'Just describe what you have — we will follow up for the actual files...' },
+  { key: 'additionalInfo', label: 'Additional Information',                     placeholder: 'Share any special memories, stories, unique family customs, or personal touches you want included...' },
 ];
 
 const MAX_SELECT = 3;
@@ -44,7 +45,7 @@ interface FormData {
   customRitualName: string;
 }
 
-const emptyRitual = (): RitualData => ({ steps: '', samagri: '', songs: '', roles: '', variations: '', photos: '' });
+const emptyRitual = (): RitualData => ({ steps: '', samagri: '', songs: '', roles: '', variations: '', photos: '', additionalInfo: '' });
 
 const defaultForm = (): FormData => ({
   email: '', name: '', phone: '',

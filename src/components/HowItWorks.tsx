@@ -21,7 +21,7 @@ const steps = [
     title: 'Treasure it effortlessly',
     body:
       'Take your time to fill out the form using the link provided. Once you submit all the information, we will send you draft version for approval.',
-    detail: '6 sub-sections per ritual · Save & resume anytime',
+    detail: '7 sub-sections per ritual · Save & resume anytime',
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
         <path d="M8 4h16a2 2 0 012 2v20a2 2 0 01-2 2H8a2 2 0 01-2-2V6a2 2 0 012-2z" stroke="#C9A84C" strokeWidth="1.5"/>
