@@ -16,7 +16,7 @@ type Ritual = {
 
 export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
   const [expanded, setExpanded] = useState<string | null>(null);
-  const { selectedRituals, setSelectedRituals, calculateTotal } = useRitualSelection();
+  const { selectedRituals, setSelectedRituals, calculateTotal, openPaymentModal } = useRitualSelection();
 
   const isSelected = (number: string) => selectedRituals.some(r => r.number === number);
 
@@ -370,19 +370,27 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
                 </div>
               </div>
               {/* CTA */}
-              <a
-                href="#pricing"
-                className={`flex-shrink-0 inline-flex items-center gap-2 font-semibold text-sm px-6 py-3 rounded-xl transition-all duration-200 active:scale-95 ${
-                  selectedRituals.length >= 3
-                    ? 'bg-[#BD5319] hover:bg-[#A34310] text-white hover:shadow-lg hover:shadow-[#BD5319]/30'
-                    : 'bg-white/10 text-[#8C847C] border border-white/10'
-                }`}
-              >
-                {selectedRituals.length >= 3 ? 'Proceed to Payment' : 'Select more'}
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
+              {selectedRituals.length >= 3 ? (
+                <button
+                  onClick={openPaymentModal}
+                  className="flex-shrink-0 inline-flex items-center gap-2 font-semibold text-sm px-6 py-3 rounded-xl transition-all duration-200 active:scale-95 bg-[#BD5319] hover:bg-[#A34310] text-white hover:shadow-lg hover:shadow-[#BD5319]/30"
+                >
+                  Proceed to Payment
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              ) : (
+                <a
+                  href="#rituals"
+                  className="flex-shrink-0 inline-flex items-center gap-2 font-semibold text-sm px-6 py-3 rounded-xl transition-all duration-200 active:scale-95 bg-white/10 text-[#8C847C] border border-white/10"
+                >
+                  Select more
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
+              )}
             </div>
           </div>
         </div>

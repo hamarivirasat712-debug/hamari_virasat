@@ -25,12 +25,24 @@ const inclusions = [
 ];
 
 export default function Pricing() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [magicLink, setMagicLink] = useState<string | null>(null);
-  const { selectedRituals, getIntakeIndices, calculateTotal } = useRitualSelection();
+  const {
+    selectedRituals,
+    getIntakeIndices,
+    calculateTotal,
+    isPaymentModalOpen,
+    openPaymentModal,
+    closePaymentModal,
+  } = useRitualSelection();
+
+  const handleClose = () => {
+    closePaymentModal();
+    setSuccess(false);
+    setMagicLink(null);
+  };
 
   const handlePayment = async () => {
     if (!email) {
@@ -115,7 +127,7 @@ export default function Pricing() {
     <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
     
     {/* Email Collection Modal */}
-    {isModalOpen && (
+    {isPaymentModalOpen && (
       <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
         <div className="bg-[#FAF6F0] rounded-2xl w-full max-w-md overflow-hidden animate-fade-in-up border border-[#EFEAE2]">
           {success ? (
@@ -148,7 +160,7 @@ export default function Pricing() {
               )}
 
               <button
-                onClick={() => { setIsModalOpen(false); setSuccess(false); setMagicLink(null); }}
+                onClick={handleClose}
                 className="text-[#8C847C] text-sm hover:text-[#2A1208] transition-colors"
               >
                 Close
@@ -178,7 +190,7 @@ export default function Pricing() {
               />
               <div className="flex gap-3">
                 <button 
-                  onClick={() => setIsModalOpen(false)}
+                  onClick={handleClose}
                   className="flex-1 px-4 py-3 rounded-xl border border-[#EFEAE2] text-[#8C847C] hover:bg-white transition-colors text-sm font-medium"
                 >
                   Cancel
@@ -261,7 +273,7 @@ export default function Pricing() {
                 {/* CTAs */}
                 <div className="flex flex-col sm:flex-row gap-4 mb-10">
                   <button
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={openPaymentModal}
                     id="pricing-pay-now"
                     className="flex-1 inline-flex items-center justify-center gap-2 bg-[#D4AF37] hover:bg-[#BD5319] text-[#2A1208] hover:text-white font-semibold text-base px-8 py-4 rounded-xl transition-all duration-200 hover:shadow-xl hover:shadow-[#BD5319]/30 active:scale-95 text-center"
                   >

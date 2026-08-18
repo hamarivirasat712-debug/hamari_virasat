@@ -37,12 +37,17 @@ interface RitualSelectionContextType {
   getIntakeIndices: () => number[];
   // Returns total price: ₹501 base + ₹199 per ritual beyond 3
   calculateTotal: () => number;
+  isPaymentModalOpen: boolean;
+  setIsPaymentModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  openPaymentModal: () => void;
+  closePaymentModal: () => void;
 }
 
 const RitualSelectionContext = createContext<RitualSelectionContextType | null>(null);
 
 export function RitualSelectionProvider({ children }: { children: React.ReactNode }) {
   const [selectedRituals, setSelectedRituals] = useState<SelectedRitual[]>([]);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
   const getIntakeIndices = () => {
     return selectedRituals
@@ -56,8 +61,22 @@ export function RitualSelectionProvider({ children }: { children: React.ReactNod
     return base + extra;
   };
 
+  const openPaymentModal = () => setIsPaymentModalOpen(true);
+  const closePaymentModal = () => setIsPaymentModalOpen(false);
+
   return (
-    <RitualSelectionContext.Provider value={{ selectedRituals, setSelectedRituals, getIntakeIndices, calculateTotal }}>
+    <RitualSelectionContext.Provider
+      value={{
+        selectedRituals,
+        setSelectedRituals,
+        getIntakeIndices,
+        calculateTotal,
+        isPaymentModalOpen,
+        setIsPaymentModalOpen,
+        openPaymentModal,
+        closePaymentModal,
+      }}
+    >
       {children}
     </RitualSelectionContext.Provider>
   );
