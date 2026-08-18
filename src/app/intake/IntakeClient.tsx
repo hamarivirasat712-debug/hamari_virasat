@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
+import { decodeJwt } from 'jose';
+
 // ─── Data ─────────────────────────────────────────────────────────────────
 
 const ALL_RITUALS = [
@@ -81,24 +83,54 @@ function IntakeInner() {
   const steps = buildSteps(form.selectedRituals, form.includeCard9, !urlLocked);
   const currentId = steps[stepIndex] ?? 'review';
 
-  // URL params (Razorpay flow)
+  // URL params (Razorpay flow & magic link)
   useEffect(() => {
+    const token = searchParams.get('token');
     const r = searchParams.get('r');
     const c9 = searchParams.get('c9');
+
+    let emailFromToken = '';
+    let indices: number[] = [];
+
+    if (token) {
+      try {
+        const decoded = decodeJwt(token);
+        if (decoded && typeof decoded.email === 'string') {
+          emailFromToken = decoded.email;
+        }
+        if (decoded && Array.isArray(decoded.ritualIndices)) {
+          indices = decoded.ritualIndices.map(Number).filter(n => !isNaN(n) && n >= 0 && n <= 7);
+        }
+      } catch {
+        /* ignore invalid token format */
+      }
+    }
+
     if (r) {
-      const indices = r.split(',').map(Number).filter(n => n >= 0 && n <= 7).slice(0, MAX_SELECT);
+      const rIndices = r.split(',').map(Number).filter(n => !isNaN(n) && n >= 0 && n <= 7);
+      if (rIndices.length > 0) {
+        indices = rIndices;
+      }
+    }
+
+    if (indices.length > 0 || emailFromToken) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setForm(prev => ({
+        ...prev,
+        email: emailFromToken || prev.email,
+        selectedRituals: indices.length > 0 ? indices : prev.selectedRituals,
+        includeCard9: c9 === '1' || prev.includeCard9,
+      }));
       if (indices.length > 0) {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setForm(prev => ({ ...prev, selectedRituals: indices, includeCard9: c9 === '1' }));
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setUrlLocked(true);
       }
     }
   }, [searchParams]);
 
-  // Restore localStorage
+  // Restore localStorage (only if no token or r in URL)
   useEffect(() => {
-    if (searchParams.get('r')) return;
+    if (searchParams.get('r') || searchParams.get('token')) return;
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
