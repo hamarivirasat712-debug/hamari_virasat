@@ -57,6 +57,9 @@ export async function POST(req: Request) {
     const rParam = ritualIndices.length > 0 ? `&r=${ritualIndices.join(',')}` : '';
     const magicLink = `${baseUrl}/intake?token=${token}${rParam}`;
 
+    let emailSent = false;
+    let emailErrorDetails: any = null;
+
     if (process.env.RESEND_API_KEY && resend) {
       try {
         const emailResult = await resend.emails.send({
@@ -82,19 +85,20 @@ export async function POST(req: Request) {
         });
         if (emailResult.error) {
           console.error('❌ Resend email failed:', JSON.stringify(emailResult.error));
+          emailErrorDetails = emailResult.error;
         } else {
           console.log('✅ Email sent successfully via Resend:', JSON.stringify(emailResult));
+          emailSent = true;
         }
       } catch (emailError: any) {
         console.error('❌ Resend email exception:', emailError?.message || emailError);
-        // Don't block the success response — the JWT token is still valid
-        // The magic link is still returned in the API response for fallback
+        emailErrorDetails = emailError?.message || String(emailError);
       }
     } else {
       console.warn('⚠️ RESEND_API_KEY is not set. Magic link (copy this to test):', magicLink);
     }
 
-    return NextResponse.json({ success: true, token }, { status: 200 });
+    return NextResponse.json({ success: true, token, emailSent, emailError: emailErrorDetails }, { status: 200 });
   } catch (error) {
     console.error('Error verifying Razorpay payment:', error);
     return NextResponse.json(

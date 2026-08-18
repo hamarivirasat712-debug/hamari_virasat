@@ -28,11 +28,10 @@ const SUB_QUESTIONS = [
   { key: 'additionalInfo', label: 'Additional Information',                     placeholder: 'Share any special memories, stories, unique family customs, or personal touches you want included...' },
 ];
 
-const MAX_SELECT = 3;
 const STORAGE_KEY = 'Hamari Virasat-intake-v2';
 
 type RitualData = Record<string, string>;
-type StepId = 'intro' | 'contact' | 'select' | 'ancestral' | number | 'card9' | 'review';
+type StepId = 'intro' | 'contact' | 'ancestral' | number | 'card9' | 'review';
 
 interface FormData {
   email: string;
@@ -57,12 +56,10 @@ const defaultForm = (): FormData => ({
   customRitualName: '',
 });
 
-// showSelect=false when customer arrives via magic link — rituals are already known
-function buildSteps(sel: number[], card9: boolean, showSelect = true): StepId[] {
-  const s: StepId[] = ['intro', 'contact'];
-  if (showSelect) s.push('select');
-  s.push('ancestral');
-  sel.forEach(i => s.push(i)); // no cap — all purchased rituals included
+// Rituals are determined via JWT token from order payment
+function buildSteps(sel: number[], card9: boolean): StepId[] {
+  const s: StepId[] = ['intro', 'contact', 'ancestral'];
+  sel.forEach(i => s.push(i)); // all purchased rituals from JWT token
   if (card9) s.push('card9');
   s.push('review');
   return s;
@@ -77,10 +74,8 @@ function IntakeInner() {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [savedAt, setSavedAt] = useState<string | null>(null);
   const [hasRestored, setHasRestored] = useState(false);
-  const [urlLocked, setUrlLocked] = useState(false);
 
-  // When urlLocked the ritual selection came from the URL — skip the 'select' step
-  const steps = buildSteps(form.selectedRituals, form.includeCard9, !urlLocked);
+  const steps = buildSteps(form.selectedRituals, form.includeCard9);
   const currentId = steps[stepIndex] ?? 'review';
 
   // URL params (Razorpay flow & magic link)
@@ -106,7 +101,7 @@ function IntakeInner() {
       }
     }
 
-    if (r) {
+    if (r && indices.length === 0) {
       const rIndices = r.split(',').map(Number).filter(n => !isNaN(n) && n >= 0 && n <= 7);
       if (rIndices.length > 0) {
         indices = rIndices;
@@ -114,17 +109,12 @@ function IntakeInner() {
     }
 
     if (indices.length > 0 || emailFromToken) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setForm(prev => ({
         ...prev,
         email: emailFromToken || prev.email,
         selectedRituals: indices.length > 0 ? indices : prev.selectedRituals,
         includeCard9: c9 === '1' || prev.includeCard9,
       }));
-      if (indices.length > 0) {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setUrlLocked(true);
-      }
     }
   }, [searchParams]);
 
@@ -135,13 +125,9 @@ function IntakeInner() {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const saved = JSON.parse(raw);
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setForm(saved.form);
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setStepIndex(saved.stepIndex ?? 1);
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setSavedAt(saved.savedAt ?? null);
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setHasRestored(true);
       }
     } catch { /* ignore */ }
@@ -170,17 +156,6 @@ function IntakeInner() {
     localStorage.removeItem(STORAGE_KEY);
     setForm(defaultForm()); setStepIndex(0); setHasRestored(false); setSavedAt(null);
   };
-
-  const toggleRitual = (idx: number) =>
-    setForm(prev => {
-      const sel = prev.selectedRituals;
-      const next = sel.includes(idx)
-        ? sel.filter(i => i !== idx)
-        : sel.length < MAX_SELECT ? [...sel, idx] : sel;
-      const n = { ...prev, selectedRituals: next };
-      persist(n, stepIndex);
-      return n;
-    });
 
   const handleSubmit = async () => {
     setStatus('submitting');
@@ -284,68 +259,7 @@ function IntakeInner() {
           </Card>
         )}
 
-        {/* RITUAL SELECTION */}
-        {currentId === 'select' && (
-          <Card step={stepLabel} total={stepTotal}
-            title="Which rituals did you purchase?"
-            sub={urlLocked ? 'Your ritual selection has been pre-loaded from your order.' : `Select up to ${MAX_SELECT} rituals — only those sections will appear in the form.`}
-          >
-            {urlLocked ? (
-              <div className="flex flex-wrap gap-2 mb-4">
-                {form.selectedRituals.map(i => (
-                  <div key={i} className="flex items-center gap-2 bg-[#BD5319]/15 border border-[#BD5319]/40 rounded-xl px-4 py-2">
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#BD5319" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                    <span className="text-white text-sm">{ALL_RITUALS[i].label}</span>
-                  </div>
-                ))}
-                {form.includeCard9 && <div className="flex items-center gap-2 bg-[#C9A84C]/10 border border-[#C9A84C]/30 rounded-xl px-4 py-2"><span className="text-[#C9A84C] text-sm">Custom Ritual</span></div>}
-              </div>
-            ) : (
-              <>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-[#5C564F] text-xs">{form.selectedRituals.length} of {MAX_SELECT} selected</span>
-                  {form.selectedRituals.length === MAX_SELECT && <span className="text-[#C9A84C] text-xs font-medium">✦ Maximum reached</span>}
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
-                  {ALL_RITUALS.map(({ index, label, sublabel }) => {
-                    const sel = form.selectedRituals.includes(index);
-                    const maxed = !sel && form.selectedRituals.length >= MAX_SELECT;
-                    return (
-                      <button key={index} type="button" disabled={maxed} onClick={() => toggleRitual(index)}
-                        className={`text-left px-4 py-3.5 rounded-xl border transition-all ${sel ? 'bg-[#BD5319]/15 border-[#BD5319]/60 ring-1 ring-[#BD5319]/30' : maxed ? 'bg-[#3E1A0C]/40 border-[#5E2E14]/40 opacity-40 cursor-not-allowed' : 'bg-[#3E1A0C] border-[#5E2E14] hover:border-[#BD5319]/40 cursor-pointer'}`}>
-                        <div className="flex items-start justify-between gap-2">
-                          <div>
-                            <p className="text-white text-sm font-medium">{label}</p>
-                            <p className="text-[#5C564F] text-xs mt-0.5 font-light">{sublabel}</p>
-                          </div>
-                          <div className={`w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5 border transition-colors ${sel ? 'bg-[#BD5319] border-[#BD5319]' : 'border-[#5E2E14]'}`}>
-                            {sel && <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>}
-                          </div>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-                <button type="button" onClick={() => updateForm({ includeCard9: !form.includeCard9 })}
-                  className={`w-full text-left px-4 py-3.5 rounded-xl border transition-all ${form.includeCard9 ? 'bg-[#C9A84C]/10 border-[#C9A84C]/40' : 'bg-[#3E1A0C] border-[#5E2E14] hover:border-[#C9A84C]/30'}`}>
-                  <div className="flex items-center justify-between gap-2">
-                    <div>
-                      <p className="text-white text-sm font-medium">Custom / Regional Ritual</p>
-                      <p className="text-[#5C564F] text-xs mt-0.5 font-light">Card 9 — your family's unique ritual, not found in the list above</p>
-                    </div>
-                    <div className={`w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center border transition-colors ${form.includeCard9 ? 'bg-[#C9A84C] border-[#C9A84C]' : 'border-[#5E2E14]'}`}>
-                      {form.includeCard9 && <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>}
-                    </div>
-                  </div>
-                </button>
-              </>
-            )}
-            <Nav back={() => goTo(stepIndex - 1)} next={() => goTo(stepIndex + 1)}
-              canNext={form.selectedRituals.length > 0 || form.includeCard9}
-              nextLabel={`Fill in my ${form.selectedRituals.length + (form.includeCard9 ? 1 : 0)} ritual${(form.selectedRituals.length + (form.includeCard9 ? 1 : 0)) !== 1 ? 's' : ''}`}
-            />
-          </Card>
-        )}
+
 
         {/* ANCESTRAL PROFILE */}
         {currentId === 'ancestral' && (
