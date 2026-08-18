@@ -80,9 +80,13 @@ export async function POST(req: Request) {
             </div>
           `,
         });
-        console.log('✅ Email sent successfully via Resend:', JSON.stringify(emailResult));
+        if (emailResult.error) {
+          console.error('❌ Resend email failed:', JSON.stringify(emailResult.error));
+        } else {
+          console.log('✅ Email sent successfully via Resend:', JSON.stringify(emailResult));
+        }
       } catch (emailError: any) {
-        console.error('❌ Resend email failed:', emailError?.message || emailError);
+        console.error('❌ Resend email exception:', emailError?.message || emailError);
         // Don't block the success response — the JWT token is still valid
         // The magic link is still returned in the API response for fallback
       }
