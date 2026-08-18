@@ -56,9 +56,8 @@ export function RitualSelectionProvider({ children }: { children: React.ReactNod
   };
 
   const calculateTotal = () => {
-    const base = 501;
-    const extra = Math.max(0, selectedRituals.length - 3) * 199;
-    return base + extra;
+    // TEST MODE: Temporarily set price to ₹1 for testing
+    return 1;
   };
 
   const openPaymentModal = () => setIsPaymentModalOpen(true);

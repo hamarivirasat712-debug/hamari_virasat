@@ -256,7 +256,7 @@ export default function Pricing() {
                   <span className="font-sans text-5xl md:text-6xl lg:text-7xl text-white font-semibold leading-none tracking-tight">
                     {selectedRituals.length >= 3
                       ? calculateTotal().toLocaleString('en-IN')
-                      : '501'}
+                      : '1'}
                     <span className="text-3xl md:text-4xl text-[#8C847C] line-through ml-2 font-medium">999</span>
                   </span>
                 </div>
