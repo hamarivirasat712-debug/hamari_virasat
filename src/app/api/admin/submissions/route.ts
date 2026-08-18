@@ -26,7 +26,6 @@ export async function POST(req: Request) {
     gotra: body.gotra || null,
     kuldevi: body.kuldevi || null,
     kuldevta: body.kuldevta || null,
-    selected_ritual_indices: body.selectedRituals || [],
     selected_ritual_names: body.selectedRitualNames || [],
     ritual_data: body.rituals || [],
     custom_ritual_name: body.customRitualName || null,
