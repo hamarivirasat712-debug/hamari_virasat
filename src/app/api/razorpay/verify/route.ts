@@ -37,20 +37,54 @@ export async function POST(req: Request) {
       .setExpirationTime('30d') // Link valid for 30 days
       .sign(secretKey);
 
-    // 3. Save order to Supabase for the admin dashboard
+    // 3. Save order to Supabase for the admin dashboard & Google Sheets backup
     const ritualLabels: Record<number, string> = {
       0: 'Namkaran', 1: 'Mundan', 2: 'Upanayana / Janeu', 3: 'Engagement',
       4: 'Wedding — Haldi', 5: 'Wedding — Mehendi', 6: 'Wedding — Main Ceremony',
       7: 'Griha Pravesh',
     };
-    await supabase.from('orders').insert([{
-      customer_email: email,
-      payment_id: razorpay_payment_id,
-      order_id: razorpay_order_id,
-      ritual_indices: ritualIndices,
-      ritual_names: ritualIndices.map((i: number) => ritualLabels[i] || `Ritual ${i}`),
-      status: 'pending',
-    }]);
+    const ritualNamesList = ritualIndices.map((i: number) => ritualLabels[i] || `Ritual ${i}`);
+
+    try {
+      const { error: orderError } = await supabase.from('orders').insert([{
+        customer_email: email,
+        payment_id: razorpay_payment_id,
+        order_id: razorpay_order_id,
+        ritual_indices: ritualIndices,
+        ritual_names: ritualNamesList,
+        status: 'pending',
+      }]);
+      if (orderError) {
+        console.error('❌ Supabase order insert failed:', JSON.stringify(orderError));
+      } else {
+        console.log('✅ Order saved to Supabase successfully');
+      }
+    } catch (orderException: any) {
+      console.error('❌ Supabase order insert exception:', orderException?.message || orderException);
+    }
+
+    // Google Apps Script Order Webhook Backup
+    const orderWebhookUrl = process.env.GOOGLE_APPS_SCRIPT_ORDER_WEBHOOK_URL;
+    if (orderWebhookUrl) {
+      try {
+        await fetch(orderWebhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            secret: process.env.APPS_SCRIPT_SHARED_SECRET,
+            type: 'order',
+            email,
+            payment_id: razorpay_payment_id,
+            order_id: razorpay_order_id,
+            ritualIndices,
+            ritual_names: ritualNamesList,
+          }),
+        });
+        console.log('✅ Order sent to Google Apps Script webhook');
+      } catch (webhookErr: any) {
+        console.error('❌ Order webhook exception:', webhookErr?.message || webhookErr);
+      }
+    }
 
     // 4. Build magic link
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
