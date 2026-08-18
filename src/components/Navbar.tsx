@@ -85,7 +85,7 @@ export default function Navbar() {
               Contact Us
             </a>
             <a
-              href="#pricing"
+              href="#rituals"
               id="nav-pay-now"
               className={`text-sm font-medium px-5 py-2.5 rounded-lg border transition-all duration-200 active:scale-95 ${scrolled ? 'text-[#C9A84C] hover:text-white border-[#C9A84C]/30 hover:border-[#C9A84C]/60 hover:bg-[#C9A84C]/10' : 'text-[#2A1208] hover:text-[#5E2E14] border-[#2A1208]/30 hover:border-[#2A1208]/60 hover:bg-[#2A1208]/10'}`}
             >
