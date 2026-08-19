@@ -1,10 +1,12 @@
 import { NextResponse } from 'next/server';
 import { createAdminSession, COOKIE_NAME } from '@/lib/adminAuth';
 
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Virasat@2025';
+
 export async function POST(req: Request) {
   const { password } = await req.json();
 
-  if (!password || password !== process.env.ADMIN_PASSWORD) {
+  if (!password || password !== ADMIN_PASSWORD) {
     return NextResponse.json({ error: 'Invalid password' }, { status: 401 });
   }
 

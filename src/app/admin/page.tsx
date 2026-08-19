@@ -31,7 +31,13 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     fetch('/api/admin/orders')
-      .then(r => r.json())
+      .then(async r => {
+        if (r.status === 401) {
+          window.location.href = '/admin/login';
+          return [];
+        }
+        return r.json();
+      })
       .then(data => { setOrders(Array.isArray(data) ? data : []); setLoading(false); })
       .catch(() => setLoading(false));
   }, []);

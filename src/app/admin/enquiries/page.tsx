@@ -20,7 +20,13 @@ export default function EnquiriesPage() {
 
   useEffect(() => {
     fetch('/api/admin/enquiries')
-      .then(r => r.json())
+      .then(async r => {
+        if (r.status === 401) {
+          window.location.href = '/admin/login';
+          return [];
+        }
+        return r.json();
+      })
       .then(data => { setEnquiries(Array.isArray(data) ? data : []); setLoading(false); })
       .catch(() => setLoading(false));
   }, []);

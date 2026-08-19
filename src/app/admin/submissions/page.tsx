@@ -36,7 +36,13 @@ export default function SubmissionsPage() {
 
   useEffect(() => {
     fetch('/api/admin/submissions')
-      .then(r => r.json())
+      .then(async r => {
+        if (r.status === 401) {
+          window.location.href = '/admin/login';
+          return [];
+        }
+        return r.json();
+      })
       .then(data => { setSubmissions(Array.isArray(data) ? data : []); setLoading(false); })
       .catch(() => setLoading(false));
   }, []);
