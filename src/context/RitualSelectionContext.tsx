@@ -59,8 +59,10 @@ export function RitualSelectionProvider({ children }: { children: React.ReactNod
   };
 
   const calculateTotal = () => {
-    const extraCount = Math.max(0, selectedRituals.length - 3);
-    return 501 + extraCount * 199;
+    const count = selectedRituals.length;
+    const base = 501;
+    const extraCount = Math.max(0, count - 3);
+    return base + extraCount * 199;
   };
 
   const openPaymentModal = () => {
