@@ -51,7 +51,7 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
           </div>
           <div className="max-w-xs">
             <p className="text-[#8C847C] text-sm md:text-base font-semibold leading-relaxed mb-1">
-              Any 3 rituals for ₹1 (Test Price).
+              Any 3 rituals for ₹501.
             </p>
             <p className="text-[#BD5319] text-sm font-semibold">
               + ₹199 for each additional ritual.
