@@ -166,25 +166,19 @@ export default function Hero() {
             className="font-serif font-light leading-[1.08] tracking-tight mb-6"
             style={{ fontFamily: 'var(--font-serif)', letterSpacing: '-0.01em', fontSize: 'clamp(2.1rem, 3rem + 2vw, 4.75rem)' }}
           >
-            Your family&apos;s {' '}
-            <span className="italic font-normal text-[#6B2A07]">authentic</span> traditions deserves to be{' '}
+            Start Documenting Your Family{' '}
+            <span className="italic font-normal text-[#6B2A07]">Rituals</span>{' '}
             <span className="relative inline-block font-semibold">
-              documented.
+              Forever
             </span>
           </h1>
 
-          {/* Subheading */}
+          {/* Subheadline */}
           <p
-            className="text-[#3D1A0A] text-base md:text-lg font-medium leading-relaxed max-w-md mb-4"
+            className="text-[#3D1A0A] text-base md:text-lg font-medium leading-relaxed max-w-md mb-10"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
-            More than any wealth, give your next generation the story of their identity.
-          </p>
-          <p
-            className="text-[#5E2E14] text-sm md:text-base font-medium leading-relaxed max-w-md mb-10"
-            style={{ fontFamily: 'var(--font-sans)' }}
-          >
-            We bridge the distance of time and geography. Keep your family&apos;s traditions, recipes and core memories alive, for generations to come.
+            Leave a lasting footprint for the generations to come.
           </p>
 
           {/* CTAs */}

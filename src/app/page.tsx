@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
+import WhatYouReceive from '@/components/WhatYouReceive';
 import WhyPreserve from '@/components/WhyPreserve';
 import AboutUs from '@/components/AboutUs';
 import HowItWorks from '@/components/HowItWorks';
@@ -36,6 +37,7 @@ export default async function Home() {
     <main>
       <Navbar />
       <Hero />
+      <WhatYouReceive />
       <WhyPreserve />
       <AboutUs />
       <HowItWorks />

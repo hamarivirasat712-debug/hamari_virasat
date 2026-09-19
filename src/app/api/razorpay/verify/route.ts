@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     const token = await new SignJWT({ email, payment_id: razorpay_payment_id, ritualIndices })
       .setProtectedHeader({ alg: 'HS256' })
       .setIssuedAt()
-      .setExpirationTime('30d') // Link valid for 30 days
+      // No expiry set — link remains valid indefinitely
       .sign(secretKey);
 
     // 3. Save order to Supabase for the admin dashboard & Google Sheets backup
@@ -104,7 +104,7 @@ export async function POST(req: Request) {
             <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #2A1208;">
               <h1 style="color: #BD5319;">Thank you for your purchase!</h1>
               <p>Your payment (ID: ${razorpay_payment_id}) was successful.</p>
-              <p>You can now begin documenting your family's rituals using the secure link below. You can save your progress and return to this link anytime within the next 30 days.</p>
+              <p>You can now begin documenting your family's rituals using the secure link below. You can save your progress and return to this link anytime — <strong>it does not expire</strong>.</p>
               <div style="margin: 30px 0;">
                 <a href="${magicLink}" style="background-color: #BD5319; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">
                   Start Documentation
