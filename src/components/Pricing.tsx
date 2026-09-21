@@ -243,6 +243,14 @@ export default function Pricing() {
             />
 
             <div className="relative bg-[#2A1208] rounded-3xl overflow-hidden">
+              {/* Pilot Offer badge */}
+              <div className="absolute top-4 right-4 z-10">
+                <div
+                  className="bg-gradient-to-r from-[#C9A84C] to-[#D4AF37] text-[#2A1208] text-[11px] font-bold tracking-[0.15em] uppercase px-4 py-1.5 rounded-full shadow-lg shadow-[#C9A84C]/30"
+                >
+                  ✦ Pilot Offer
+                </div>
+              </div>
               {/* Top band */}
               <div
                 className="h-1 w-full"

@@ -34,7 +34,7 @@ export default function SampleDocumentCover() {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/sample-ritual-document-cover.png"
+      src="/sample-ritual-document-cover.jpg"
       alt="Sample Ritual Document cover"
       className="w-full h-auto object-cover"
       onError={() => setImageError(true)}
