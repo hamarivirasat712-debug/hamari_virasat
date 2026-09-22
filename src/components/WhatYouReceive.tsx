@@ -42,7 +42,7 @@ export default function WhatYouReceive() {
               <span className="italic text-[#C9A84C]">family receives</span>
             </h3>
             <p className="text-[#8C847C] text-sm md:text-base leading-relaxed mb-6 max-w-md">
-              Before you commit to anything, download a finished sample ritual document — the same format and depth your family will receive. No account, no payment needed.
+              Before you commit to anything, download a sample ritual document — to see the format, depth, and care your family's record will reflect. No account, no payment needed.
             </p>
             {/* Download CTA */}
             <a
