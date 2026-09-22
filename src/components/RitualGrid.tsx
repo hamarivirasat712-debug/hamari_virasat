@@ -72,7 +72,7 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
             <p className="text-[#5E2E14] text-sm font-medium leading-relaxed">
               <span className="font-bold">①</span> Select the rituals you want to be documented (₹299 each) &nbsp;·&nbsp;
               <span className="font-bold">②</span> Click <span className="font-bold">&quot;Proceed to Payment&quot;</span> in the bar below &nbsp;·&nbsp;
-              <span className="font-bold">③</span> Complete payment to receive your personalised form
+              <span className="font-bold">③</span> Complete the payment to receive your personalised form
             </p>
           </div>
         </div>
