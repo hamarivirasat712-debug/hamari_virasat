@@ -46,15 +46,15 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
               style={{ fontFamily: 'var(--font-serif)' }}
             >
               Choose from our collection of rituals.{' '}
-              <span className="italic text-[#BD5319]">Pick at least 3.</span>
+              <span className="italic text-[#BD5319]">Pick one or many.</span>
             </h2>
           </div>
           <div className="max-w-xs">
             <p className="text-[#8C847C] text-sm md:text-base font-semibold leading-relaxed mb-1">
-              Any 3 rituals for ₹501.
+              ₹299 per ritual — flat rate.
             </p>
             <p className="text-[#BD5319] text-sm font-semibold">
-              + ₹199 for each additional ritual.
+              One-time payment. No hidden costs.
             </p>
           </div>
         </div>
@@ -70,7 +70,7 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
           <div>
             <p className="text-[#2A1208] text-sm font-bold mb-0.5">How to get started — 3 simple steps</p>
             <p className="text-[#5E2E14] text-sm font-medium leading-relaxed">
-              <span className="font-bold">①</span> Select at least 3 rituals (add more at ₹199 each) &nbsp;·&nbsp;
+              <span className="font-bold">①</span> Select the rituals you want documented (₹299 each) &nbsp;·&nbsp;
               <span className="font-bold">②</span> Click <span className="font-bold">&quot;Proceed to Payment&quot;</span> in the bar below &nbsp;·&nbsp;
               <span className="font-bold">③</span> Complete payment to receive your personalised form
             </p>
@@ -84,9 +84,7 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
               <span className="text-[#C9A84C] font-semibold">{selectedRituals.length} selected</span>
               <span className="text-[#5E2E14]">·</span>
               <span className="text-[#C9A84C] font-bold">₹{calculateTotal().toLocaleString('en-IN')}</span>
-              {selectedRituals.length > 3 && (
-                <span className="text-[#8C847C] text-xs">({selectedRituals.length - 3} extra × ₹199)</span>
-              )}
+              <span className="text-[#8C847C] text-xs">({selectedRituals.length} × ₹299)</span>
             </div>
           </div>
         )}
@@ -97,7 +95,7 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
             const isExpanded = expanded === ritual.number;
             const isItemSelected = isSelected(ritual.number);
             const isDisabled = false; // No cap — all rituals always selectable
-            const isExtra = !isItemSelected && selectedRituals.length >= 3; // 4th+ selection costs extra
+            const isExtra = false; // No extra pricing — flat ₹299 each
 
             /* ---- DIY card ---- */
             if (ritual.isDIY) {
@@ -152,7 +150,7 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
                         >
                           {isItemSelected ? (
                             <><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg> Selected</>
-                          ) : isExtra ? '+ ₹199' : '+ Select'}
+                          ) : '+ ₹299'}
                         </button>
                         <span
                           className="text-xs font-semibold tracking-wide px-2.5 py-1 rounded-full"
@@ -253,14 +251,12 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
                         className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full border-2 transition-all duration-200 ${
                           isItemSelected
                             ? 'bg-[#D4AF37] text-[#2A1208] border-[#D4AF37] shadow-md'
-                            : isExtra
-                            ? 'text-[#BD5319] border-[#BD5319] hover:bg-[#BD5319] hover:text-white'
                             : 'text-[#8C847C] border-[#EFEAE2] hover:border-[#D4AF37] hover:text-[#D4AF37]'
                         }`}
                       >
                         {isItemSelected ? (
                           <><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg> Selected</>
-                        ) : isExtra ? '+ ₹199' : '+ Select'}
+                        ) : '+ ₹299'}
                       </button>
                       <span
                         className="text-xs font-semibold tracking-wide px-2.5 py-1 rounded-full"
@@ -343,7 +339,7 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
             <div
               className="h-0.5 transition-all duration-500"
               style={{
-                width: `${(selectedRituals.length / 3) * 100}%`,
+                width: '100%',
                 background: 'linear-gradient(to right, #BD5319, #C9A84C)',
               }}
             />
@@ -351,10 +347,7 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
               {/* Selected names */}
               <div className="flex-1 min-w-0">
                 <p className="text-[#C9A84C] text-xs font-bold tracking-wider uppercase mb-1.5">
-                  {selectedRituals.length < 3
-                    ? `${selectedRituals.length} of 3 selected — choose ${3 - selectedRituals.length} more`
-                    : `${selectedRituals.length} ritual${selectedRituals.length > 1 ? 's' : ''} selected — Total: ₹${calculateTotal().toLocaleString('en-IN')}`
-                  }
+                  {`${selectedRituals.length} ritual${selectedRituals.length > 1 ? 's' : ''} selected — Total: ₹${calculateTotal().toLocaleString('en-IN')}`}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {selectedRituals.map((r) => (
@@ -370,27 +363,15 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
                 </div>
               </div>
               {/* CTA */}
-              {selectedRituals.length >= 3 ? (
-                <button
-                  onClick={openPaymentModal}
-                  className="flex-shrink-0 inline-flex items-center gap-2 font-semibold text-sm px-6 py-3 rounded-xl transition-all duration-200 active:scale-95 bg-[#BD5319] hover:bg-[#A34310] text-white hover:shadow-lg hover:shadow-[#BD5319]/30"
-                >
-                  Proceed to Payment
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </button>
-              ) : (
-                <a
-                  href="#rituals"
-                  className="flex-shrink-0 inline-flex items-center gap-2 font-semibold text-sm px-6 py-3 rounded-xl transition-all duration-200 active:scale-95 bg-white/10 text-[#8C847C] border border-white/10"
-                >
-                  Select more
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </a>
-              )}
+              <button
+                onClick={openPaymentModal}
+                className="flex-shrink-0 inline-flex items-center gap-2 font-semibold text-sm px-6 py-3 rounded-xl transition-all duration-200 active:scale-95 bg-[#BD5319] hover:bg-[#A34310] text-white hover:shadow-lg hover:shadow-[#BD5319]/30"
+              >
+                Proceed to Payment
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
             </div>
           </div>
         </div>

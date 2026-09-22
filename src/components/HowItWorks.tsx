@@ -5,7 +5,7 @@ const steps = [
     number: '01',
     title: 'Choose rituals/Festivals',
     body:
-      'Select any 3 rituals/festivals from the list. If your ritual/festival is not listed, select the custom ritual/festival.',
+      'Select the rituals/festivals you want documented from the list. Pick one or as many as you like. If yours is not listed, select the custom option.',
     detail: 'Godbharai, Mundan, Vivah Mandap, Pheras & more',
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">

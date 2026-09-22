@@ -35,7 +35,7 @@ interface RitualSelectionContextType {
   setSelectedRituals: React.Dispatch<React.SetStateAction<SelectedRitual[]>>;
   // Converts selected rituals to intake form indices e.g. [0, 3, 6]
   getIntakeIndices: () => number[];
-  // Returns total price: ₹501 base + ₹199 per ritual beyond 3
+  // Returns total price: ₹299 per ritual (flat rate)
   calculateTotal: () => number;
   isPaymentModalOpen: boolean;
   setIsPaymentModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -59,14 +59,11 @@ export function RitualSelectionProvider({ children }: { children: React.ReactNod
   };
 
   const calculateTotal = () => {
-    const count = selectedRituals.length;
-    const base = 501;
-    const extraCount = Math.max(0, count - 3);
-    return base + extraCount * 199;
+    return selectedRituals.length * 299;
   };
 
   const openPaymentModal = () => {
-    if (selectedRituals.length < 3) {
+    if (selectedRituals.length < 1) {
       setIsSelectionRequiredPopupOpen(true);
       const el = document.getElementById('rituals');
       if (el) {
@@ -107,7 +104,7 @@ export function RitualSelectionProvider({ children }: { children: React.ReactNod
               Please Select Your Rituals First
             </h3>
             <p className="text-[#8C847C] text-sm leading-relaxed mb-6 font-light">
-              You must select at least <strong className="text-[#BD5319] font-semibold">3 rituals</strong> from our <strong className="text-[#2A1208] font-semibold">Riti Riwaj</strong> collection below before proceeding to payment.
+              Please select at least <strong className="text-[#BD5319] font-semibold">1 ritual</strong> from our <strong className="text-[#2A1208] font-semibold">Riti Riwaj</strong> collection below before proceeding to payment.
             </p>
             <button
               onClick={() => {

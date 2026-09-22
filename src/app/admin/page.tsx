@@ -53,7 +53,7 @@ export default function AdminDashboard() {
     setUpdatingId(null);
   };
 
-  const totalRevenue = orders.length * 501; // base price — will vary once we track amounts
+  const totalRevenue = orders.length * 299; // base price per ritual — will vary once we track amounts
 
   return (
     <div>

@@ -11,7 +11,7 @@ declare global {
 }
 
 const inclusions = [
-  'Your choice of any 3 rituals — documented in full',
+  'Your selected rituals — each one documented in full',
   'Complete Samagri list for each ceremony',
   'Ritual steps in your family\'s sequence',
   'Songs, prayers & mantras — as your family says them',
@@ -21,7 +21,6 @@ const inclusions = [
   'Beautifully formatted PDF heirloom document',
   'Delivered to your inbox within 7 days of form completion',
   'Save & resume — fill at your own pace over multiple sittings',
-  '10% discount on your next ritual documentation',
 ];
 
 export default function Pricing() {
@@ -69,7 +68,7 @@ export default function Pricing() {
         amount: order.amount,
         currency: order.currency,
         name: "Hamari Virasat",
-        description: "Ritual Documentation (3 Rituals)",
+        description: `Ritual Documentation (${selectedRituals.length} Ritual${selectedRituals.length > 1 ? 's' : ''})`,
         order_id: order.id,
         handler: async function (response: any) {
           setIsLoading(true);
@@ -225,12 +224,12 @@ export default function Pricing() {
             className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-[#2A1208] leading-tight mb-5"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
-            One price. Any 3 rituals.{' '}
-              <span className="italic text-[#BD5319]">Yours forever.</span>
-          </h2>
-          <p className="text-[#8C847C] text-base font-light leading-relaxed">
-            No tiers. No hidden fees. No subscriptions. Pick any 3 rituals from our collection — each one documented in full at one flat price.
-          </p>
+            One price per ritual.{' '}
+               <span className="italic text-[#BD5319]">Yours forever.</span>
+           </h2>
+           <p className="text-[#8C847C] text-base font-light leading-relaxed">
+             No tiers. No hidden fees. No subscriptions. Pick one or many rituals from our collection — each one documented in full at ₹299.
+           </p>
         </div>
 
         {/* Pricing card */}
@@ -258,25 +257,24 @@ export default function Pricing() {
               />
 
               <div className="p-8 md:p-12">
-                {/* Price */}
-                <div className="flex items-end gap-3 mb-3">
-                  <span className="text-[#5C564F] text-lg md:text-2xl mb-2 font-medium">₹</span>
-                  <span className="font-sans text-5xl md:text-6xl lg:text-7xl text-white font-semibold leading-none tracking-tight">
-                    {selectedRituals.length >= 3
-                      ? calculateTotal().toLocaleString('en-IN')
-                      : '501'}
-                    <span className="text-3xl md:text-4xl text-[#8C847C] line-through ml-2 font-medium">999</span>
-                  </span>
-                </div>
-                {selectedRituals.length > 3 && (
-                  <p className="text-[#C9A84C] text-xs font-medium mb-1">
-                    ₹501 base + {selectedRituals.length - 3} × ₹199 extra ritual{selectedRituals.length - 3 > 1 ? 's' : ''}
-                  </p>
-                )}
-                <p className="text-white text-sm mb-2 font-medium">One-time payment · Any 3 rituals of your choice · No subscription</p>
-                <p className="text-[#C9A84C] text-sm font-medium mb-10">
-                  ✦ Early access price — limited time offer
-                </p>
+                 {/* Price */}
+                 <div className="flex items-end gap-3 mb-3">
+                   <span className="text-[#5C564F] text-lg md:text-2xl mb-2 font-medium">₹</span>
+                   <span className="font-sans text-5xl md:text-6xl lg:text-7xl text-white font-semibold leading-none tracking-tight">
+                     {selectedRituals.length >= 1
+                       ? calculateTotal().toLocaleString('en-IN')
+                       : '299'}
+                   </span>
+                   <span className="text-[#8C847C] text-base md:text-lg mb-2 font-medium">
+                     {selectedRituals.length >= 1
+                       ? `for ${selectedRituals.length} ritual${selectedRituals.length > 1 ? 's' : ''}`
+                       : '/ ritual'}
+                   </span>
+                 </div>
+                 <p className="text-white text-sm mb-2 font-medium">One-time payment · No subscription · No hidden costs</p>
+                 <p className="text-[#C9A84C] text-sm font-medium mb-10">
+                   ✦ Pilot offer — limited time pricing
+                 </p>
 
                 {/* CTAs */}
                 <div className="flex flex-col sm:flex-row gap-4 mb-10">

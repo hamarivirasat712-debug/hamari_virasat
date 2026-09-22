@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     q: 'Are there hidden charges for custom rituals?',
-    a: 'No hidden surprises. The launching plan includes 3 rituals at a flat discounted rate, and additional rituals can be added anytime.',
+    a: 'No hidden surprises. Every ritual is priced at a flat ₹299 — one-time payment, no subscription, no hidden costs. Pick one or as many as you need.',
   },
   {
     q: 'Who has access to our family\'s data and media?',
