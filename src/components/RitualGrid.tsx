@@ -20,10 +20,20 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
   const [expanded, setExpanded] = useState<string | null>(null);
   const { selectedRituals, setSelectedRituals, calculateTotal, openPaymentModal } = useRitualSelection();
 
-  const isSelected = (number: string) => selectedRituals.some(r => r.number === number);
+  const getSlug = (r: { slug?: string; number: string; title: string }) => {
+    if (r.slug) return r.slug;
+    const numIdx = parseInt(r.number, 10) - 1;
+    const legacySlugs: Record<number, string> = {
+      0: 'namkaran', 1: 'mundan', 2: 'upanayana', 3: 'engagement',
+      4: 'wedding-haldi', 5: 'wedding-mehendi', 6: 'wedding-main', 7: 'griha-pravesh',
+    };
+    if (!isNaN(numIdx) && legacySlugs[numIdx]) return legacySlugs[numIdx];
+    return r.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  };
 
-  const toggleSelect = (number: string, title: string, slug: string, e: React.MouseEvent) => {
+  const toggleSelect = (number: string, title: string, slugInput: string | undefined, e: React.MouseEvent) => {
     e.stopPropagation();
+    const slug = slugInput || getSlug({ number, title });
     setSelectedRituals((prev) => {
       if (prev.some(r => r.number === number)) return prev.filter(r => r.number !== number);
       return [...prev, { number, title, slug }];
