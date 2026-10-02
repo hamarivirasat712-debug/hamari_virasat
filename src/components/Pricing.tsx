@@ -30,7 +30,7 @@ export default function Pricing() {
   const [magicLink, setMagicLink] = useState<string | null>(null);
   const {
     selectedRituals,
-    getIntakeIndices,
+    getIntakeSlugs,
     calculateTotal,
     isPaymentModalOpen,
     openPaymentModal,
@@ -51,12 +51,13 @@ export default function Pricing() {
     
     setIsLoading(true);
     try {
-      const ritualIndices = getIntakeIndices();
+      const ritualSlugs = getIntakeSlugs();
+      const ritualTitles = selectedRituals.map(r => r.title);
       const total = calculateTotal();
       const res = await fetch('/api/razorpay/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: total, email, ritualIndices })
+        body: JSON.stringify({ amount: total, email, ritualSlugs })
       });
       const order = await res.json();
       if (!res.ok || !order.id) {
@@ -81,7 +82,8 @@ export default function Pricing() {
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
                 email,
-                ritualIndices
+                ritualSlugs,
+                ritualTitles,
               })
             });
             
@@ -89,7 +91,7 @@ export default function Pricing() {
             if (verifyData.success) {
               // Build the magic link from the returned token so we can show it as fallback
               const base = process.env.NEXT_PUBLIC_APP_URL || window.location.origin;
-              const rParam = ritualIndices.length > 0 ? `&r=${ritualIndices.join(',')}` : '';
+              const rParam = ritualSlugs.length > 0 ? `&r=${ritualSlugs.join(',')}` : '';
               const link = `${base}/intake?token=${verifyData.token}${rParam}`;
               setMagicLink(link);
               console.log('✅ Magic Link (use this if email did not arrive):', link);

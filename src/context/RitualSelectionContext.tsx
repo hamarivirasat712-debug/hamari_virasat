@@ -2,39 +2,30 @@
 
 import React, { createContext, useContext, useState } from 'react';
 
-// Maps ritual titles from Sanity CMS to the intake form index (0–7)
-// Update this if ritual titles in Sanity change
-export const RITUAL_TITLE_TO_INDEX: Record<string, number> = {
-  'Namkaran': 0,
-  'Mundan': 1,
-  'Upanayana': 2,
-  'Upanayana / Janeu': 2,
-  'Janeu': 2,
-  'Engagement': 3,
-  'Sagai': 3,
-  'Wedding – Haldi': 4,
-  'Wedding - Haldi': 4,
-  'Haldi': 4,
-  'Wedding – Mehendi': 5,
-  'Wedding - Mehendi': 5,
-  'Mehendi': 5,
-  'Wedding – Main Ceremony': 6,
-  'Wedding - Main Ceremony': 6,
-  'Vivah': 6,
-  'Griha Pravesh': 7,
-  'Grih Pravesh': 7,
+// Legacy mapping: maps old hardcoded indices (0–7) to slugs for backward compat
+// with existing JWT tokens that used ritualIndices
+export const LEGACY_INDEX_TO_SLUG: Record<number, string> = {
+  0: 'namkaran',
+  1: 'mundan',
+  2: 'upanayana',
+  3: 'engagement',
+  4: 'wedding-haldi',
+  5: 'wedding-mehendi',
+  6: 'wedding-main',
+  7: 'griha-pravesh',
 };
 
 interface SelectedRitual {
   number: string;  // Sanity number string e.g. "01"
   title: string;   // e.g. "Namkaran"
+  slug: string;    // e.g. "namkaran" — machine key from Sanity
 }
 
 interface RitualSelectionContextType {
   selectedRituals: SelectedRitual[];
   setSelectedRituals: React.Dispatch<React.SetStateAction<SelectedRitual[]>>;
-  // Converts selected rituals to intake form indices e.g. [0, 3, 6]
-  getIntakeIndices: () => number[];
+  // Returns slugs of selected rituals e.g. ['namkaran', 'wedding-haldi']
+  getIntakeSlugs: () => string[];
   // Returns total price: ₹299 per ritual (flat rate)
   calculateTotal: () => number;
   isPaymentModalOpen: boolean;
@@ -52,10 +43,8 @@ export function RitualSelectionProvider({ children }: { children: React.ReactNod
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [isSelectionRequiredPopupOpen, setIsSelectionRequiredPopupOpen] = useState(false);
 
-  const getIntakeIndices = () => {
-    return selectedRituals
-      .map(r => RITUAL_TITLE_TO_INDEX[r.title])
-      .filter(idx => idx !== undefined);
+  const getIntakeSlugs = () => {
+    return selectedRituals.map(r => r.slug).filter(Boolean);
   };
 
   const calculateTotal = () => {
@@ -81,7 +70,7 @@ export function RitualSelectionProvider({ children }: { children: React.ReactNod
       value={{
         selectedRituals,
         setSelectedRituals,
-        getIntakeIndices,
+        getIntakeSlugs,
         calculateTotal,
         isPaymentModalOpen,
         setIsPaymentModalOpen,

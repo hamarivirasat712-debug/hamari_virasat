@@ -5,7 +5,9 @@ import { useRitualSelection } from '@/context/RitualSelectionContext';
 
 type Ritual = {
   number: string;
+  slug: string;
   title: string;
+  sublabel?: string;
   category: string;
   description: string;
   subSections: string[];
@@ -20,11 +22,11 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
 
   const isSelected = (number: string) => selectedRituals.some(r => r.number === number);
 
-  const toggleSelect = (number: string, title: string, e: React.MouseEvent) => {
+  const toggleSelect = (number: string, title: string, slug: string, e: React.MouseEvent) => {
     e.stopPropagation();
     setSelectedRituals((prev) => {
       if (prev.some(r => r.number === number)) return prev.filter(r => r.number !== number);
-      return [...prev, { number, title }];
+      return [...prev, { number, title, slug }];
     });
   };
 
@@ -138,7 +140,7 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
                       {/* Top-right: select button + category */}
                       <div className="flex flex-col items-end gap-2">
                         <button
-                          onClick={(e) => toggleSelect(ritual.number, ritual.title, e)}
+                          onClick={(e) => toggleSelect(ritual.number, ritual.title, ritual.slug, e)}
                           disabled={isDisabled}
                           className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full border-2 transition-all duration-200 ${
                             isItemSelected
@@ -246,7 +248,7 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
                     {/* Top-right: select button + category */}
                     <div className="flex flex-col items-end gap-2">
                       <button
-                        onClick={(e) => toggleSelect(ritual.number, ritual.title, e)}
+                        onClick={(e) => toggleSelect(ritual.number, ritual.title, ritual.slug, e)}
                         disabled={isDisabled}
                         className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full border-2 transition-all duration-200 ${
                           isItemSelected
@@ -353,7 +355,7 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
                   {selectedRituals.map((r) => (
                     <button
                       key={r.number}
-                      onClick={(e) => toggleSelect(r.number, r.title, e)}
+                      onClick={(e) => toggleSelect(r.number, r.title, r.slug || '', e)}
                       className="flex items-center gap-1 text-white text-xs bg-white/10 hover:bg-white/20 border border-white/10 rounded-full px-2.5 py-1 transition-colors"
                     >
                       {r.title}

@@ -9,9 +9,22 @@ export default {
       type: 'string',
     },
     {
+      name: 'slug',
+      title: 'Slug (machine key)',
+      type: 'string',
+      description: 'A unique machine-readable key, e.g. "namkaran", "wedding-haldi". Used to identify rituals across payment and intake flows. Do not change after customers have purchased this ritual.',
+      validation: (Rule: any) => Rule.required().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, { name: 'slug', invert: false }).error('Slug must be lowercase letters, numbers, and hyphens only (e.g. "wedding-haldi")'),
+    },
+    {
       name: 'title',
       title: 'Title',
       type: 'string',
+    },
+    {
+      name: 'sublabel',
+      title: 'Sublabel / Subtitle',
+      type: 'string',
+      description: 'Short subtitle shown in the intake form, e.g. "Naming Ceremony", "Sacred Thread Ceremony"',
     },
     {
       name: 'category',

@@ -6,6 +6,24 @@ import { supabase } from '@/lib/supabase';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'hamari_virasat_super_secure_random_key_998877';
 
+// Legacy index→slug map for backward compatibility with old payment flows
+const LEGACY_INDEX_TO_SLUG: Record<number, string> = {
+  0: 'namkaran',
+  1: 'mundan',
+  2: 'upanayana',
+  3: 'engagement',
+  4: 'wedding-haldi',
+  5: 'wedding-mehendi',
+  6: 'wedding-main',
+  7: 'griha-pravesh',
+};
+
+const LEGACY_INDEX_TO_LABEL: Record<number, string> = {
+  0: 'Namkaran', 1: 'Mundan', 2: 'Upanayana / Janeu', 3: 'Engagement',
+  4: 'Wedding — Haldi', 5: 'Wedding — Mehendi', 6: 'Wedding — Main Ceremony',
+  7: 'Griha Pravesh',
+};
+
 export async function POST(req: Request) {
   const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
   try {
@@ -15,6 +33,10 @@ export async function POST(req: Request) {
       razorpay_payment_id,
       razorpay_signature,
       email,
+      // New slug-based flow
+      ritualSlugs = [] as string[],
+      ritualTitles = [] as string[],
+      // Legacy index-based flow (backward compat)
       ritualIndices = [] as number[],
     } = body;
 
@@ -29,29 +51,40 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
     }
 
+    // Resolve slugs and titles — support both new slug-based and old index-based requests
+    let finalSlugs: string[] = ritualSlugs;
+    let finalTitles: string[] = ritualTitles;
+
+    if (finalSlugs.length === 0 && ritualIndices.length > 0) {
+      // Legacy flow: convert indices to slugs
+      finalSlugs = ritualIndices.map((i: number) => LEGACY_INDEX_TO_SLUG[i] || `ritual-${i}`);
+      finalTitles = ritualIndices.map((i: number) => LEGACY_INDEX_TO_LABEL[i] || `Ritual ${i}`);
+    }
+
     // 2. Generate a secure JWT for the intake form access
     const secretKey = new TextEncoder().encode(JWT_SECRET);
-    const token = await new SignJWT({ email, payment_id: razorpay_payment_id, ritualIndices })
+    const token = await new SignJWT({
+      email,
+      payment_id: razorpay_payment_id,
+      ritualSlugs: finalSlugs,
+      ritualTitles: finalTitles,
+      // Keep ritualIndices in JWT for backward compat with old intake links
+      ritualIndices: ritualIndices.length > 0 ? ritualIndices : undefined,
+    })
       .setProtectedHeader({ alg: 'HS256' })
       .setIssuedAt()
       // No expiry set — link remains valid indefinitely
       .sign(secretKey);
 
     // 3. Save order to Supabase for the admin dashboard & Google Sheets backup
-    const ritualLabels: Record<number, string> = {
-      0: 'Namkaran', 1: 'Mundan', 2: 'Upanayana / Janeu', 3: 'Engagement',
-      4: 'Wedding — Haldi', 5: 'Wedding — Mehendi', 6: 'Wedding — Main Ceremony',
-      7: 'Griha Pravesh',
-    };
-    const ritualNamesList = ritualIndices.map((i: number) => ritualLabels[i] || `Ritual ${i}`);
-
     try {
       const { error: orderError } = await supabase.from('orders').insert([{
         customer_email: email,
         payment_id: razorpay_payment_id,
         order_id: razorpay_order_id,
-        ritual_indices: ritualIndices,
-        ritual_names: ritualNamesList,
+        ritual_indices: ritualIndices.length > 0 ? ritualIndices : null,
+        ritual_names: finalTitles,
+        ritual_slugs: finalSlugs,
         status: 'pending',
       }]);
       if (orderError) {
@@ -76,8 +109,10 @@ export async function POST(req: Request) {
             email,
             payment_id: razorpay_payment_id,
             order_id: razorpay_order_id,
-            ritualIndices,
-            ritual_names: ritualNamesList,
+            ritualSlugs: finalSlugs,
+            ritual_names: finalTitles,
+            // Legacy fields
+            ritualIndices: ritualIndices.length > 0 ? ritualIndices : undefined,
           }),
         });
         console.log('✅ Order sent to Google Apps Script webhook');
@@ -88,7 +123,7 @@ export async function POST(req: Request) {
 
     // 4. Build magic link
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-    const rParam = ritualIndices.length > 0 ? `&r=${ritualIndices.join(',')}` : '';
+    const rParam = finalSlugs.length > 0 ? `&r=${finalSlugs.join(',')}` : '';
     const magicLink = `${baseUrl}/intake?token=${token}${rParam}`;
 
     let emailSent = false;

@@ -5,18 +5,14 @@ import { useSearchParams } from 'next/navigation';
 
 import { decodeJwt } from 'jose';
 
-// ─── Data ─────────────────────────────────────────────────────────────────
+// ─── Types ─────────────────────────────────────────────────────────────────
 
-const ALL_RITUALS = [
-  { index: 0, label: 'Namkaran',              sublabel: 'Naming Ceremony' },
-  { index: 1, label: 'Mundan',                sublabel: 'First Haircut' },
-  { index: 2, label: 'Upanayana / Janeu',     sublabel: 'Sacred Thread Ceremony' },
-  { index: 3, label: 'Engagement',            sublabel: 'Sagai' },
-  { index: 4, label: 'Wedding — Haldi',       sublabel: 'Turmeric Ceremony' },
-  { index: 5, label: 'Wedding — Mehendi',     sublabel: 'Henna Ceremony' },
-  { index: 6, label: 'Wedding — Main Ceremony', sublabel: 'Pheras & Vidaai' },
-  { index: 7, label: 'Griha Pravesh',         sublabel: 'Housewarming' },
-];
+interface SanityRitual {
+  slug: string;
+  title: string;
+  sublabel?: string;
+  number: string;
+}
 
 const SUB_QUESTIONS = [
   { key: 'steps',          label: "Ritual steps in your family's sequence",    placeholder: 'Describe what happens, in order, from start to finish...' },
@@ -28,39 +24,43 @@ const SUB_QUESTIONS = [
   { key: 'additionalInfo', label: 'Additional Information',                     placeholder: 'Share any special memories, stories, unique family customs, or personal touches you want included...' },
 ];
 
-const STORAGE_KEY = 'Hamari Virasat-intake-v2';
+const STORAGE_KEY = 'Hamari Virasat-intake-v3';
 
 type RitualData = Record<string, string>;
-type StepId = 'intro' | 'contact' | 'ancestral' | number | 'card9' | 'review';
+type StepId = 'intro' | 'contact' | 'ancestral' | string | 'card9' | 'review';
 
 interface FormData {
   email: string;
   name: string;
   phone: string;
-  selectedRituals: number[];
+  selectedSlugs: string[];    // slugs of purchased rituals
   includeCard9: boolean;
   gotra: string;
   kuldevi: string;
   kuldevta: string;
-  rituals: RitualData[];
+  rituals: Record<string, RitualData>;  // keyed by slug
   customRitualName: string;
 }
 
+// Legacy index→slug map for backward compat
+const LEGACY_INDEX_TO_SLUG: Record<number, string> = {
+  0: 'namkaran', 1: 'mundan', 2: 'upanayana', 3: 'engagement',
+  4: 'wedding-haldi', 5: 'wedding-mehendi', 6: 'wedding-main', 7: 'griha-pravesh',
+};
+
 const emptyRitual = (): RitualData => ({ steps: '', samagri: '', songs: '', roles: '', variations: '', photos: '', additionalInfo: '' });
 
-const defaultForm = (email = '', rituals: number[] = []): FormData => ({
-  email: email, name: '', phone: '',
-  selectedRituals: rituals.length > 0 ? rituals : [0, 1, 2], includeCard9: false,
+const defaultForm = (email = '', slugs: string[] = []): FormData => ({
+  email, name: '', phone: '',
+  selectedSlugs: slugs, includeCard9: false,
   gotra: '', kuldevi: '', kuldevta: '',
-  rituals: Array.from({ length: 9 }, emptyRitual),
+  rituals: {},
   customRitualName: '',
 });
 
-// Rituals are determined via JWT token from order payment
-function buildSteps(sel: number[], card9: boolean): StepId[] {
-  const effectiveRituals = sel.length > 0 ? sel : [0, 1, 2];
+function buildSteps(sel: string[], card9: boolean): StepId[] {
   const s: StepId[] = ['intro', 'contact', 'ancestral'];
-  effectiveRituals.forEach(i => s.push(i)); // all purchased rituals from JWT token
+  sel.forEach(slug => s.push(slug));
   if (card9) s.push('card9');
   s.push('review');
   return s;
@@ -68,87 +68,190 @@ function buildSteps(sel: number[], card9: boolean): StepId[] {
 
 interface IntakeClientProps {
   initialEmail?: string;
-  initialRitualIndices?: number[];
+  initialRitualSlugs?: string[];
+  sanityRituals?: SanityRitual[];
+  token?: string;
 }
 
 // ─── Inner (needs useSearchParams) ────────────────────────────────────────
 
-function IntakeInner({ initialEmail = '', initialRitualIndices = [] }: IntakeClientProps) {
+function IntakeInner({ initialEmail = '', initialRitualSlugs = [], sanityRituals = [], token = '' }: IntakeClientProps) {
   const searchParams = useSearchParams();
-  const [form, setForm] = useState<FormData>(() => defaultForm(initialEmail, initialRitualIndices));
+
+  // Build a lookup map from sanity rituals
+  const ritualBySlug = React.useMemo(() => {
+    const map: Record<string, SanityRitual> = {};
+    sanityRituals.forEach(r => { if (r.slug) map[r.slug] = r; });
+    return map;
+  }, [sanityRituals]);
+
+  const [form, setForm] = useState<FormData>(() => {
+    const f = defaultForm(initialEmail, initialRitualSlugs);
+    // Pre-initialize ritual data objects for selected slugs
+    initialRitualSlugs.forEach(slug => {
+      if (!f.rituals[slug]) f.rituals[slug] = emptyRitual();
+    });
+    return f;
+  });
   const [stepIndex, setStepIndex] = useState(0);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [savedAt, setSavedAt] = useState<string | null>(null);
   const [hasRestored, setHasRestored] = useState(false);
+  const [showSaveModal, setShowSaveModal] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
 
-  const steps = buildSteps(form.selectedRituals, form.includeCard9);
+  const steps = buildSteps(form.selectedSlugs, form.includeCard9);
   const currentId = steps[stepIndex] ?? 'review';
+
+  // Build the magic link URL for copy/share
+  const magicLink = React.useMemo(() => {
+    if (!token) return '';
+    const base = typeof window !== 'undefined' ? window.location.origin : '';
+    const rParam = form.selectedSlugs.length > 0 ? `&r=${form.selectedSlugs.join(',')}` : '';
+    return `${base}/intake?token=${token}${rParam}`;
+  }, [token, form.selectedSlugs]);
 
   // Apply server-decoded JWT props directly
   useEffect(() => {
-    if (initialEmail || (initialRitualIndices && initialRitualIndices.length > 0)) {
-      setForm(prev => ({
-        ...prev,
-        email: initialEmail || prev.email,
-        selectedRituals: initialRitualIndices.length > 0 ? initialRitualIndices : prev.selectedRituals,
-      }));
+    if (initialEmail || (initialRitualSlugs && initialRitualSlugs.length > 0)) {
+      setForm(prev => {
+        const newSlugs = initialRitualSlugs.length > 0 ? initialRitualSlugs : prev.selectedSlugs;
+        const newRituals = { ...prev.rituals };
+        newSlugs.forEach(slug => {
+          if (!newRituals[slug]) newRituals[slug] = emptyRitual();
+        });
+        return {
+          ...prev,
+          email: initialEmail || prev.email,
+          selectedSlugs: newSlugs,
+          rituals: newRituals,
+        };
+      });
     }
-  }, [initialEmail, initialRitualIndices]);
+  }, [initialEmail, initialRitualSlugs]);
 
   // URL params fallback (Razorpay flow & magic link)
   useEffect(() => {
-    const token = searchParams.get('token');
+    const urlToken = searchParams.get('token');
     const r = searchParams.get('r');
     const c9 = searchParams.get('c9');
 
     let emailFromToken = '';
-    let indices: number[] = [];
+    let slugs: string[] = [];
 
-    if (token) {
+    if (urlToken) {
       try {
-        const decoded = decodeJwt(token);
+        const decoded = decodeJwt(urlToken);
         if (decoded && typeof decoded.email === 'string') {
           emailFromToken = decoded.email;
         }
-        if (decoded && Array.isArray(decoded.ritualIndices)) {
-          indices = decoded.ritualIndices.map(Number).filter(n => !isNaN(n) && n >= 0 && n <= 7);
+        // New slug-based JWT
+        if (decoded && Array.isArray(decoded.ritualSlugs)) {
+          slugs = (decoded.ritualSlugs as string[]).filter(s => typeof s === 'string' && s.length > 0);
+        }
+        // Legacy index-based JWT
+        if (slugs.length === 0 && decoded && Array.isArray(decoded.ritualIndices)) {
+          slugs = (decoded.ritualIndices as number[])
+            .map(Number)
+            .filter(n => !isNaN(n) && n >= 0 && n <= 7)
+            .map(i => LEGACY_INDEX_TO_SLUG[i])
+            .filter(Boolean);
         }
       } catch {
         /* ignore invalid token format */
       }
     }
 
-    if (r && indices.length === 0) {
-      const rIndices = r.split(',').map(Number).filter(n => !isNaN(n) && n >= 0 && n <= 7);
-      if (rIndices.length > 0) {
-        indices = rIndices;
+    if (r && slugs.length === 0) {
+      const parts = r.split(',').map(s => s.trim()).filter(Boolean);
+      const allNumeric = parts.every(p => /^\d+$/.test(p));
+      if (allNumeric) {
+        slugs = parts.map(Number).filter(n => n >= 0 && n <= 7).map(i => LEGACY_INDEX_TO_SLUG[i]).filter(Boolean);
+      } else {
+        slugs = parts;
       }
     }
 
-    if (indices.length > 0 || emailFromToken) {
-      setForm(prev => ({
-        ...prev,
-        email: emailFromToken || prev.email || initialEmail,
-        selectedRituals: indices.length > 0 ? indices : (prev.selectedRituals.length > 0 ? prev.selectedRituals : [0, 1, 2]),
-        includeCard9: c9 === '1' || prev.includeCard9,
-      }));
+    if (slugs.length > 0 || emailFromToken) {
+      setForm(prev => {
+        const newSlugs = slugs.length > 0 ? slugs : prev.selectedSlugs;
+        const newRituals = { ...prev.rituals };
+        newSlugs.forEach(slug => {
+          if (!newRituals[slug]) newRituals[slug] = emptyRitual();
+        });
+        return {
+          ...prev,
+          email: emailFromToken || prev.email || initialEmail,
+          selectedSlugs: newSlugs,
+          includeCard9: c9 === '1' || prev.includeCard9,
+          rituals: newRituals,
+        };
+      });
     }
   }, [searchParams, initialEmail]);
 
-  // Restore localStorage (only if no token or r in URL)
+  // Restore localStorage — merge saved form data with token ritual selections
   useEffect(() => {
-    if (searchParams.get('r') || searchParams.get('token')) return;
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const saved = JSON.parse(raw);
-        setForm(saved.form);
-        setStepIndex(saved.stepIndex ?? 1);
-        setSavedAt(saved.savedAt ?? null);
-        setHasRestored(true);
+        if (saved.form) {
+          setForm(prev => {
+            // Token defines which rituals the user paid for (authoritative)
+            // localStorage has the user's progress on filling those rituals (to be restored)
+            const tokenSlugs = prev.selectedSlugs; // Already set from token/URL above
+            const mergedRituals = { ...prev.rituals };
+
+            // Restore saved ritual data for slugs the user has paid for
+            if (saved.form.rituals && typeof saved.form.rituals === 'object') {
+              // Handle both old array format and new object format
+              if (Array.isArray(saved.form.rituals)) {
+                // Old v2 format: rituals is an array indexed by number
+                // We need to convert using legacy mapping
+                saved.form.rituals.forEach((ritualData: RitualData, idx: number) => {
+                  const slug = LEGACY_INDEX_TO_SLUG[idx];
+                  if (slug && tokenSlugs.includes(slug) && ritualData) {
+                    const hasContent = Object.values(ritualData).some(v => typeof v === 'string' && v.trim());
+                    if (hasContent) {
+                      mergedRituals[slug] = { ...emptyRitual(), ...ritualData };
+                    }
+                  }
+                });
+              } else {
+                // New v3 format: rituals is an object keyed by slug
+                Object.entries(saved.form.rituals).forEach(([slug, ritualData]) => {
+                  if (tokenSlugs.includes(slug) && ritualData && typeof ritualData === 'object') {
+                    const hasContent = Object.values(ritualData as RitualData).some(v => typeof v === 'string' && v.trim());
+                    if (hasContent) {
+                      mergedRituals[slug] = { ...emptyRitual(), ...(ritualData as RitualData) };
+                    }
+                  }
+                });
+              }
+            }
+
+            return {
+              ...prev,
+              // Restore personal info from saved progress
+              name: saved.form.name || prev.name,
+              phone: saved.form.phone || prev.phone,
+              gotra: saved.form.gotra || prev.gotra,
+              kuldevi: saved.form.kuldevi || prev.kuldevi,
+              kuldevta: saved.form.kuldevta || prev.kuldevta,
+              customRitualName: saved.form.customRitualName || prev.customRitualName,
+              // Keep token's slug selection (authoritative)
+              selectedSlugs: tokenSlugs,
+              rituals: mergedRituals,
+            };
+          });
+          setStepIndex(saved.stepIndex ?? 1);
+          setSavedAt(saved.savedAt ?? null);
+          setHasRestored(true);
+        }
       }
     } catch { /* ignore */ }
-  }, [searchParams]);
+  }, []);
 
   const persist = useCallback((f: FormData, si: number) => {
     const ts = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
@@ -159,9 +262,10 @@ function IntakeInner({ initialEmail = '', initialRitualIndices = [] }: IntakeCli
   const updateForm = (patch: Partial<FormData>) =>
     setForm(prev => { const n = { ...prev, ...patch }; persist(n, stepIndex); return n; });
 
-  const updateRitual = (ri: number, key: string, value: string) =>
+  const updateRitual = (slug: string, key: string, value: string) =>
     setForm(prev => {
-      const rituals = prev.rituals.map((r, i) => i === ri ? { ...r, [key]: value } : r);
+      const rituals = { ...prev.rituals };
+      rituals[slug] = { ...(rituals[slug] || emptyRitual()), [key]: value };
       const n = { ...prev, rituals };
       persist(n, stepIndex);
       return n;
@@ -174,11 +278,41 @@ function IntakeInner({ initialEmail = '', initialRitualIndices = [] }: IntakeCli
     setForm(defaultForm()); setStepIndex(0); setHasRestored(false); setSavedAt(null);
   };
 
+  const handleSaveAndContinue = () => {
+    persist(form, stepIndex);
+    setShowSaveModal(true);
+  };
+
+  const copyLink = async () => {
+    if (!magicLink) return;
+    try {
+      await navigator.clipboard.writeText(magicLink);
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2500);
+    } catch {
+      // Fallback: select a hidden input
+    }
+  };
+
   const handleSubmit = async () => {
     setStatus('submitting');
     try {
-      const selectedRitualNames = form.selectedRituals.map(i => ALL_RITUALS[i].label);
-      const payload = { ...form, selectedRitualNames };
+      // Build ritual names from sanity data or from the slugs
+      const selectedRitualNames = form.selectedSlugs.map(slug => {
+        const r = ritualBySlug[slug];
+        return r ? r.title : slug;
+      });
+
+      const payload = {
+        ...form,
+        selectedRitualNames,
+        // Convert rituals object to array-like structure for the submission API
+        rituals: form.selectedSlugs.map(slug => ({
+          slug,
+          title: ritualBySlug[slug]?.title || slug,
+          ...(form.rituals[slug] || emptyRitual()),
+        })),
+      };
 
       // Save to Supabase (admin dashboard) via our own API
       await fetch('/api/admin/submissions', {
@@ -247,7 +381,7 @@ function IntakeInner({ initialEmail = '', initialRitualIndices = [] }: IntakeCli
               Your Family&apos;s Rituals,<br /><span className="italic text-[#C9A84C]">Written Down Forever.</span>
             </h1>
             <p className="text-[#8C847C] text-base font-light leading-relaxed max-w-lg mb-10">
-              This form takes about 20–40 minutes. You don&apos;t have to do it all at once — your answers are saved automatically as you go.
+              This form takes about 20–40 minutes. You don&apos;t have to do it all at once — your answers are saved automatically as you go. You can save and continue anytime.
             </p>
             {hasRestored && (
               <div className="w-full max-w-md bg-[#3E1A0C] border border-[#C9A84C]/30 rounded-2xl p-5 mb-8 text-left">
@@ -272,7 +406,7 @@ function IntakeInner({ initialEmail = '', initialRitualIndices = [] }: IntakeCli
             <Fld label="Your name" req><input className={inputCls} type="text" placeholder="Rohit Sharma" value={form.name} onChange={e => updateForm({ name: e.target.value })} /></Fld>
             <Fld label="Email address" req><input className={inputCls} type="email" placeholder="rohit@example.com" value={form.email} onChange={e => updateForm({ email: e.target.value })} /></Fld>
             <Fld label="Phone number" hint="optional"><input className={inputCls} type="tel" placeholder="+91 98765 43210" value={form.phone} onChange={e => updateForm({ phone: e.target.value })} /></Fld>
-            <Nav back={() => goTo(stepIndex - 1)} next={() => goTo(stepIndex + 1)} canNext={!!(form.name && form.email)} />
+            <Nav back={() => goTo(stepIndex - 1)} next={() => goTo(stepIndex + 1)} canNext={!!(form.name && form.email)} onSave={handleSaveAndContinue} />
           </Card>
         )}
 
@@ -284,23 +418,32 @@ function IntakeInner({ initialEmail = '', initialRitualIndices = [] }: IntakeCli
             <Fld label="Gotra" hint="e.g. Kashyap, Bharadwaj"><input className={inputCls} type="text" placeholder="Your family's patrilineal lineage" value={form.gotra} onChange={e => updateForm({ gotra: e.target.value })} /></Fld>
             <Fld label="Kuldevi" hint="Ancestral goddess"><input className={inputCls} type="text" placeholder="e.g. Chamunda Mata, Vaishno Devi" value={form.kuldevi} onChange={e => updateForm({ kuldevi: e.target.value })} /></Fld>
             <Fld label="Kuldevta" hint="Ancestral deity"><input className={inputCls} type="text" placeholder="e.g. Shiva, Vishnu, Ganesha" value={form.kuldevta} onChange={e => updateForm({ kuldevta: e.target.value })} /></Fld>
-            <Nav back={() => goTo(stepIndex - 1)} next={() => goTo(stepIndex + 1)} canNext />
+            <Nav back={() => goTo(stepIndex - 1)} next={() => goTo(stepIndex + 1)} canNext onSave={handleSaveAndContinue} />
           </Card>
         )}
 
-        {/* RITUAL DETAIL (only selected rituals appear) */}
-        {typeof currentId === 'number' && (() => {
-          const info = ALL_RITUALS[currentId];
-          const pos = form.selectedRituals.indexOf(currentId) + 1;
+        {/* RITUAL DETAIL (dynamic — driven by selectedSlugs and Sanity data) */}
+        {typeof currentId === 'string' && currentId !== 'intro' && currentId !== 'contact' && currentId !== 'ancestral' && currentId !== 'card9' && currentId !== 'review' && (() => {
+          const slug = currentId;
+          const info = ritualBySlug[slug];
+          const pos = form.selectedSlugs.indexOf(slug) + 1;
+          const title = info?.title || slug;
+          const sublabel = info?.sublabel || '';
+
+          // Ensure ritual data exists for this slug
+          if (!form.rituals[slug]) {
+            form.rituals[slug] = emptyRitual();
+          }
+
           return (
-            <Card step={stepLabel} total={stepTotal} title={info.label} sub={`Ritual ${pos} of ${form.selectedRituals.length} — ${info.sublabel}. Fill in as much or as little as you know.`}>
+            <Card step={stepLabel} total={stepTotal} title={title} sub={`Ritual ${pos} of ${form.selectedSlugs.length}${sublabel ? ` — ${sublabel}` : ''}. Fill in as much or as little as you know.`}>
               {SUB_QUESTIONS.map(q => (
                 <Fld key={q.key} label={q.label}>
                   <textarea className={`${inputCls} min-h-[80px]`} rows={3} placeholder={q.placeholder}
-                    value={form.rituals[currentId][q.key] || ''} onChange={e => updateRitual(currentId, q.key, e.target.value)} />
+                    value={form.rituals[slug]?.[q.key] || ''} onChange={e => updateRitual(slug, q.key, e.target.value)} />
                 </Fld>
               ))}
-              <Nav back={() => goTo(stepIndex - 1)} next={() => goTo(stepIndex + 1)} canNext />
+              <Nav back={() => goTo(stepIndex - 1)} next={() => goTo(stepIndex + 1)} canNext onSave={handleSaveAndContinue} />
             </Card>
           );
         })()}
@@ -312,10 +455,10 @@ function IntakeInner({ initialEmail = '', initialRitualIndices = [] }: IntakeCli
             {SUB_QUESTIONS.map(q => (
               <Fld key={q.key} label={q.label}>
                 <textarea className={`${inputCls} min-h-[80px]`} rows={3} placeholder={q.placeholder}
-                  value={form.rituals[8][q.key] || ''} onChange={e => updateRitual(8, q.key, e.target.value)} />
+                  value={form.rituals['_custom']?.[q.key] || ''} onChange={e => updateRitual('_custom', q.key, e.target.value)} />
               </Fld>
             ))}
-            <Nav back={() => goTo(stepIndex - 1)} next={() => goTo(stepIndex + 1)} canNext />
+            <Nav back={() => goTo(stepIndex - 1)} next={() => goTo(stepIndex + 1)} canNext onSave={handleSaveAndContinue} />
           </Card>
         )}
 
@@ -329,22 +472,24 @@ function IntakeInner({ initialEmail = '', initialRitualIndices = [] }: IntakeCli
               {form.gotra && <Row label="Gotra" value={form.gotra} />}
               <div className="border-t border-[#5E2E14] pt-4 mt-4">
                 <p className="text-[#5C564F] text-xs uppercase tracking-wider mb-3">Rituals selected</p>
-                {form.selectedRituals.map(i => {
-                  const filled = Object.values(form.rituals[i]).some(v => v.trim());
+                {form.selectedSlugs.map(slug => {
+                  const info = ritualBySlug[slug];
+                  const title = info?.title || slug;
+                  const filled = form.rituals[slug] ? Object.values(form.rituals[slug]).some(v => v.trim()) : false;
                   return (
-                    <div key={i} className="flex items-center gap-3 py-2 border-b border-[#5E2E14]/40">
+                    <div key={slug} className="flex items-center gap-3 py-2 border-b border-[#5E2E14]/40">
                       <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 border ${filled ? 'bg-[#BD5319]/20 border-[#BD5319]/40' : 'border-[#5E2E14]'}`}>
                         {filled && <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="#BD5319" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" /></svg>}
                       </div>
-                      <span className="text-[#8C847C] text-sm font-light flex-1">{ALL_RITUALS[i].label}</span>
+                      <span className="text-[#8C847C] text-sm font-light flex-1">{title}</span>
                       {!filled && <span className="text-[#5C564F] text-xs">not filled yet</span>}
                     </div>
                   );
                 })}
                 {form.includeCard9 && (
                   <div className="flex items-center gap-3 py-2">
-                    <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 border ${Object.values(form.rituals[8]).some(v => v.trim()) ? 'bg-[#C9A84C]/20 border-[#C9A84C]/40' : 'border-[#5E2E14]'}`}>
-                      {Object.values(form.rituals[8]).some(v => v.trim()) && <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="#C9A84C" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" /></svg>}
+                    <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 border ${form.rituals['_custom'] && Object.values(form.rituals['_custom']).some(v => v.trim()) ? 'bg-[#C9A84C]/20 border-[#C9A84C]/40' : 'border-[#5E2E14]'}`}>
+                      {form.rituals['_custom'] && Object.values(form.rituals['_custom']).some(v => v.trim()) && <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="#C9A84C" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" /></svg>}
                     </div>
                     <span className="text-[#8C847C] text-sm font-light flex-1">Custom Ritual{form.customRitualName ? ` — ${form.customRitualName}` : ''}</span>
                   </div>
@@ -358,21 +503,69 @@ function IntakeInner({ initialEmail = '', initialRitualIndices = [] }: IntakeCli
                 className="flex-1 inline-flex items-center justify-center gap-2 bg-[#BD5319] hover:bg-[#A34310] disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold text-base px-8 py-3.5 rounded-xl transition-all active:scale-95">
                 {status === 'submitting'
                   ? <><svg className="animate-spin" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="white" strokeWidth="1.5" strokeDasharray="28" strokeDashoffset="10" /></svg>Submitting...</>
-                  : <>Submit My Family's Details <Arrow /></>}
+                  : <>Submit My Family&apos;s Details <Arrow /></>}
               </button>
             </div>
           </Card>
         )}
       </div>
+
+      {/* ── Save & Continue Later Modal ── */}
+      {showSaveModal && (
+        <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+          <div className="bg-[#FAF6F0] rounded-2xl w-full max-w-md p-7 text-center border border-[#EFEAE2] shadow-2xl animate-fade-in-up">
+            <div className="w-16 h-16 bg-[#0D9488]/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#0D9488]/20">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <path d="M6 14l6 6 10-10" stroke="#0D9488" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <h3 className="font-serif text-2xl text-[#2A1208] mb-2 font-normal" style={{ fontFamily: 'var(--font-serif)' }}>
+              Progress Saved!
+            </h3>
+            <p className="text-[#8C847C] text-sm leading-relaxed mb-5 font-light">
+              Your answers have been saved. You can close this tab and return anytime using your magic link. You&apos;ll continue exactly where you left off.
+            </p>
+
+            {magicLink && (
+              <div className="bg-[#F4DEB0] border border-[#EFEAE2] rounded-xl p-4 mb-5 text-left">
+                <p className="text-[#8C847C] text-xs mb-2 font-medium">Your magic link (bookmark this!):</p>
+                <p className="text-[#2A1208] text-xs break-all font-mono leading-relaxed mb-3 max-h-16 overflow-y-auto">{magicLink}</p>
+                <button
+                  onClick={copyLink}
+                  className={`w-full text-sm font-semibold px-4 py-2.5 rounded-lg transition-all ${
+                    linkCopied
+                      ? 'bg-[#0D9488] text-white'
+                      : 'bg-[#2A1208] text-white hover:bg-[#3E1A0C]'
+                  }`}
+                >
+                  {linkCopied ? '✓ Copied to clipboard!' : 'Copy Link'}
+                </button>
+              </div>
+            )}
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowSaveModal(false)}
+                className="flex-1 bg-[#BD5319] hover:bg-[#A34310] text-white font-semibold text-sm px-5 py-3 rounded-xl transition-all"
+              >
+                Keep Filling
+              </button>
+            </div>
+            <p className="text-[#8C847C] text-xs mt-4 font-light">
+              You can safely close this tab now. Your progress is saved locally and will be here when you return.
+            </p>
+          </div>
+        </div>
+      )}
     </Shell>
   );
 }
 
 // ─── Page export (Suspense wraps useSearchParams) ──────────────────────────
-export default function IntakeClient({ initialEmail = '', initialRitualIndices = [] }: IntakeClientProps) {
+export default function IntakeClient({ initialEmail = '', initialRitualSlugs = [], sanityRituals = [], token = '' }: IntakeClientProps) {
   return (
     <Suspense fallback={<div className="min-h-screen bg-[#2A1208] flex items-center justify-center"><span className="text-[#5C564F] text-sm">Loading...</span></div>}>
-      <IntakeInner initialEmail={initialEmail} initialRitualIndices={initialRitualIndices} />
+      <IntakeInner initialEmail={initialEmail} initialRitualSlugs={initialRitualSlugs} sanityRituals={sanityRituals} token={token} />
     </Suspense>
   );
 }
@@ -393,7 +586,12 @@ function Shell({ children, bar, pct, savedAt }: { children: React.ReactNode; bar
             </div>
             <span className="font-serif text-lg text-white font-normal" style={{ fontFamily: 'var(--font-serif)' }}>Hamari Virasat</span>
           </div>
-          {savedAt && <span className="text-[#5C564F] text-xs font-light">Saved {savedAt}</span>}
+          {savedAt && (
+            <div className="flex items-center gap-1.5">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#0D9488] animate-pulse" />
+              <span className="text-[#5C564F] text-xs font-light">Saved {savedAt}</span>
+            </div>
+          )}
         </div>
         {bar && <div className="h-0.5 bg-[#3E1A0C]"><div className="h-full transition-all duration-500" style={{ width: `${pct}%`, background: 'linear-gradient(to right,#BD5319,#C9A84C)' }} /></div>}
       </div>
@@ -427,13 +625,27 @@ function Fld({ label, hint, req, children }: { label: string; hint?: string; req
   );
 }
 
-function Nav({ back, next, canNext, nextLabel }: { back: () => void; next: () => void; canNext: boolean; nextLabel?: string }) {
+function Nav({ back, next, canNext, nextLabel, onSave }: { back: () => void; next: () => void; canNext: boolean; nextLabel?: string; onSave?: () => void }) {
   return (
-    <div className="flex gap-3 pt-4">
-      <button onClick={back} className="text-[#5C564F] hover:text-white text-sm px-5 py-3 rounded-xl border border-[#5E2E14] hover:border-white/20 transition-all">← Back</button>
-      <button onClick={next} disabled={!canNext} className="flex-1 inline-flex items-center justify-center gap-2 bg-[#BD5319] hover:bg-[#A34310] disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold text-sm px-6 py-3 rounded-xl transition-all active:scale-95">
-        {nextLabel ?? 'Continue'} <Arrow />
-      </button>
+    <div className="flex flex-col gap-3 pt-4">
+      <div className="flex gap-3">
+        <button onClick={back} className="text-[#5C564F] hover:text-white text-sm px-5 py-3 rounded-xl border border-[#5E2E14] hover:border-white/20 transition-all">← Back</button>
+        <button onClick={next} disabled={!canNext} className="flex-1 inline-flex items-center justify-center gap-2 bg-[#BD5319] hover:bg-[#A34310] disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold text-sm px-6 py-3 rounded-xl transition-all active:scale-95">
+          {nextLabel ?? 'Continue'} <Arrow />
+        </button>
+      </div>
+      {onSave && (
+        <button
+          onClick={onSave}
+          className="w-full inline-flex items-center justify-center gap-2 text-[#C9A84C] hover:text-white text-sm font-medium px-5 py-2.5 rounded-xl border border-[#C9A84C]/30 hover:border-[#C9A84C]/60 hover:bg-[#C9A84C]/10 transition-all"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M11 8.5V11a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1h5.5L11 3.5V8.5z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M8 2v2.5H5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          Save & Continue Later
+        </button>
+      )}
     </div>
   );
 }
@@ -450,4 +662,3 @@ function Row({ label, value }: { label: string; value: string }) {
 function Arrow() {
   return <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 }
-

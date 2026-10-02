@@ -6,7 +6,9 @@ import Pricing from '@/components/Pricing';
 
 type Ritual = {
   number: string;
+  slug: string;
   title: string;
+  sublabel?: string;
   category: string;
   description: string;
   subSections: string[];

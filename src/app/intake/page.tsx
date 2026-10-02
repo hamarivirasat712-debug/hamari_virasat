@@ -1,8 +1,32 @@
 import { jwtVerify } from 'jose';
 import IntakeClient from './IntakeClient';
 import Link from 'next/link';
+import { client } from '@/sanity/client';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'hamari_virasat_super_secure_random_key_998877';
+
+// Legacy index→slug map for backward compat with old JWT tokens
+const LEGACY_INDEX_TO_SLUG: Record<number, string> = {
+  0: 'namkaran',
+  1: 'mundan',
+  2: 'upanayana',
+  3: 'engagement',
+  4: 'wedding-haldi',
+  5: 'wedding-mehendi',
+  6: 'wedding-main',
+  7: 'griha-pravesh',
+};
+
+// Fetch ritual metadata from Sanity at request time (no caching)
+const RITUALS_QUERY = `*[_type == "ritual"] | order(order asc, number asc) {
+  slug,
+  title,
+  sublabel,
+  number
+}`;
+
+export const revalidate = 0;
+export const dynamic = 'force-dynamic';
 
 export default async function IntakePage({
   searchParams,
@@ -32,23 +56,47 @@ export default async function IntakePage({
 
   try {
     const secretKey = new TextEncoder().encode(JWT_SECRET);
-    // Verify the token and get decoded payload
     const { payload } = await jwtVerify(token, secretKey);
     
     const initialEmail = typeof payload.email === 'string' ? payload.email : '';
-    let initialRituals: number[] = Array.isArray(payload.ritualIndices)
-      ? payload.ritualIndices.map(Number).filter(n => !isNaN(n) && n >= 0 && n <= 7)
-      : [];
 
-    if (initialRituals.length === 0 && rParam) {
-      initialRituals = rParam.split(',').map(Number).filter(n => !isNaN(n) && n >= 0 && n <= 7);
+    // Extract ritual slugs from JWT (new flow)
+    let initialSlugs: string[] = [];
+
+    if (Array.isArray(payload.ritualSlugs)) {
+      initialSlugs = (payload.ritualSlugs as string[]).filter(s => typeof s === 'string' && s.length > 0);
     }
 
-    // If successful, render the client form with server-verified JWT parameters
+    // Backward compat: if JWT has ritualIndices but no slugs, convert
+    if (initialSlugs.length === 0 && Array.isArray(payload.ritualIndices)) {
+      initialSlugs = (payload.ritualIndices as number[])
+        .map(Number)
+        .filter(n => !isNaN(n) && n >= 0 && n <= 7)
+        .map(i => LEGACY_INDEX_TO_SLUG[i])
+        .filter(Boolean);
+    }
+
+    // URL `r` param fallback (can be slug strings or legacy indices)
+    if (initialSlugs.length === 0 && rParam) {
+      const parts = rParam.split(',').map(s => s.trim()).filter(Boolean);
+      // Check if they are numeric (legacy) or slug strings
+      const allNumeric = parts.every(p => /^\d+$/.test(p));
+      if (allNumeric) {
+        initialSlugs = parts.map(Number).filter(n => n >= 0 && n <= 7).map(i => LEGACY_INDEX_TO_SLUG[i]).filter(Boolean);
+      } else {
+        initialSlugs = parts; // Already slug strings
+      }
+    }
+
+    // Fetch rituals from Sanity CMS — always fresh
+    const sanityRituals = await client.fetch(RITUALS_QUERY);
+
     return (
       <IntakeClient
         initialEmail={initialEmail}
-        initialRitualIndices={initialRituals}
+        initialRitualSlugs={initialSlugs}
+        sanityRituals={sanityRituals}
+        token={token}
       />
     );
   } catch (error) {

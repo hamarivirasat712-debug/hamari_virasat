@@ -21,7 +21,9 @@ export const dynamic = 'force-dynamic';
 
 const RITUALS_QUERY = `*[_type == "ritual"] | order(order asc, number asc) {
   number,
+  slug,
   title,
+  sublabel,
   category,
   description,
   subSections,
