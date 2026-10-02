@@ -20,6 +20,8 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
   const [expanded, setExpanded] = useState<string | null>(null);
   const { selectedRituals, setSelectedRituals, calculateTotal, openPaymentModal } = useRitualSelection();
 
+  const isSelected = (number: string) => selectedRituals.some(r => r.number === number);
+
   const getSlug = (r: { slug?: string; number: string; title: string }) => {
     if (r.slug) return r.slug;
     const numIdx = parseInt(r.number, 10) - 1;
