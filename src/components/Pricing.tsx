@@ -65,7 +65,7 @@ export default function Pricing() {
       }
 
       const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '', // Ensure this is available
+        key: order.key_id || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '', // Ensure this is available
         amount: order.amount,
         currency: order.currency,
         name: "Hamari Virasat",
@@ -89,12 +89,12 @@ export default function Pricing() {
             
             const verifyData = await verifyRes.json();
             if (verifyData.success) {
-              // Build the magic link from the returned token so we can show it as fallback
+              // Build the magic link from server or returned token
               const base = process.env.NEXT_PUBLIC_APP_URL || window.location.origin;
               const rParam = ritualSlugs.length > 0 ? `&r=${ritualSlugs.join(',')}` : '';
-              const link = `${base}/intake?token=${verifyData.token}${rParam}`;
+              const link = verifyData.magicLink || `${base}/intake?token=${verifyData.token}${rParam}`;
               setMagicLink(link);
-              console.log('✅ Magic Link (use this if email did not arrive):', link);
+              console.log('✅ Magic Link:', link);
               setSuccess(true);
             } else {
               alert(`Payment verification failed: ${verifyData.error || 'Please contact support.'}`);

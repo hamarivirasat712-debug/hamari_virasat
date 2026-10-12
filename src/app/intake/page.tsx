@@ -2,6 +2,7 @@ import { jwtVerify } from 'jose';
 import IntakeClient from './IntakeClient';
 import Link from 'next/link';
 import { client } from '@/sanity/client';
+import zlib from 'zlib';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'hamari_virasat_super_secure_random_key_998877';
 
@@ -17,13 +18,24 @@ const LEGACY_INDEX_TO_SLUG: Record<number, string> = {
   7: 'griha-pravesh',
 };
 
-// Fetch ritual metadata from Sanity at request time (no caching)
+// Fetch full ritual metadata from Sanity at request time (no caching)
 const RITUALS_QUERY = `*[_type == "ritual"] | order(order asc, number asc) {
+  _id,
+  number,
   slug,
   title,
   sublabel,
-  number
+  category,
+  subSections,
+  isDIY
 }`;
+
+function computeSlug(r: { slug?: string | { current?: string }; number: string; title: string }) {
+  if (r.slug) return typeof r.slug === 'string' ? r.slug : r.slug.current || '';
+  const numIdx = parseInt(r.number, 10) - 1;
+  if (!isNaN(numIdx) && LEGACY_INDEX_TO_SLUG[numIdx]) return LEGACY_INDEX_TO_SLUG[numIdx];
+  return r.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
 
 export const revalidate = 0;
 export const dynamic = 'force-dynamic';
@@ -31,11 +43,12 @@ export const dynamic = 'force-dynamic';
 export default async function IntakePage({
   searchParams,
 }: {
-  searchParams: Promise<{ token?: string; r?: string }>;
+  searchParams: Promise<{ token?: string; r?: string; d?: string }>;
 }) {
   const resolvedParams = await searchParams;
   const token = resolvedParams.token;
   const rParam = resolvedParams.r;
+  const dParam = resolvedParams.d;
 
   if (!token) {
     return (
@@ -88,8 +101,23 @@ export default async function IntakePage({
       }
     }
 
+    // Try decompressing draft state from `d` param
+    let initialDraft: any = null;
+    if (dParam) {
+      try {
+        const inflated = zlib.inflateRawSync(Buffer.from(dParam, 'base64url')).toString('utf8');
+        initialDraft = JSON.parse(inflated);
+      } catch (err) {
+        console.error('Failed to inflate draft parameter:', err);
+      }
+    }
+
     // Fetch rituals from Sanity CMS — always fresh
-    const sanityRituals = await client.fetch(RITUALS_QUERY);
+    const rawRituals = await client.fetch(RITUALS_QUERY);
+    const sanityRituals = (rawRituals || []).map((r: any) => ({
+      ...r,
+      slug: computeSlug(r),
+    }));
 
     return (
       <IntakeClient
@@ -97,6 +125,7 @@ export default async function IntakePage({
         initialRitualSlugs={initialSlugs}
         sanityRituals={sanityRituals}
         token={token}
+        initialDraft={initialDraft}
       />
     );
   } catch (error) {

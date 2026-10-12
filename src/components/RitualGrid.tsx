@@ -197,14 +197,27 @@ export default function RitualGrid({ rituals = [] }: { rituals?: Ritual[] }) {
 
                     {/* Steps */}
                     <div className="flex flex-wrap gap-2">
-                      {(ritual.subSections || []).map((sub) => (
-                        <span
-                          key={sub}
-                          className="text-[#8A8076] text-xs bg-[#FAF6F0] border border-[#D4AF37]/20 rounded-full px-3 py-1"
-                        >
-                          {sub}
-                        </span>
-                      ))}
+                      {(() => {
+                        let subs = [...(ritual.subSections || [])];
+                        const hasNameIndex = subs.findIndex(s => s.toLowerCase().includes('name'));
+                        if (hasNameIndex >= 0) {
+                          subs[hasNameIndex] = 'Name of the Ritual';
+                        } else {
+                          subs.unshift('Name of the Ritual');
+                        }
+                        return subs.map((sub) => (
+                          <span
+                            key={sub}
+                            className={`text-xs rounded-full px-3 py-1 ${
+                              sub === 'Name of the Ritual'
+                                ? 'bg-[#D4AF37]/15 border border-[#D4AF37]/40 text-[#2A1208] font-semibold'
+                                : 'text-[#8A8076] bg-[#FAF6F0] border border-[#D4AF37]/20'
+                            }`}
+                          >
+                            {sub}
+                          </span>
+                        ));
+                      })()}
                     </div>
                   </div>
                 </div>
